@@ -12,7 +12,7 @@ It's still early for Polymer and this generator, but the plan is for this genera
 ## Getting started
 
 - Install: `npm install -g generator-polymer`
-- Run it: `yo polymer`
+- Run it with [yo](https://github.com/yeoman/yo): `yo polymer`
 
 
 ## License
