@@ -1,12 +1,10 @@
-# Polymer generator [![Build Status](https://secure.travis-ci.org/sindresorhus/generator-polymer.png?branch=master)](http://travis-ci.org/sindresorhus/generator-polymer)
+# Polymer generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-polymer.png?branch=master)](http://travis-ci.org/yeoman/generator-polymer)
 
 Scaffolds out [Polymer](http://www.polymer-project.org).
 
 > Polymer is a new type of library for the web, built on top of Web Components, and designed to leverage the evolving web platform on modern browsers.
 
-Polymer version: [v0.0.20130711](https://github.com/Polymer/polymer/releases/tag/v0.0.20130711)
-
-It's still early for Polymer and this generator, but the plan is for this generator to scaffold out a complete starter project with Polymer and build-system.
+Note that this project is still in the early phases of development and is not yet ready for consumption. Thanks for waiting until we're ready :)
 
 
 ## Getting started
@@ -17,4 +15,4 @@ It's still early for Polymer and this generator, but the plan is for this genera
 
 ## License
 
-MIT License • © [Sindre Sorhus](http://sindresorhus.com)
+MIT License • © [Yeoman team](http://yeoman.io)
