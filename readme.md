@@ -25,6 +25,24 @@ Available generators:
 - polymer:app
 - polymer:custom-element
 
+## Preview
+
+```
+   _-----_
+    |       |
+    |--(o)--|   .--------------------------.
+   `---------´  |    Welcome to Yeoman,    |
+    ( _´U`_ )   |   ladies and gentlemen!  |
+    /___A___\   '__________________________'
+     |  ~  |
+   __'.___.'__
+ ´   `  |° ´ Y `
+
+Out of the box I include HTML5 Boilerplate, Modernizr and Polymer
+[?] What prefixed name would you like to call your new element? carousel
+[?] Would you like to include constructor=””? No
+[?] Which other elements would you like to include? (space separate with paths)
+```
 
 ## Options
 
