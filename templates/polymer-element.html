@@ -1,4 +1,4 @@
-<polymer-element name="<%= _.camelize(name) %>-element" constructor="<%= _.classify(name) %>Element" attributes="">
+<polymer-element name="<%= _.camelize(name) %>-element" <% if (includeConstructor) { %> constructor="<%= _.classify(name) %>Element"<% } %> attributes="">
   <template>
     <style>
       @host { :scope {display: block;} }

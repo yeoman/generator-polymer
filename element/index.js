@@ -42,7 +42,7 @@ Generator.prototype.askFor = function askFor() {
 var prompts = [
   {
     type: 'input',
-    name: 'elementName',
+    name: 'name',
     message: 'What prefixed name would you like to call your new element?',
     default: "carousel"
   },
@@ -62,6 +62,7 @@ var prompts = [
     // manually deal with the response, get back and store the results.
     // we change a bit this way of doing to automatically do this in the self.prompt() method.
     this.includeConstructor = props.includeConstructor;
+    this.name = props.name;
     this.otherElementSelection = props.otherElementSelection;
 
     cb();
