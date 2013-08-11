@@ -1,0 +1,24 @@
+<element name="x-<%= _.camelize(name) %>" constructor="X<%= _.classify(name) %>">
+  <section>
+    I'm an x-<%= _.camelize(name) %>!
+  </section>
+  <script>
+    // When <element> is in document, we might run in wrong context.
+    // Only do work when this == <element>.
+    if (this !== window) {
+      var section = this.querySelector('section');
+
+      // Has built-in 'window' protection.
+      this.register({
+        prototype: {
+          readyCallback: function() {
+            this.innerHTML = section.innerHTML;
+          },
+          foo: function() {
+            console.log('<%= _.classify(name) %>() called');
+          }
+        }
+     });
+    }
+  </script>
+</element>

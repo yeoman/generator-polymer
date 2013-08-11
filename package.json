@@ -1,38 +1,34 @@
 {
   "name": "generator-polymer",
-  "version": "0.1.0",
-  "description": "Scaffolds out Polymer",
+  "version": "0.0.1",
+  "description": "Yeoman generator for Polymer",
   "keywords": [
     "yeoman-generator",
-    "css",
-    "html",
-    "template",
+    "scaffold",
     "framework",
-    "component"
+    "mvc",
+    "poylmer"
   ],
-  "homepage": "https://github.com/sindresorhus/generator-polymer",
-  "bugs": "https://github.com/sindresorhus/generator-polymer/issues",
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "http://sindresorhus.com"
-  },
+  "homepage": "https://github.com/yeoman/generator-poylmer",
+  "bugs": "https://github.com/yeoman/generator-poylmer/issues",
+  "author": "Chrome Developer Relations",
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/sindresorhus/generator-polymer.git"
+    "url": "git://github.com/yeoman/generator-poylmer.git"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --reporter spec"
   },
   "dependencies": {
-    "yeoman-generator": "~0.12.3"
-  },
-  "devDependencies": {
-    "mocha": "~1.12.0"
+    "yeoman-generator": "~0.12.0"
   },
   "peerDependencies": {
+    "generator-mocha": "~0.1.1",
     "yo": ">=1.0.0-rc.1.1"
+  },
+  "devDependencies": {
+    "mocha": "~1.9.0"
   },
   "engines": {
     "node": ">=0.8.0",
@@ -40,10 +36,7 @@
   },
   "licenses": [
     {
-      "type": "MIT"
+      "type": "BSD"
     }
-  ],
-  "files": [
-    "app"
   ]
 }
