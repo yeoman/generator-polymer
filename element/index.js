@@ -31,6 +31,44 @@ function Generator() {
 
 util.inherits(Generator, scriptBase);
 
+
+Generator.prototype.askFor = function askFor() {
+  var cb = this.async();
+
+  // welcome message
+  console.log(this.yeoman);
+  console.log('Out of the box I include HTML5 Boilerplate, jQuery, Backbone.js and Modernizr.');
+
+var prompts = [
+  {
+    type: 'input',
+    name: 'elementName',
+    message: 'What prefixed name would you like to call your new element?',
+    default: "carousel"
+  },
+  {
+    type: 'confirm',
+    name: 'includeConstructor',
+    message: 'Would you like to include constructor=””?',
+    default: false
+  },{
+    type: 'input',
+    name: 'otherElementSelection',
+    message: 'Which other elements would you like to include? (space separate with paths)',
+    default: ""
+  }];
+
+  this.prompt(prompts, function (props) {
+    // manually deal with the response, get back and store the results.
+    // we change a bit this way of doing to automatically do this in the self.prompt() method.
+    this.includeConstructor = props.includeConstructor;
+    this.otherElementSelection = props.otherElementSelection;
+
+    cb();
+  }.bind(this));
+};
+
+
 Generator.prototype.createElementFiles = function createElementFiles() {
   var destFile = path.join('app/elements', this.name + '.html');
   this.template('polymer-element' + '.html', destFile);
