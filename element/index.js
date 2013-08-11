@@ -37,7 +37,7 @@ Generator.prototype.askFor = function askFor() {
 
   // welcome message
   console.log(this.yeoman);
-  console.log('Out of the box I include HTML5 Boilerplate, jQuery, Backbone.js and Modernizr.');
+  console.log('Out of the box I include HTML5 Boilerplate, Modernizr and Polymer');
 
 var prompts = [
   {
