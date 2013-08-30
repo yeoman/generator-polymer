@@ -33,9 +33,7 @@ util.inherits(Generator, yeoman.generators.Base);
 
 Generator.prototype.askFor = function askFor() {
   var cb = this.async();
-
-  // welcome message
-  console.log(this.yeoman);
+  //console.log(this.yeoman);
   console.log('Out of the box I include HTML5 Boilerplate and Polymer.');
 
   var prompts = [{
@@ -110,7 +108,7 @@ Generator.prototype.writeIndex = function writeIndex() {
   }
 
   // prepare default content text
-  var defaults = ['HTML5 Boilerplate', 'Polymer', 'Bootstrap'];
+  var defaults = ['HTML5 Boilerplate', 'Polymer'];
   var contentText = [
     '        <div class="container">',
     '            <div class="hero-unit">',
@@ -120,15 +118,14 @@ Generator.prototype.writeIndex = function writeIndex() {
   ];
 
   var vendorJS = [
-    'bower_components/jquery/jquery.js',
     'bower_components/polymer/polymer.min.js',
   ];
 
-  this.indexFile = this.appendScripts(this.indexFile, 'scripts/vendor.js', vendorJS);
+  if(this.compassBootstrap){
+    defaults.push('Bootstrap');
+  }
 
-  this.indexFile = this.appendFiles(this.indexFile, 'js', 'scripts/main.js', [
-    'scripts/combined-scripts.js'
-  ], null, '.tmp');
+  this.indexFile = this.appendScripts(this.indexFile, 'scripts/vendor.js', vendorJS);
 
   // iterate over defaults and create content string
   defaults.forEach(function (el) {

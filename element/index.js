@@ -35,10 +35,6 @@ util.inherits(Generator, scriptBase);
 Generator.prototype.askFor = function askFor() {
   var cb = this.async();
 
-  // welcome message
-  console.log(this.yeoman);
-  console.log('Out of the box I include HTML5 Boilerplate, Modernizr and Polymer');
-
 var prompts = [
   {
     type: 'input',

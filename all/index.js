@@ -33,7 +33,6 @@ function Generator(args, options, config) {
 
 util.inherits(Generator, yeoman.generators.Base);
 
-
 Generator.prototype.createDirLayout = function createDirLayout() {
   this.dirs.forEach(function (dir) {
     this.log.create('app/scripts/' + dir);
