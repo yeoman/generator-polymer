@@ -23,7 +23,7 @@ function Generator(args, options, config) {
   this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
 
   this.on('end', function () {
-    if (['app', 'backbone'].indexOf(this.generatorName) >= 0) {
+    if (['app', 'polymer'].indexOf(this.generatorName) >= 0) {
       this.installDependencies({ skipInstall: this.options['skip-install'] });
     }
   });

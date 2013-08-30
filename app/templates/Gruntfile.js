@@ -11,7 +11,6 @@ var mountFolder = function (connect, dir) {
 // use this if you want to match all subfolders:
 // 'test/spec/**/*.js'
 
-
 module.exports = function (grunt) {
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -40,6 +39,7 @@ module.exports = function (grunt) {
                 },
                 files: [
                     '<%%= yeoman.app %>/*.html',
+                    '<%%= yeoman.app %>/elements/**/*.html',
                     '{.tmp,<%%= yeoman.app %>}/styles/{,*/}*.css',
                     '{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}'
@@ -211,6 +211,8 @@ module.exports = function (grunt) {
                     src: [
                         '*.{ico,txt}',
                         '.htaccess',
+                        'elements/**',
+                        'lib-elements/**',
                         'images/{,*/}*.{webp,gif}'
                     ]
                 }]
@@ -233,6 +235,7 @@ module.exports = function (grunt) {
             'clean:server',
             'compass:server',
             'connect:livereload',
+            'copy',
             'open',
             'watch'
         ]);

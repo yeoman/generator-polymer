@@ -4,7 +4,7 @@
   "dependencies": {<% if (compassBootstrap) { %>
     "sass-bootstrap": "~2.3.0",<% } %>
     "modernizr": "~2.6.2",
-    "polymer": "~0.0.20130808"
+    "polymer": "latest"
   },
   "devDependencies": {}
 }

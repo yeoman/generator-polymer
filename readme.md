@@ -9,13 +9,15 @@ Make a new directory and `cd` into it:
 mkdir my-new-project && cd $_
 ```
 
-Run `yo polymer`, optionally passing an app name:
+Note: currently requires `yo polymer:all`.
+
+
+Otherwise, run `yo polymer`, optionally passing an app name:
 ```
 yo polymer [app-name]
 yo polymer:element carousel
 yo polymer:custom-element gallery
 ```
-
 
 ## Generators
 

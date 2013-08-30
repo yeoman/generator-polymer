@@ -7,13 +7,12 @@
   </template>
   <script>
     Polymer('<%= _.camelize(name) %>-element', {
-
       //applyAuthorStyles: true,
+      //resetStyleInheritance: true,
       ready: function() { },
-      inserted: function() { },
-      removed: function() { },
-      attributeChanged: function() { }
-
+      enteredDocument: function() { },
+      leftDocument: function() { },
+      attributeChanged: function(attrName, oldVal, newVal) { }
     });
   </script>
 </polymer-element>

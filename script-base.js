@@ -2,6 +2,7 @@
 var path = require('path');
 var util = require('util');
 var yeoman = require('yeoman-generator');
+var polymerUtils = require('./util.js');
 
 var Generator = module.exports = function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
@@ -27,5 +28,35 @@ var Generator = module.exports = function Generator() {
   }
 };
 
+
 util.inherits(Generator, yeoman.generators.NamedBase);
+
+
+Generator.prototype.addImportToIndex = function (imp, tagName) {
+  try {
+    var appPath = this.env.options.appPath;
+    var fullPath = path.join(appPath, 'index.html');
+
+    polymerUtils.rewriteFile({
+      file: fullPath,
+      needle: '</head>',
+      splicable: [
+        '<link rel="import" href="' + imp + '">'
+      ]
+    });
+
+    polymerUtils.rewriteFile({
+      file: fullPath,
+      needle: '</body>',
+      splicable: [
+        '<' + tagName + '>' + '<' + tagName + '/>'
+      ]
+    });
+
+  } catch (e) {
+    console.log('\nUnable to find '.yellow + fullPath + '. Reference to '.yellow + imp + 'not added.\n'.yellow);
+  }
+};
+
+
 

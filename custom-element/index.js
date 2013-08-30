@@ -18,4 +18,6 @@ Generator.prototype.createElementFiles = function createElementFiles() {
 
   var destFile = path.join('app/elements', this.name + '.html');
   this.template('custom-element' + '.html', destFile);
+  this.addImportToIndex('elements/' + this.name + '.html', this.name + '-element');
 };
+

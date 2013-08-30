@@ -10,7 +10,7 @@ function Generator(args, options, config) {
   var dirPath = '../templates';
   this.sourceRoot(path.join(__dirname, dirPath));
 
-  this.dirs = 'element custom-element templates'.split(' ');
+  this.dirs = 'elements'.split(' ');
 
   args = ['application'];
 
@@ -35,7 +35,7 @@ util.inherits(Generator, yeoman.generators.Base);
 
 Generator.prototype.createDirLayout = function createDirLayout() {
   this.dirs.forEach(function (dir) {
-    this.log.create('app/scripts/' + dir);
-    this.mkdir(path.join('app/scripts', dir));
+    this.log.create('app/' + dir);
+    this.mkdir(path.join('app/', dir));
   }.bind(this));
 };

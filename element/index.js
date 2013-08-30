@@ -18,6 +18,7 @@ function Generator() {
     banner: 'field[:type] field[:type]'
   });
 
+
   // parse back the attributes provided, build an array of attr
   this.attrs = this.attributes.map(function (attr) {
     var parts = attr.split(':');
@@ -33,14 +34,14 @@ util.inherits(Generator, scriptBase);
 
 
 Generator.prototype.askFor = function askFor() {
-  var cb = this.async();
 
+var cb = this.async();
 var prompts = [
   {
     type: 'input',
     name: 'name',
     message: 'What prefixed name would you like to call your new element?',
-    default: "carousel"
+    default: this.name || "carousel"
   },
   {
     type: 'confirm',
@@ -54,11 +55,12 @@ var prompts = [
     default: ""
   }];
 
+
   this.prompt(prompts, function (props) {
     // manually deal with the response, get back and store the results.
     // we change a bit this way of doing to automatically do this in the self.prompt() method.
     this.includeConstructor = props.includeConstructor;
-    this.name = props.name;
+    this.name = this.name;
     this.otherElementSelection = props.otherElementSelection;
 
     cb();
@@ -69,4 +71,7 @@ var prompts = [
 Generator.prototype.createElementFiles = function createElementFiles() {
   var destFile = path.join('app/elements', this.name + '.html');
   this.template('polymer-element' + '.html', destFile);
+  this.addImportToIndex('elements/' + this.name + '.html', this.name + '-element');
 };
+
+
