@@ -4,10 +4,8 @@ var util = require('util');
 var yeoman = require('yeoman-generator');
 var scriptBase = require('../script-base');
 /**
-  @todo: get index.html working
   @todo: setup tests for generator
   @todo: set up tests for resulting element
-  @todo: set up bower.json for resulting element
 */
 module.exports = Generator;
 
