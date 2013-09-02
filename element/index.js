@@ -38,12 +38,6 @@ Generator.prototype.askFor = function askFor() {
 var cb = this.async();
 var prompts = [
   {
-    type: 'input',
-    name: 'name',
-    message: 'What prefixed name would you like to call your new element?',
-    default: this.name || "carousel"
-  },
-  {
     type: 'confirm',
     name: 'includeConstructor',
     message: 'Would you like to include constructor=””?',
@@ -60,7 +54,6 @@ var prompts = [
     // manually deal with the response, get back and store the results.
     // we change a bit this way of doing to automatically do this in the self.prompt() method.
     this.includeConstructor = props.includeConstructor;
-    this.name = this.name;
     this.otherElementSelection = props.otherElementSelection;
 
     cb();
