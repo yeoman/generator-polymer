@@ -32,24 +32,24 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, yeoman.generators.NamedBase);
 
 
-Generator.prototype.addImportToIndex = function (imp, tagName) {
+Generator.prototype.addImportToFile = function (options) {
   try {
     var appPath = this.env.options.appPath;
-    var fullPath = path.join(appPath, 'index.html');
+    var fullPath = path.join(appPath, options.fileName);
 
     polymerUtils.rewriteFile({
       file: fullPath,
-      needle: '</head>',
+      needle: options.needleHead || "</head>",
       splicable: [
-        '<link rel="import" href="' + imp + '">'
+        '<link rel="import" href="' + options.importUrl + '">'
       ]
     });
 
     polymerUtils.rewriteFile({
       file: fullPath,
-      needle: '</body>',
+      needle: options.needleBody || '</body>',
       splicable: [
-        '<' + tagName + '>' + '<' + tagName + '/>'
+        '<' + options.tagName + '>' + '<' + options.tagName + '/>'
       ]
     });
 

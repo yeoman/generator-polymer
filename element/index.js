@@ -45,7 +45,7 @@ var prompts = [
   },{
     type: 'input',
     name: 'otherElementSelection',
-    message: 'Which other elements would you like to include? (space separate with paths)',
+    message: 'Which other elements would you like to include? (e.g "button carousel")',
     default: ""
   }];
 
@@ -62,9 +62,30 @@ var prompts = [
 
 
 Generator.prototype.createElementFiles = function createElementFiles() {
-  var destFile = path.join('app/elements', this.name + '.html');
+  var destFile = path.join('app/elements',this.name + '.html');
   this.template('polymer-element' + '.html', destFile);
-  this.addImportToIndex('elements/' + this.name + '.html', this.name + '-element');
+
+  this.addImportToFile({
+    fileName:  'index.html',
+    importUrl: 'elements/' + this.name + '.html',
+    tagName: this.name + '-element'
+  });
 };
 
+Generator.prototype.addImports = function addImports(){
+  var elName = this.name;
+  // TODO: simplify the logic here. Too much I/O
+  if(this.otherElementSelection){
+    var imports = this.otherElementSelection.split(' '); 
+    imports.forEach(function(importItem){
+      this.addImportToFile({
+        fileName:   'elements/' + elName + '.html',
+        importUrl:  importItem + '.html',
+        tagName:    importItem + '-element',
+        needleHead: '<polymer-element',
+        needleBody:  '</template>'
+      });
 
+    }.bind(this));
+  }
+}

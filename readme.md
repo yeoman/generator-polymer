@@ -14,9 +14,19 @@ Start using the generator:
 
 ```
 yo polymer
-yo polymer:element carousel
-yo polymer:custom-element gallery
+grunt server
+
+yo polymer:element button
+yo polymer:element buttons
+ - Would you like to include any other elements?
+   button
 ```
+
+This will scaffold out a Polymer app with two elements. A `button-element` which has been imported into
+index.html for you with it's own custom element boilerplate and a `buttons-element` which has been imported
+into `button-element` with some boilerplate within the `template` tag.
+
+At present, we have an extra import for `buttons-element` included in `index.html`, which I'm trying to resolve.
 
 ## Generators
 
