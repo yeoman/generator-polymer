@@ -1,4 +1,4 @@
-<polymer-element name="<%= _.camelize(name) %>-element" <% if (includeConstructor) { %> constructor="<%= _.classify(name) %>Element"<% } %> attributes="">
+<polymer-element name="<%= _.camelize(name) %>-element" <% if (includeConstructor) { %> constructor="<%= _.classify(name) %>Element"<% } %> attributes="<% _.each(attrs, function(attr){ %><%=attr.name%> <% }); %>">
   <template>
     <style>
       @host { :scope {display: block;} }
@@ -7,12 +7,28 @@
   </template>
   <script>
     Polymer('<%= _.camelize(name) %>-element', {
-      //applyAuthorStyles: true,
+  <% _.each(attrs, function(attr){ %>
+    <% if (attr.default) { %>
+      <%=attr.name%>: <%=attr.default%>,
+    <% } %>
+  <% }); %>
+      applyAuthorStyles: <%= applyAuthorStyles %>,
       //resetStyleInheritance: true,
       ready: function() { },
       enteredDocument: function() { },
       leftDocument: function() { },
-      attributeChanged: function(attrName, oldVal, newVal) { }
+    
+      attributeChanged: function(name, oldVal, newVal) {
+        switch(name){
+        <% _.each(attrs, function(attr){ %>
+          case "<%=attr.name%>":
+            break;
+        <% }); %>
+          default:
+            break;
+        }
+      }
+    
     });
   </script>
 </polymer-element>
