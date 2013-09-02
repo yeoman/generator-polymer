@@ -15,7 +15,7 @@ function Generator() {
   this.argument('attributes', {
     type: Array,
     defaults: [],
-    banner: 'field[:type] field[:type]'
+    banner: 'field[:defult] field[:default]'
   });
 
 
@@ -24,7 +24,7 @@ function Generator() {
     var parts = attr.split(':');
     return {
       name: parts[0],
-      type: parts[1] || 'string'
+      default: parts[1] || false
     };
   });
 
@@ -35,61 +35,39 @@ util.inherits(Generator, scriptBase);
 
 Generator.prototype.askFor = function askFor() {
 
-var cb = this.async();
-/*
-var prompts = [
-  {
-    type: 'confirm',
-    name: 'includeConstructor',
-    message: 'Would you like to include constructor=””?',
-    default: false
-  },{
-    type: 'confirm',
-    name: 'includeImport',
-    message: 'Import to your index.html using HTML imports?',
-    default: false
-  },{
-    type: 'input',
-    name: 'otherElementSelection',
-    message: 'Import any other elements into this new one? (e.g "button carousel")',
-    default: ""
-  }];
-*/
+  var cb = this.async();
 
-var prompts = [
-  {
-    type: 'checkbox',
-    name: 'features',
-    message: 'What more would you like?',
-    choices: [
-    { 
-      value: 'includeConstructor',
-      name: 'Would you like to include constructor=””?',
-      checked: false
+  var prompts = [
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What prefixed name would you like to call your new element?',
+      default: this.name || "carousel"
+    },
+    {
+      type: 'confirm',
+      name: 'includeConstructor',
+      message: 'Would you like to include constructor=””?',
+      default: false
     },{
-      value: 'includeImport',
-      name: 'Import to your index.html using HTML imports?',
-      checked: false
-    }]
-  },
-  {
-    type: 'input',
-    name: 'otherElementSelection',
-    message: 'Import any other elements into this new one? (e.g "button carousel")',
-    default: ""
+      type: 'input',
+      name: 'otherElementSelection',
+      message: 'Which other elements would you like to include? (space separate with paths)',
+      default: ""
+    },{
+      type: 'input',
+      name: 'applyAuthorStyles',
+      message: 'Would you like to apply author styles to the ShadowDom?',
+      default: true
   }];
-
 
   this.prompt(prompts, function (props) {
-
-    var features = props.features;
-    function hasFeature(feat) { return features.indexOf(feat) !== -1; }
-
     // manually deal with the response, get back and store the results.
     // we change a bit this way of doing to automatically do this in the self.prompt() method.
-    this.includeConstructor = hasFeature('includeConstructor');
-    this.includeImport = hasFeature('includeImport');
+    this.includeConstructor = props.includeConstructor;
+    this.name = props.name;
     this.otherElementSelection = props.otherElementSelection;
+    this.applyAuthorStyles = props.applyAuthorStyles;
 
     cb();
   }.bind(this));
@@ -97,32 +75,9 @@ var prompts = [
 
 
 Generator.prototype.createElementFiles = function createElementFiles() {
-  var destFile = path.join('app/elements',this.name + '.html');
+  var destFile = path.join('app/elements', this.name + '.html');
   this.template('polymer-element' + '.html', destFile);
-
-  if(this.includeImport){
-     this.addImportToFile({
-      fileName:  'index.html',
-      importUrl: 'elements/' + this.name + '.html',
-      tagName: this.name + '-element'
-    });   
-  }
+  this.addImportToIndex('elements/' + this.name + '.html', this.name + '-element');
 };
 
-Generator.prototype.addImports = function addImports(){
-  var elName = this.name;
-  // TODO: simplify the logic here. Too much I/O
-  if(this.otherElementSelection){
-    var imports = this.otherElementSelection.split(' '); 
-    imports.forEach(function(importItem){
-      this.addImportToFile({
-        fileName:   'elements/' + elName + '.html',
-        importUrl:  importItem + '.html',
-        tagName:    importItem + '-element',
-        needleHead: '<polymer-element',
-        needleBody:  '</template>'
-      });
 
-    }.bind(this));
-  }
-}

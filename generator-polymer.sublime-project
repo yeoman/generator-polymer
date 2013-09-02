@@ -1,0 +1,14 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "/Users/hitchhiker/Dropbox/js/generator-polymer"
+		}
+	],
+	"settings":
+    {
+        "tab_size": 2,
+        "translate_tabs_to_spaces": true
+    },
+}
