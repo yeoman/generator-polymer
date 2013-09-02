@@ -6,6 +6,7 @@ var scriptBase = require('../script-base');
 /**
   @todo: setup tests for generator
   @todo: set up tests for resulting element
+  @todo: add grunt.js
 */
 module.exports = Generator;
 
@@ -48,29 +49,41 @@ Generator.prototype.askFor = function askFor() {
       default: this.name || "carousel"
     },
     {
-      type: 'confirm',
-      name: 'includeConstructor',
-      message: 'Would you like to include constructor=””?',
-      default: false
+      type: 'checkbox',
+      name: 'features',
+      message: 'What more would you like?',
+      choices: [
+      { 
+        value: 'includeConstructor',
+        name: 'Would you like to include constructor=””?',
+        checked: false
+      },{
+        value: 'includeImport',
+        name: 'Import to your index.html using HTML imports?',
+        checked: false
+      },{
+        value: 'applyAuthorStyles',
+        name: 'Would you like to apply author styles to the ShadowDom?',
+        checked: false
+      }]
     },{
       type: 'input',
       name: 'otherElementSelection',
       message: 'Which other elements would you like to include? (space separate with paths)',
       default: ""
-    },{
-      type: 'input',
-      name: 'applyAuthorStyles',
-      message: 'Would you like to apply author styles to the ShadowDom?',
-      default: true
   }];
 
   this.prompt(prompts, function (props) {
+    var features = props.features;
+    function hasFeature(feat) { return features.indexOf(feat) !== -1; }
     // manually deal with the response, get back and store the results.
     // we change a bit this way of doing to automatically do this in the self.prompt() method.
-    this.includeConstructor = props.includeConstructor;
+    this.includeConstructor = hasFeature('includeConstructor');
+    this.includeImport = hasFeature('includeImport');
+    this.applyAuthorStyles = hasFeature('applyAuthorStyles');
     this.name = props.name;
-    this.otherElementSelection = props.otherElementSelection;
-    this.applyAuthorStyles = props.applyAuthorStyles;
+    this.others = props.otherElementSelection.split(' '); 
+    
 
     cb();
   }.bind(this));
