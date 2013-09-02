@@ -29,10 +29,12 @@ module.exports = function (grunt) {
                 nospawn: true,
                 livereload: true
             },
+        <% if (compassBootstrap) { %>
             compass: {
                 files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass']
             },
+            <% } %>
             livereload: {
                 options: {
                     livereload: LIVERELOAD_PORT
@@ -130,6 +132,7 @@ module.exports = function (grunt) {
                 }
             }
         }<% } %>,
+    <% if (compassBootstrap) { %>
         compass: {
             options: {
                 sassDir: '<%%= yeoman.app %>/styles',
@@ -147,6 +150,7 @@ module.exports = function (grunt) {
                 }
             }
         },
+        <% } %>
         useminPrepare: {
             html: '<%%= yeoman.app %>/index.html',
             options: {
@@ -233,7 +237,7 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            'compass:server',
+            <% if (compassBootstrap) { %>'compass:server',<% } %>
             'connect:livereload',
             'copy',
             'open',
@@ -243,7 +247,10 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', [
         'clean:server',
-        'compass',<% if(testFramework === 'mocha') { %>
+        <% if(compassBootstrap) { %>
+        'compass',
+        <% } %>
+        <% if(testFramework === 'mocha') { %>
         'connect:test',
         'mocha'<% } else { %>
         'jasmine',
@@ -252,7 +259,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'compass:dist',
+        <% if (compassBootstrap){ %>'compass:dist',<% } %>
         'useminPrepare',
         'imagemin',
         'htmlmin',
