@@ -43,9 +43,14 @@ var prompts = [
     message: 'Would you like to include constructor=””?',
     default: false
   },{
+    type: 'confirm',
+    name: 'includeImport',
+    message: 'Import to your index.html using HTML imports?',
+    default: false
+  },{
     type: 'input',
     name: 'otherElementSelection',
-    message: 'Which other elements would you like to include? (e.g "button carousel")',
+    message: 'Import any other elements into this new one? (e.g "button carousel")',
     default: ""
   }];
 
@@ -54,6 +59,7 @@ var prompts = [
     // manually deal with the response, get back and store the results.
     // we change a bit this way of doing to automatically do this in the self.prompt() method.
     this.includeConstructor = props.includeConstructor;
+    this.includeImport = props.includeImport;
     this.otherElementSelection = props.otherElementSelection;
 
     cb();
@@ -65,11 +71,13 @@ Generator.prototype.createElementFiles = function createElementFiles() {
   var destFile = path.join('app/elements',this.name + '.html');
   this.template('polymer-element' + '.html', destFile);
 
-  this.addImportToFile({
-    fileName:  'index.html',
-    importUrl: 'elements/' + this.name + '.html',
-    tagName: this.name + '-element'
-  });
+  if(this.includeImport){
+     this.addImportToFile({
+      fileName:  'index.html',
+      importUrl: 'elements/' + this.name + '.html',
+      tagName: this.name + '-element'
+    });   
+  }
 };
 
 Generator.prototype.addImports = function addImports(){

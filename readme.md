@@ -13,20 +13,29 @@ mkdir my-new-project && cd $_
 Start using the generator:
 
 ```
-yo polymer
-grunt server
+$ yo polymer
+$ grunt server
 
-yo polymer:element button
-yo polymer:element buttons
- - Would you like to include any other elements?
-   button
+$ yo polymer:element button
+[?] Would you like to include constructor=””? No
+[?] Import to your index.html using HTML imports? No
+[?] Import any other elements into this new one? (e.g "button carousel")
+   create app/elements/button.html
+
+
+$ yo polymer:element panel
+[?] Would you like to include constructor=””? No
+[?] Import to your index.html using HTML imports? Yes
+[?] Import any other elements into this new one? (e.g "button carousel") button
+   create app/elements/panel.html
+
 ```
+This will scaffold out a Polymer app with two elements. A `panel-element` which has been imported into
+index.html for you with it's own custom element boilerplate and a `button-element` which has been imported
+into `panel-element` with some boilerplate within the `template` tag.
 
-This will scaffold out a Polymer app with two elements. A `button-element` which has been imported into
-index.html for you with it's own custom element boilerplate and a `buttons-element` which has been imported
-into `button-element` with some boilerplate within the `template` tag.
+You can of course just `yo polymer:element button` and include it in your index directly.
 
-At present, we have an extra import for `buttons-element` included in `index.html`, which I'm trying to resolve.
 
 ## Generators
 
