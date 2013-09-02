@@ -36,6 +36,7 @@ util.inherits(Generator, scriptBase);
 Generator.prototype.askFor = function askFor() {
 
 var cb = this.async();
+/*
 var prompts = [
   {
     type: 'confirm',
@@ -53,13 +54,41 @@ var prompts = [
     message: 'Import any other elements into this new one? (e.g "button carousel")',
     default: ""
   }];
+*/
+
+var prompts = [
+  {
+    type: 'checkbox',
+    name: 'features',
+    message: 'What more would you like?',
+    choices: [
+    { 
+      value: 'includeConstructor',
+      name: 'Would you like to include constructor=””?',
+      checked: false
+    },{
+      value: 'includeImport',
+      name: 'Import to your index.html using HTML imports?',
+      checked: false
+    }]
+  },
+  {
+    type: 'input',
+    name: 'otherElementSelection',
+    message: 'Import any other elements into this new one? (e.g "button carousel")',
+    default: ""
+  }];
 
 
   this.prompt(prompts, function (props) {
+
+    var features = props.features;
+    function hasFeature(feat) { return features.indexOf(feat) !== -1; }
+
     // manually deal with the response, get back and store the results.
     // we change a bit this way of doing to automatically do this in the self.prompt() method.
-    this.includeConstructor = props.includeConstructor;
-    this.includeImport = props.includeImport;
+    this.includeConstructor = hasFeature('includeConstructor');
+    this.includeImport = hasFeature('includeImport');
     this.otherElementSelection = props.otherElementSelection;
 
     cb();

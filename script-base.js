@@ -41,7 +41,7 @@ Generator.prototype.addImportToFile = function (options) {
       file: fullPath,
       needle: options.needleHead || "</head>",
       splicable: [
-        '<link rel="import" href="' + options.importUrl + '">'
+        '    <link rel="import" href="' + options.importUrl + '">'
       ]
     });
 
@@ -49,7 +49,7 @@ Generator.prototype.addImportToFile = function (options) {
       file: fullPath,
       needle: options.needleBody || '</body>',
       splicable: [
-        '<' + options.tagName + '>' + '<' + options.tagName + '/>'
+        '      <' + options.tagName + '>' + '<' + options.tagName + '/>'
       ]
     });
 
