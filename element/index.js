@@ -3,7 +3,12 @@ var path = require('path');
 var util = require('util');
 var yeoman = require('yeoman-generator');
 var scriptBase = require('../script-base');
-
+/**
+  @todo: get index.html working
+  @todo: setup tests for generator
+  @todo: set up tests for resulting element
+  @todo: set up bower.json for resulting element
+*/
 module.exports = Generator;
 
 function Generator() {
@@ -75,9 +80,11 @@ Generator.prototype.askFor = function askFor() {
 
 
 Generator.prototype.createElementFiles = function createElementFiles() {
-  var destFile = path.join('app/elements', this.name + '.html');
+  var destFile = path.join('elements', this.name + '.html');
   this.template('polymer-element' + '.html', destFile);
-  this.addImportToIndex('elements/' + this.name + '.html', this.name + '-element');
+  this.template('polymer-element/index.html', 'index.html');
+  this.template('polymer-element/bower.json', 'bower.json');
+  // this.addImportToIndex('elements/' + this.name + '.html', this.name + '-element');
 };
 
 
