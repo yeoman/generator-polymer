@@ -17,7 +17,7 @@
       leftDocument: function() { },
     
       attributeChanged: function(name, oldVal) {
-        this.fire(name+":changed", {value: self.getAttribute(name)});
+        this.fire(name+":changed", {value: this.getAttribute(name)});
         switch(name){
         <% _.each(attrs, function(attr){ %>
           case "<%=attr.name%>":
