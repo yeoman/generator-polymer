@@ -49,7 +49,7 @@ Generator.prototype.addImportToFile = function (options) {
       file: fullPath,
       needle: options.needleBody || '</body>',
       splicable: [
-        '      <' + options.tagName + '>' + '<' + options.tagName + '/>'
+        '      <' + options.tagName + '>' + '</' + options.tagName + '>'
       ]
     });
 
