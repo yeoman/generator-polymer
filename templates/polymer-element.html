@@ -1,4 +1,4 @@
-<polymer-element name="<%= _.camelize(name) %>-element" <% if (includeConstructor) { %> constructor="<%= _.classify(name) %>Element"<% } %> attributes="">
+<polymer-element name="<%= name %>-element" <% if (includeConstructor) { %> constructor="<%= _.classify(name) %>Element"<% } %> attributes="">
   <template>
     <style>
       @host { :scope {display: block;} }
@@ -6,7 +6,7 @@
     <span>I'm <b><%= _.camelize(name) %>-element</b>. This is my Shadow DOM.</span>
   </template>
   <script>
-    Polymer('<%= _.camelize(name) %>-element', {
+    Polymer('<%= name %>-element', {
       //applyAuthorStyles: true,
       //resetStyleInheritance: true,
       ready: function() { },

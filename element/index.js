@@ -36,26 +36,6 @@ util.inherits(Generator, scriptBase);
 Generator.prototype.askFor = function askFor() {
 
 var cb = this.async();
-/*
-var prompts = [
-  {
-    type: 'confirm',
-    name: 'includeConstructor',
-    message: 'Would you like to include constructor=””?',
-    default: false
-  },{
-    type: 'confirm',
-    name: 'includeImport',
-    message: 'Import to your index.html using HTML imports?',
-    default: false
-  },{
-    type: 'input',
-    name: 'otherElementSelection',
-    message: 'Import any other elements into this new one? (e.g "button carousel")',
-    default: ""
-  }];
-*/
-
 var prompts = [
   {
     type: 'checkbox',
@@ -75,7 +55,7 @@ var prompts = [
   {
     type: 'input',
     name: 'otherElementSelection',
-    message: 'Import any other elements into this new one? (e.g "button carousel")',
+    message: 'Import other elements into this one? (e.g "button" or leave blank)',
     default: ""
   }];
 
