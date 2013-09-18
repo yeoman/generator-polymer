@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Polymer is a library of polyfills and sugar which enable the use of Web Components in modern browsers. The project allows developers to build apps using the platform of tomorrow and inform the W3C of places where in-flight specifications can be further improved.
+[Polymer](http://www.polymer-project.org/) is a library of polyfills and sugar which enable the use of Web Components in modern browsers. The project allows developers to build apps using the platform of tomorrow and inform the W3C of places where in-flight specifications can be further improved.
 
-`generator-polymer` provides Polymer scaffolding using Yeoman (a scaffolding tool for the web), letting you easily create and customize Polymer (custom) elements via the command-line and import them using HTML Imports. This saves you time writing boilerplate code so you can start writing up the logic to your components straight away.
+`generator-polymer` provides Polymer scaffolding using [Yeoman](http://yeoman.io) (a scaffolding tool for the web), letting you easily create and customize Polymer (custom) elements via the command-line and import them using HTML Imports. This saves you time writing boilerplate code so you can start writing up the logic to your components straight away.
 
 
 ## Features
@@ -36,7 +36,24 @@ $ grunt server
 
 ## Getting started
 
-Let's scaffold out a Polymer app with two elements. A `panel-element` which will be imported into index.html for you with it's own custom element boilerplate and a `button-element` which has been imported into `panel-element` with some boilerplate within the `template` tag.
+Feel like building with the future? Let's scaffold out a Polymer app with two custom elements - a button and a panel. 
+
+To begin, we run `yo polymer`. This scaffolds out our initial index.html, directory structure and Grunt tasks for our workflow. 
+
+```
+$ yo polymer
+
+Out of the box I include HTML5 Boilerplate and Polymer.
+[?] Would you like to include Twitter Bootstrap for Sass? Yes
+```
+
+If you would like to edit and have the browser LiveReload on each save, fire up `grunt server`.
+
+Next, we run `yo polymer:element button` to create the button element. 
+
+It asks us a few questions such as whether we would like to include a constructor or import the button into our index.html using HTML imports. Let's say no to the first two options for now and leave the third option blank.
+
+Note: If we say 'yes' to the second question, it will import the element via `button.html` and add `<button-element></button-element>` to our index so that the element rendered on the page.
 
 ```
 $ yo polymer:element button
@@ -44,8 +61,36 @@ $ yo polymer:element button
 [?] Import to your index.html using HTML imports? No
 [?] Import any other elements into this new one? (e.g "button carousel")
    create app/elements/button.html
+```
 
+This creates a new element in the `/elements` directory named `button.html` that looks a little like this:
 
+```
+<polymer-element name="button-element"  attributes="">
+  <template>
+    <style>
+      @host { :scope {display: block;} }
+    </style>
+    <span>I'm <b>button-element</b>. This is my Shadow DOM.</span>
+  </template>
+  <script>
+    Polymer('button-element', {
+      //applyAuthorStyles: true,
+      //resetStyleInheritance: true,
+      ready: function() { },
+      enteredDocument: function() { },
+      leftDocument: function() { },
+      attributeChanged: function(attrName, oldVal, newVal) { }
+    });
+  </script>
+</polymer-element>
+```
+
+Next, let's create our panel element by running `yo polymer:element panel`. 
+
+This time we will ask for the panel to be imported into `index.html` using HTML imports as we wish for it to appear on the page. For the thid option this time, we specify `button` as the element we would like to include.
+
+```
 $ yo polymer:element panel
 [?] Would you like to include constructor=””? No
 [?] Import to your index.html using HTML imports? Yes
@@ -54,7 +99,68 @@ $ yo polymer:element panel
 
 ```
 
-You can of course just `yo polymer:element button` and include it in your index directly.
+As before, a new element will be added to `/elements`, this time named `button.html` resembling: 
+
+```
+<link rel="import" href="button.html">
+<polymer-element name="panel-element"  attributes="">
+  <template>
+    <style>
+      @host { :scope {display: block;} }
+    </style>
+    <span>I'm <b>panel-element</b>. This is my Shadow DOM.</span>
+        <button-element></button-element>
+  </template>
+  <script>
+    Polymer('panel-element', {
+      //applyAuthorStyles: true,
+      //resetStyleInheritance: true,
+      ready: function() { },
+      enteredDocument: function() { },
+      leftDocument: function() { },
+      attributeChanged: function(attrName, oldVal, newVal) { }
+    });
+  </script>
+</polymer-element>
+```
+
+Yeoman will have both imported the button element into panel.html using HTML imports but also have added `<button-element></button-element>` to your newly created element.
+
+Snippet from index.html:
+
+```     
+  <link rel="import" href="elements/panel.html">
+</head>
+<body>
+    <div class="container">
+        <div class="hero-unit">
+            <h1>'Allo, 'Allo!</h1>
+            <p>You now have</p>
+            <ul>
+                <li>HTML5 Boilerplate</li>
+                <li>Polymer</li>
+                <li>Bootstrap</li>
+            </ul>
+            <p>installed.</p>
+            <h3>Enjoy coding! - Yeoman</h3>
+        </div>
+    </div>
+    
+  <script>
+    document.addEventListener('WebComponentsReady', function() {
+        // Perform some behaviour
+    });
+  </script>
+
+    <!-- build:js scripts/vendor.js -->
+    <script src="bower_components/polymer/polymer.min.js"></script>
+    <!-- endbuild -->
+  <panel-element></panel-element>
+```
+
+What will be rendered to the page is an element (panel) which uses another element (button). So far all you've had to do is just run a few commands in the terminal.
+
+You can now go and create as many new elements as you would like! Rock on.
 
 
 ## Generators
@@ -65,24 +171,6 @@ Available generators:
 - polymer:app
 - polymer:custom-element
 
-## Preview
-
-```
-   _-----_
-    |       |
-    |--(o)--|   .--------------------------.
-   `---------´  |    Welcome to Yeoman,    |
-    ( _´U`_ )   |   ladies and gentlemen!  |
-    /___A___\   '__________________________'
-     |  ~  |
-   __'.___.'__
- ´   `  |° ´ Y `
-
-Out of the box I include HTML5 Boilerplate, Modernizr and Polymer
-[?] What prefixed name would you like to call your new element? carousel
-[?] Would you like to include constructor=””? No
-[?] Which other elements would you like to include? (space separate with paths)
-```
 
 ## Options
 
