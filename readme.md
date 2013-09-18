@@ -48,11 +48,12 @@ Out of the box I include HTML5 Boilerplate and Polymer.
 ```
 
 Example:
+
 ![](http://i.imgur.com/3H9DtME.png)
 
 If you would like to edit and have the browser LiveReload on each save, fire up `grunt server`. Our initial app should look a little like this:
 
-<img src="http://i.imgur.com/YOjoGk7.png" width="350px"/>
+<img src="http://i.imgur.com/hRHs2XQ.png" width="650px"/>
 
 Next, we run `yo polymer:element button` to create the button element. 
 
