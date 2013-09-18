@@ -7,6 +7,17 @@ Polymer is a library of polyfills and sugar which enable the use of Web Componen
 `generator-polymer` provides Polymer scaffolding using Yeoman (a scaffolding tool for the web), letting you easily create and customize Polymer (custom) elements via the command-line and import them using HTML Imports. This saves you time writing boilerplate code so you can start writing up the logic to your components straight away.
 
 
+## Features
+
+* Minimal HTML5 Boilerplate
+* Scaffolding for both Polymer elements and Custom elements
+* Wire up HTML imports
+* Edit and LiveReload for custom elements
+* Support for SASS Bootstrap
+* JSHint linting for projects
+* HTML/CSS/JS optimization
+
+
 ## Installation
 
 ```
