@@ -204,6 +204,10 @@ Available generators:
 
 We are currently still evaluating how a build process and asset optimization fit in a world using Web Components. Early experiments into how one might concatenate and optimize such projects can be found in [this](https://github.com/addyosmani/polymer-grunt-example) repo.
 
+## Notes
+
+Once the generator/yo is installed, you'll also have access to Bower, where you can now install `polymer-elements` and `polymer-ui-elements`. These are additional collections of premade Polymer Web Components for use in your project. They can be installed by running `bower install polymer-elements polymer-ui-elements` in the terminal.
+
 ## Contribute
 
 See the [contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md)
