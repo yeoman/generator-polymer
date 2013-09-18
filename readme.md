@@ -166,7 +166,7 @@ Snippet from index.html:
 
 What will be rendered to the page is an element (panel) which uses another element (button). 
 
-Adding a little background color and width to our elements, we can get something that looks like this:
+Adding a little background color and width to our elements via scoped styles, we can get something that looks like this:
 
 ![](http://i.imgur.com/b6SPme1.png)
 
