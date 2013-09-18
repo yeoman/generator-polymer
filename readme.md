@@ -164,9 +164,13 @@ Snippet from index.html:
   <panel-element></panel-element>
 ```
 
-What will be rendered to the page is an element (panel) which uses another element (button). So far all you've had to do is just run a few commands in the terminal.
+What will be rendered to the page is an element (panel) which uses another element (button). 
 
-You can now go and create as many new elements as you would like! Rock on.
+Adding a little background color and width to our elements, we can get something that looks like this:
+
+![](http://i.imgur.com/b6SPme1.png)
+
+So far all you've had to do is just run a few commands in the terminal. You can now go and create as many new elements as you would like! Rock on.
 
 
 ## Generators
