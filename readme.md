@@ -1,21 +1,33 @@
-# A Yeoman generator for Polymer projects.
+## A Yeoman generator for Polymer projects.
 
-## Usage
+## Introduction
 
-Install: `npm install -g generator-polymer`
+Polymer is a library of polyfills and sugar which enable the use of Web Components in modern browsers. The project allows developers to build apps using the platform of tomorrow and inform the W3C of places where in-flight specifications can be further improved.
 
-Make a new directory and `cd` into it:
-```
-mkdir my-new-project && cd $_
-```
+`generator-polymer` provides Polymer scaffolding using Yeoman (a scaffolding tool for the web), letting you easily create and customize Polymer (custom) elements via the command-line and import them using HTML Imports. This saves you time writing boilerplate code so you can start writing up the logic to your components straight away.
 
 
-Start using the generator:
+## Installation
 
 ```
+# Install the generator
+$ npm install -g generator-polymer
+
+# Make a new directory and cd into it
+$ mkdir my-new-project && cd $_
+
+# Start using the generator
 $ yo polymer
-$ grunt server
 
+# Preview what was scaffolded
+$ grunt server
+```
+
+## Getting started
+
+Let's scaffold out a Polymer app with two elements. A `panel-element` which will be imported into index.html for you with it's own custom element boilerplate and a `button-element` which has been imported into `panel-element` with some boilerplate within the `template` tag.
+
+```
 $ yo polymer:element button
 [?] Would you like to include constructor=””? No
 [?] Import to your index.html using HTML imports? No
@@ -30,9 +42,6 @@ $ yo polymer:element panel
    create app/elements/panel.html
 
 ```
-This will scaffold out a Polymer app with two elements. A `panel-element` which has been imported into
-index.html for you with it's own custom element boilerplate and a `button-element` which has been imported
-into `panel-element` with some boilerplate within the `template` tag.
 
 You can of course just `yo polymer:element button` and include it in your index directly.
 
@@ -81,6 +90,10 @@ Out of the box I include HTML5 Boilerplate, Modernizr and Polymer
   Defaults to `mocha`. Can be switched for
   another supported testing framework like `jasmine`.
 
+
+## Build process
+
+We are currently still evaluating how a build process and asset optimization fit in a world using Web Components. Early experiments into how one might concatenate and optimize such projects can be found in [this](https://github.com/addyosmani/polymer-grunt-example) repo.
 
 ## Contribute
 
