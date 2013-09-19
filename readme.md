@@ -65,7 +65,7 @@ Note: If we say 'yes' to the second question, it will import the element via `bu
 $ yo polymer:element button
 [?] Would you like to include constructor=””? No
 [?] Import to your index.html using HTML imports? No
-[?] Import any other elements into this new one? (e.g "button carousel")
+[?] Import other elements into this one? (e.g "another_element.html" or leave blank) 
    create app/elements/button.html
 ```
 
@@ -83,9 +83,9 @@ This creates a new element in the `/elements` directory named `button.html` that
     Polymer('button-element', {
       //applyAuthorStyles: true,
       //resetStyleInheritance: true,
-      ready: function() { },
-      enteredDocument: function() { },
-      leftDocument: function() { },
+      created: function() { },
+      enteredView: function() { },
+      leftView: function() { },
       attributeChanged: function(attrName, oldVal, newVal) { }
     });
   </script>
@@ -100,7 +100,7 @@ This time we will ask for the panel to be imported into `index.html` using HTML 
 $ yo polymer:element panel
 [?] Would you like to include constructor=””? No
 [?] Import to your index.html using HTML imports? Yes
-[?] Import any other elements into this new one? (e.g "button carousel") button
+[?] Import other elements into this one? (e.g "another_element.html" or leave blank) button.html
    create app/elements/panel.html
 
 ```
@@ -121,9 +121,9 @@ As before, a new element will be added to `/elements`, this time named `button.h
     Polymer('panel-element', {
       //applyAuthorStyles: true,
       //resetStyleInheritance: true,
-      ready: function() { },
-      enteredDocument: function() { },
-      leftDocument: function() { },
+      created: function() { },
+      enteredView: function() { },
+      leftView: function() { },
       attributeChanged: function(attrName, oldVal, newVal) { }
     });
   </script>
