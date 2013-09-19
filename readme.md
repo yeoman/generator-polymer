@@ -177,9 +177,38 @@ So far all you've had to do is just run a few commands in the terminal. You can 
 
 Available generators:
 
-- polymer:element
-- polymer:app
-- polymer:custom-element
+* `polymer:element` is used to scaffold out new individual Polymer elements. For example: `yo polymer:element carousel`
+
+* `polymer:app` is used to scaffold your initial index.html/workflow/grunt tasks recommended for the project
+
+* `polymer:custom-element` can be used to scaffold out a regular non-Polymer custom element. For example, `yo polymer:custom-element slider` will generate:
+
+```html
+<element name="x-slider" constructor="XSlider">
+  <section>
+    I'm an x-slider!
+  </section>
+  <script>
+    // When <element> is in document, we might run in wrong context.
+    // Only do work when this == <element>.
+    if (this !== window) {
+      var section = this.querySelector('section');
+
+      // Has built-in 'window' protection.
+      this.register({
+        prototype: {
+          readyCallback: function() {
+            this.innerHTML = section.innerHTML;
+          },
+          foo: function() {
+            console.log('Slider() called');
+          }
+        }
+     });
+    }
+  </script>
+</element>
+```
 
 
 ## Options
