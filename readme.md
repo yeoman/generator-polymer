@@ -107,7 +107,7 @@ $ yo polymer:element panel
 
 ```
 
-As before, a new element will be added to `/elements`, this time named `button.html` resembling: 
+As before, a new element will be added to `/elements`, this time named `panel.html` resembling: 
 
 ```html
 <link rel="import" href="button.html">
