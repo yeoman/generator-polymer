@@ -3,11 +3,7 @@ var path = require('path');
 var util = require('util');
 var yeoman = require('yeoman-generator');
 var scriptBase = require('../script-base');
-/**
-  @todo: setup tests for generator
-  @todo: set up tests for resulting element
-  @todo: add grunt.js
-*/
+
 module.exports = Generator;
 
 function Generator() {
@@ -95,7 +91,6 @@ Generator.prototype.createElementFiles = function createElementFiles() {
   this.template('polymer-element' + '.html', destFile);
   this.template('polymer-element/index.html', 'index.html');
   this.template('polymer-element/bower.json', 'bower.json');
-  // this.addImportToIndex('elements/' + this.name + '.html', this.name + '-element');
 };
 
 
