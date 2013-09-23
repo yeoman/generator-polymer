@@ -12,9 +12,9 @@
 ## Features
 
 * Minimal HTML5 Boilerplate
-* Scaffolding for both Polymer elements and Custom elements
+* Scaffolding for both Polymer elements
 * Wire up HTML imports
-* Edit and LiveReload for custom elements
+* Edit and LiveReload for Polymer elements
 * Support for SASS Bootstrap
 * JSHint linting for projects
 * HTML/CSS/JS optimization
