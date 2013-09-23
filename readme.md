@@ -2,6 +2,10 @@
 
 <img src="http://i.imgur.com/J7bp9al.png" width="250px"/>
 
+## Preview
+
+![](http://i.imgur.com/hrAO7M1.gif)
+
 ## Introduction
 
 [Polymer](http://www.polymer-project.org/) is a library of polyfills and sugar which enable the use of Web Components in modern browsers. The project allows developers to build apps using the platform of tomorrow and inform the W3C of places where in-flight specifications can be further improved.
@@ -185,11 +189,6 @@ Available generators:
 
 
 ## Options
-
-* `--coffee`
-  
-  Generate scaffolds in CoffeeScript.
-  RequireJS is not supported with `--coffee` option for now.
 
 * `--skip-install`
 
