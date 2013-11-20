@@ -65,7 +65,7 @@ Generator.prototype.askFor = function askFor() {
     },{
       type: 'input',
       name: 'otherElementSelection',
-      message: 'Which other elements would you like to include? (space separate with paths)',
+      message: 'Import other elements into this one? (e.g "another_element.html" or leave blank)',
       default: ""
   }];
 
@@ -92,5 +92,3 @@ Generator.prototype.createElementFiles = function createElementFiles() {
   this.template('polymer-element/index.html', 'index.html');
   this.template('polymer-element/bower.json', 'bower.json');
 };
-
-

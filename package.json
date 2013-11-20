@@ -1,21 +1,21 @@
 {
   "name": "generator-polymer",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "description": "Yeoman generator for Polymer",
   "keywords": [
     "yeoman-generator",
     "scaffold",
     "framework",
     "mvc",
-    "poylmer"
+    "polymer"
   ],
-  "homepage": "https://github.com/yeoman/generator-poylmer",
-  "bugs": "https://github.com/yeoman/generator-poylmer/issues",
+  "homepage": "https://github.com/yeoman/generator-polymer",
+  "bugs": "https://github.com/yeoman/generator-polymer/issues",
   "author": "Chrome Developer Relations",
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/yeoman/generator-poylmer.git"
+    "url": "git://github.com/yeoman/generator-polymer.git"
   },
   "scripts": {
     "test": "mocha --reporter spec"

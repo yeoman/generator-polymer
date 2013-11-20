@@ -1,6 +1,5 @@
-<polymer-element name="<%= _.camelize(name) %>-element" <% if (includeConstructor) { %> constructor="<%= _.classify(name) %>Element"<% } %> attributes="<% _.each(attrs, function(attr){ %><%=attr.name%> <% }); %>">
-
-  <%_.each(others, function(el){ %><link rel="import" href="<%=el%>.html"<%});%>>
+<polymer-element name="<%= name %>-element" <% if (includeConstructor) { %> constructor="<%= _.classify(name) %>Element"<% } %> attributes="<% _.each(attrs, function(attr){ %><%=attr.name%> <% }); %>">
+  <%_.each(others, function(el){ %><link rel="import" href="<%=el%>"<%});%>>
   <template>
     <style>
       @host { :scope {display: block;} }
@@ -13,12 +12,12 @@
       applyAuthorStyles: <%= applyAuthorStyles %>,
       //resetStyleInheritance: true,
       created: function() { },
-      enteredDocument: function() { },
-      leftDocument: function() { },
+      enteredView: function() { },
+      leftView: function() { },
     
-      attributeChanged: function(name, oldVal) {
-        this.fire(name+":changed", {value: this.getAttribute(name)});
-        switch(name){
+      attributeChanged: function(attrName, oldVal, newVal) {
+        this.fire(attrName+":changed", {value: this.getAttribute(attrName)});
+        switch(attrName){
         <% _.each(attrs, function(attr){ %>
           case "<%=attr.name%>":
             break;
@@ -27,7 +26,6 @@
             break;
         }
       }
-    
     });
   </script>
 </polymer-element>
