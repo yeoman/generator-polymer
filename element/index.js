@@ -61,6 +61,10 @@ Generator.prototype.askFor = function askFor() {
         value: 'applyAuthorStyles',
         name: 'Would you like to apply author styles to the ShadowDom?',
         checked: false
+      },{ 
+        value: 'createIndexAndBower',
+        name: 'Would you like to create index.html and bower.json files for this element?',
+        checked: false
       }]
     },{
       type: 'input',
@@ -79,7 +83,7 @@ Generator.prototype.askFor = function askFor() {
     this.applyAuthorStyles = hasFeature('applyAuthorStyles');
     this.name = props.name;
     this.others = props.otherElementSelection.split(' '); 
-    
+    this.createIndexAndBower = hasFeature('createIndexAndBower');
 
     cb();
   }.bind(this));
@@ -89,6 +93,8 @@ Generator.prototype.askFor = function askFor() {
 Generator.prototype.createElementFiles = function createElementFiles() {
   var destFile = path.join('elements', this.name + '.html');
   this.template('polymer-element' + '.html', destFile);
-  this.template('polymer-element/index.html', 'index.html');
-  this.template('polymer-element/bower.json', 'bower.json');
+  if(this.createIndexAndBower){
+    this.template('polymer-element/index.html', 'index.html');
+    this.template('polymer-element/bower.json', 'bower.json');
+  }
 };
