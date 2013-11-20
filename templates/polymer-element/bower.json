@@ -1,0 +1,16 @@
+{
+  "name": "<%= _.camelize(name) %>-element",
+  "version": "0.0.0",
+  "authors": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "latest"
+  }
+}

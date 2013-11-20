@@ -1,4 +1,5 @@
-<polymer-element name="<%= name %>-element" <% if (includeConstructor) { %> constructor="<%= _.classify(name) %>Element"<% } %> attributes="">
+<polymer-element name="<%= name %>-element" <% if (includeConstructor) { %> constructor="<%= _.classify(name) %>Element"<% } %> attributes="<% _.each(attrs, function(attr){ %><%=attr.name%> <% }); %>">
+  <%_.each(others, function(el){ %><link rel="import" href="<%=el%>"<%});%>>
   <template>
     <style>
       @host { :scope {display: block;} }
@@ -6,13 +7,25 @@
     <span>I'm <b><%= _.camelize(name) %>-element</b>. This is my Shadow DOM.</span>
   </template>
   <script>
-    Polymer('<%= name %>-element', {
-      //applyAuthorStyles: true,
+    Polymer('<%= _.camelize(name) %>-element', {
+      <% _.each(attrs, function(attr){ %><% if (attr.default) { %><%=attr.name%>: <%=attr.default%>,<% } %><% }); %>
+      applyAuthorStyles: <%= applyAuthorStyles %>,
       //resetStyleInheritance: true,
       created: function() { },
       enteredView: function() { },
       leftView: function() { },
-      attributeChanged: function(attrName, oldVal, newVal) { }
+    
+      attributeChanged: function(attrName, oldVal, newVal) {
+        this.fire(attrName+":changed", {value: this.getAttribute(attrName)});
+        switch(attrName){
+        <% _.each(attrs, function(attr){ %>
+          case "<%=attr.name%>":
+            break;
+        <% }); %>
+          default:
+            break;
+        }
+      }
     });
   </script>
 </polymer-element>
