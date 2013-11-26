@@ -207,6 +207,12 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        vulcanize: {
+            options: {},
+            files: {
+              '<%%= yeoman.dist %>/build.html': ['<%%= yeoman.app %>/index.html']
+            }
+        },
         copy: {
             dist: {
                 files: [{
@@ -230,7 +236,6 @@ module.exports = function (grunt) {
             }
         }
     });
-
 
     grunt.registerTask('server', function (target) {
         if (target === 'dist') {
@@ -269,7 +274,8 @@ module.exports = function (grunt) {
         'cssmin',
         'uglify',
         'copy',
-        'usemin'
+        'usemin',
+        'vulcanize'
     ]);
 
     grunt.registerTask('default', [
