@@ -15,7 +15,7 @@ function Generator() {
   this.argument('attributes', {
     type: Array,
     defaults: [],
-    banner: 'field[:defult] field[:default]'
+    banner: 'field[:type] field[:type]'
   });
 
 
@@ -24,7 +24,7 @@ function Generator() {
     var parts = attr.split(':');
     return {
       name: parts[0],
-      default: parts[1] || false
+      type: parts[1] || 'string'
     };
   });
 
@@ -35,55 +35,41 @@ util.inherits(Generator, scriptBase);
 
 Generator.prototype.askFor = function askFor() {
 
-  var cb = this.async();
-
-  var prompts = [
-    {
-      type: 'input',
-      name: 'name',
-      message: 'What prefixed name would you like to call your new element?',
-      default: this.name || "carousel"
-    },
-    {
-      type: 'checkbox',
-      name: 'features',
-      message: 'What more would you like?',
-      choices: [
-      { 
-        value: 'includeConstructor',
-        name: 'Would you like to include constructor=””?',
-        checked: false
-      },{
-        value: 'includeImport',
-        name: 'Import to your index.html using HTML imports?',
-        checked: false
-      },{
-        value: 'applyAuthorStyles',
-        name: 'Would you like to apply author styles to the ShadowDom?',
-        checked: false
-      },{ 
-        value: 'createIndexAndBower',
-        name: 'Would you like to create index.html and bower.json files for this element?',
-        checked: false
-      }]
+var cb = this.async();
+var prompts = [
+  {
+    type: 'checkbox',
+    name: 'features',
+    message: 'What more would you like?',
+    choices: [
+    { 
+      value: 'includeConstructor',
+      name: 'Would you like to include constructor=””?',
+      checked: false
     },{
-      type: 'input',
-      name: 'otherElementSelection',
-      message: 'Import other elements into this one? (e.g "another_element.html" or leave blank)',
-      default: ""
+      value: 'includeImport',
+      name: 'Import to your index.html using HTML imports?',
+      checked: false
+    }]
+  },
+  {
+    type: 'input',
+    name: 'otherElementSelection',
+    message: 'Import other elements into this one? (e.g "a.html b.html" or leave blank)',
+    default: ""
   }];
 
+
   this.prompt(prompts, function (props) {
+
     var features = props.features;
     function hasFeature(feat) { return features.indexOf(feat) !== -1; }
+
     // manually deal with the response, get back and store the results.
     // we change a bit this way of doing to automatically do this in the self.prompt() method.
     this.includeConstructor = hasFeature('includeConstructor');
     this.includeImport = hasFeature('includeImport');
-    this.applyAuthorStyles = hasFeature('applyAuthorStyles');
-    this.name = props.name;
-    this.others = props.otherElementSelection.split(' '); 
-    this.createIndexAndBower = hasFeature('createIndexAndBower');
+    this.otherElementSelection = props.otherElementSelection;
 
     cb();
   }.bind(this));
@@ -91,10 +77,33 @@ Generator.prototype.askFor = function askFor() {
 
 
 Generator.prototype.createElementFiles = function createElementFiles() {
-  var destFile = path.join('elements', this.name + '.html');
+  var destFile = path.join('app/elements',this.name + '.html');
   this.template('polymer-element' + '.html', destFile);
-  if(this.createIndexAndBower){
-    this.template('polymer-element/index.html', 'index.html');
-    this.template('polymer-element/bower.json', 'bower.json');
+
+  if(this.includeImport){
+     this.addImportToFile({
+      fileName:  'index.html',
+      importUrl: 'elements/' + this.name + '.html',
+      tagName: this.name + '-element'
+    });   
   }
 };
+
+Generator.prototype.addImports = function addImports(){
+  var elName = this.name;
+  // TODO: simplify the logic here. Too much I/O
+  if(this.otherElementSelection){
+    var imports = this.otherElementSelection.split(' '); 
+    imports.forEach(function(importItem){
+      importItem = importItem.replace('.html','');
+      this.addImportToFile({
+        fileName:   'elements/' + elName + '.html',
+        importUrl:  importItem + '.html',
+        tagName:    importItem //-element
+        needleHead: '<polymer-element',
+        needleBody:  '</template>'
+      });
+
+    }.bind(this));
+  }
+}
