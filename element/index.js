@@ -55,7 +55,7 @@ var prompts = [
   {
     type: 'input',
     name: 'otherElementSelection',
-    message: 'Import other elements into this one? (e.g "another_element.html" or leave blank)',
+    message: 'Import other elements into this one? (e.g "a.html b.html" or leave blank)',
     default: ""
   }];
 
@@ -99,7 +99,7 @@ Generator.prototype.addImports = function addImports(){
       this.addImportToFile({
         fileName:   'elements/' + elName + '.html',
         importUrl:  importItem + '.html',
-        tagName:    importItem + '-element',
+        tagName:    importItem //-element
         needleHead: '<polymer-element',
         needleBody:  '</template>'
       });
