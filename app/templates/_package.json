@@ -21,6 +21,7 @@
     "grunt-usemin": "~0.1.10",
     "grunt-rev": "~0.1.0",
     "grunt-open": "~0.2.0",
+    "grunt-vulcanize": "~0.1.0",
     "connect-livereload": "~0.2.0",
     "time-grunt": "~0.1.0",
     "load-grunt-tasks": "~0.2.0",
