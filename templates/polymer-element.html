@@ -9,9 +9,15 @@
     Polymer('<%= name %>-element', {
       //applyAuthorStyles: true,
       //resetStyleInheritance: true,
+      // element is fully prepared
+      ready: function(){ },
+      // instance of the element is created
       created: function() { },
+      // instance was inserted into the document
       enteredView: function() { },
+      // instance was removed from the document
       leftView: function() { },
+      // attribute added, removed or updated
       attributeChanged: function(attrName, oldVal, newVal) { }
     });
   </script>
