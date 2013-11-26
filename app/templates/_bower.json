@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "dependencies": {<% if (compassBootstrap) { %>
     "sass-bootstrap": "~2.3.0",<% } %>
-    "modernizr": "~2.6.2",
-    "polymer": "latest"
+    "platform": "Polymer/platform#master"
   },
   "devDependencies": {}
 }
