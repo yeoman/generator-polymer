@@ -99,7 +99,7 @@ Generator.prototype.addImports = function addImports(){
       this.addImportToFile({
         fileName:   'elements/' + elName + '.html',
         importUrl:  importItem + '.html',
-        tagName:    importItem //-element
+        tagName:    importItem, //-element
         needleHead: '<polymer-element',
         needleBody:  '</template>'
       });
