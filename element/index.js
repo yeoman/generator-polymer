@@ -55,7 +55,12 @@ var prompts = [
   {
     type: 'input',
     name: 'otherElementSelection',
-    message: 'Import other elements into this one? (e.g "a.html b.html" or leave blank)',
+    message: 'Import local elements into this one? (e.g "a.html b.html" or leave blank)',
+    default: ""
+  },{
+    type: 'input',
+    name: 'bowerElementSelection',
+    message: 'Import installed Bower elements? (e.g "polymer-ajax" or leave blank)',
     default: ""
   }];
 
@@ -70,6 +75,7 @@ var prompts = [
     this.includeConstructor = hasFeature('includeConstructor');
     this.includeImport = hasFeature('includeImport');
     this.otherElementSelection = props.otherElementSelection;
+    this.bowerElementSelection = props.bowerElementSelection;
 
     cb();
   }.bind(this));
@@ -100,6 +106,20 @@ Generator.prototype.addImports = function addImports(){
         fileName:   'elements/' + elName + '.html',
         importUrl:  importItem + '.html',
         tagName:    importItem, //-element
+        needleHead: '<polymer-element',
+        needleBody:  '</template>'
+      });
+
+    }.bind(this));
+  }
+
+    if(this.bowerElementSelection){
+    var bowerImports = this.bowerElementSelection.split(' '); 
+    bowerImports.forEach(function(importItem){
+      this.addImportToFile({
+        fileName:   'elements/' + elName + '.html',
+        importUrl:  '../bower_components/' + importItem + '/' + importItem + '.html',
+        tagName:    importItem, 
         needleHead: '<polymer-element',
         needleBody:  '</template>'
       });

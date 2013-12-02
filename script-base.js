@@ -41,7 +41,7 @@ Generator.prototype.addImportToFile = function (options) {
       file: fullPath,
       needle: options.needleHead || "</head>",
       splicable: [
-        '    <link rel="import" href="' + options.importUrl + '">'
+        '<link rel="import" href="' + options.importUrl + '">'
       ]
     });
 
@@ -54,7 +54,7 @@ Generator.prototype.addImportToFile = function (options) {
     });
 
   } catch (e) {
-    console.log('\nUnable to find '.yellow + fullPath + '. Reference to '.yellow + imp + 'not added.\n'.yellow);
+    console.log('\nUnable to find full reference to path');
   }
 };
 
