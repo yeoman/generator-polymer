@@ -1,7 +1,12 @@
 <polymer-element name="<%= name %>-element" <% if (includeConstructor) { %> constructor="<%= _.classify(name) %>Element"<% } %> attributes="">
   <template>
     <style>
-      @host { :scope {display: block;} }
+      /* styles for the custom element itself - lowest specificity */
+      :host { display: block; }
+      /* 
+      style if an ancestor has the different class
+      :host(.different) { } 
+      */
     </style>
     <span>I'm <b><%= _.camelize(name) %>-element</b>. This is my Shadow DOM.</span>
   </template>
@@ -9,6 +14,7 @@
     Polymer('<%= name %>-element', {
       //applyAuthorStyles: true,
       //resetStyleInheritance: true,
+
       // element is fully prepared
       ready: function(){ },
       // instance of the element is created
