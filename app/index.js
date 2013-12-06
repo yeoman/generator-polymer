@@ -118,7 +118,7 @@ Generator.prototype.writeIndex = function writeIndex() {
   ];
 
   var vendorJS = [
-    'bower_components/platform/platform.js',
+    'bower_components/platform/platform.js'
   ];
 
   if(this.compassBootstrap){
