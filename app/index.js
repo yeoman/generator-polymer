@@ -22,11 +22,14 @@ function Generator(args, options, config) {
 
   this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
 
+/*
   this.on('end', function () {
     if (['app', 'polymer'].indexOf(this.generatorName) >= 0) {
       this.installDependencies({ skipInstall: this.options['skip-install'] });
     }
   });
+*/
+  this.options = options;
 }
 
 util.inherits(Generator, yeoman.generators.Base);
@@ -39,8 +42,8 @@ Generator.prototype.askFor = function askFor() {
   var prompts = [{
     type: 'confirm',
     name: 'compassBootstrap',
-    message: 'Would you like to include Twitter Bootstrap for Sass?',
-    default: false
+    message: 'Include Twitter Bootstrap for Sass?',
+    default: true
   }];
 
   this.prompt(prompts, function (props) {
@@ -86,63 +89,14 @@ Generator.prototype.bootstrapImg = function bootstrapImg(){
 }
 
 Generator.prototype.mainStylesheet = function mainStylesheet() {
-  var contentText = [
-    'body {\n    background: #fafafa;\n}',
-    '\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n}'
-  ];
-  var ext = '.css';
-  if (this.compassBootstrap) {
-    contentText = [
-      '$iconSpritePath: \'/images/glyphicons-halflings.png\';',
-      '@import \'sass-bootstrap/lib/bootstrap\';',
-      '\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n}'
-    ];
-    ext = '.scss';
-  }
-  this.write('app/styles/main' + ext, contentText.join('\n'));
+  var css = 'main.' + (this.compassBootstrap ? 's' : '') + 'css';
+  this.copy(css, 'app/styles/' + css);
 };
 
 Generator.prototype.writeIndex = function writeIndex() {
-  if (this.includeRequireJS) {
-    return;
-  }
-
-  // prepare default content text
-  var defaults = ['HTML5 Boilerplate', 'Polymer'];
-  var contentText = [
-    '        <div class="container">',
-    '            <div class="hero-unit">',
-    '                <h1>\'Allo, \'Allo!</h1>',
-    '                <p>You now have</p>',
-    '                <ul>'
-  ];
-  
-  if(this.compassBootstrap){
-    defaults.push('Bootstrap');
-  }
-
-  // Bring back if we re-introduce vendor JS
-  // var vendorJS = ['../points/to/vendor.script.js'];
-  // this.indexFile = this.appendScripts(this.indexFile, 'scripts/vendor.js', vendorJS);
-
-  // iterate over defaults and create content string
-  defaults.forEach(function (el) {
-    contentText.push('                    <li>' + el  +'</li>');
-  });
-
-  contentText = contentText.concat([
-    '                </ul>',
-    '                <p>installed.</p>',
-    '                <h3>Enjoy coding! - Yeoman</h3>',
-    '            </div>',
-    '        </div>',
-    ''
-  ]);
-
-  // append the default content
-  this.indexFile = this.indexFile.replace('<body>', '<body>\n' + contentText.join('\n'));
+  this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
+  this.indexFile = this.engine(this.indexFile, this);
 };
-
 
 Generator.prototype.setupEnv = function setupEnv() {
   this.mkdir('app');
@@ -157,3 +111,16 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.write('app/index.html', this.indexFile);
 };
 
+
+Generator.prototype.install = function () {
+  if (this.options['skip-install']) {
+    return;
+  }
+
+  var done = this.async();
+  this.installDependencies({
+    skipMessage: this.options['skip-install-message'],
+    skipInstall: this.options['skip-install'],
+    callback: done
+  });
+}

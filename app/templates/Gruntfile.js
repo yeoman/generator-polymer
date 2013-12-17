@@ -106,7 +106,6 @@ module.exports = function (grunt) {
                 reporter: require('jshint-stylish')
             },
             all: [
-                'Gruntfile.js',
                 '<%%= yeoman.app %>/scripts/{,*/}*.js',
                 '!<%%= yeoman.app %>/scripts/vendor/*',
                 'test/spec/{,*/}*.js'
@@ -272,9 +271,9 @@ module.exports = function (grunt) {
         'useminPrepare',
         'imagemin',
         'htmlmin',
-        'concat',
+        // 'concat',
         'cssmin',
-        'uglify',
+        // 'uglify',
         'copy',
         'usemin',
         'vulcanize'
@@ -282,7 +281,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', [
         'jshint',
-        'test',
+        // 'test'
         'build'
     ]);
 };

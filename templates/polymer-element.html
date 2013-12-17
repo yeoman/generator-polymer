@@ -1,4 +1,6 @@
-<polymer-element name="<%= name %>-element" <% if (includeConstructor) { %> constructor="<%= _.classify(name) %>Element"<% } %> attributes="">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="polymer-<%= name %>" <% if (includeConstructor) { %> constructor="<%= _.classify(name) %>Element"<% } %> attributes="">
   <template>
     <style>
       /* styles for the custom element itself - lowest specificity */
@@ -8,10 +10,10 @@
       :host(.different) { } 
       */
     </style>
-    <span>I'm <b><%= _.camelize(name) %>-element</b>. This is my Shadow DOM.</span>
+    <span>I'm <b>polymer-<%= _.camelize(name) %></b>. This is my Shadow DOM.</span>
   </template>
   <script>
-    Polymer('<%= name %>-element', {
+    Polymer('polymer-<%= name %>', {
       //applyAuthorStyles: true,
       //resetStyleInheritance: true,
 
