@@ -208,9 +208,11 @@ module.exports = function (grunt) {
             }
         },
         vulcanize: {
-            options: {},
-            files: {
-                '<%%= yeoman.dist %>/build.html': ['<%%= yeoman.app %>/index.html'],
+           default: {
+                    options: {},
+                    files: {
+                        '<%%= yeoman.dist %>/build.html': ['<%%= yeoman.app %>/index.html'],
+                    }
             }
         },
         copy: {
