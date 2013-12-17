@@ -268,6 +268,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         <% if (compassBootstrap){ %>'compass:dist',<% } %>
+        'vulcanize',
         'useminPrepare',
         'imagemin',
         'htmlmin',
@@ -275,8 +276,7 @@ module.exports = function (grunt) {
         'cssmin',
         // 'uglify',
         'copy',
-        'usemin',
-        'vulcanize'
+        'usemin'
     ]);
 
     grunt.registerTask('default', [
