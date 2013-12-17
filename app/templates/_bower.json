@@ -2,7 +2,7 @@
   "name": "<%= _.slugify(appname) %>",
   "version": "0.0.0",
   "dependencies": {<% if (compassBootstrap) { %>
-    "sass-bootstrap": "~2.3.0",<% } %>
+    "sass-bootstrap": "~3.0.0",<% } %>
     "platform": "Polymer/platform#master",
     "polymer": "Polymer/polymer#master"
   },
