@@ -116,16 +116,14 @@ Generator.prototype.writeIndex = function writeIndex() {
     '                <p>You now have</p>',
     '                <ul>'
   ];
-
-  var vendorJS = [
-    'bower_components/platform/platform.js'
-  ];
-
+  
   if(this.compassBootstrap){
     defaults.push('Bootstrap');
   }
 
-  this.indexFile = this.appendScripts(this.indexFile, 'scripts/vendor.js', vendorJS);
+  // Bring back if we re-introduce vendor JS
+  // var vendorJS = ['../points/to/vendor.script.js'];
+  // this.indexFile = this.appendScripts(this.indexFile, 'scripts/vendor.js', vendorJS);
 
   // iterate over defaults and create content string
   defaults.forEach(function (el) {
