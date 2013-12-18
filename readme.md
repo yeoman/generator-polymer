@@ -225,14 +225,32 @@ Available generators:
   another supported testing framework like `jasmine`.
 
 
-## Notes
+## Bower
 
-Once the generator/yo is installed, you'll also have access to Bower, where you can now install `polymer-elements` and `polymer-ui-elements`. These are additional collections of premade Polymer Web Components for use in your project. They can be installed by running `bower install polymer-elements polymer-ui-elements` in the terminal.
+Once the generator/yo is installed, you'll also have access to Bower, where you can now install individual Polymer elements for use in your project. For example:
+
+```
+# Install a Polymer ajax element
+$ bower install Polymer/polymer-ajax --save
+
+# Install a tabs element
+$ bower install Polymer/polymer-ui-tabs --save
+
+# Install a ratings elements
+$ bower install Polymer/polymer-ui-ratings --save
+```
+
+If you wish to include one of these elements in a new element you are scaffolding, you can use the final prompt in `yo polymer:element` and just type in the element name. e.g:
+
+```
+[?] Import installed Bower elements? (e.g "polymer-ajax" or leave blank)
+polymer-ui-ratings
+```
 
 ## Articles
 
 * [Building WebApps With Yeoman And Polymer](http://www.html5rocks.com/en/tutorials/webcomponents/yeoman/)
-* []
+* DotJS - yo polymer (Video coming soon)
 
 ## Contribute
 
