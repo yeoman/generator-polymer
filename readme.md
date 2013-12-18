@@ -67,7 +67,7 @@ Next, we run `yo polymer:element button` to create the button element.
 
 It asks us a few questions such as whether we would like to include a constructor or import the button into our index.html using HTML imports. Let's say no to the first two options for now and leave the third option blank.
 
-Note: If we say 'yes' to the second question, it will import the element via `button.html` and add `<button-element></button-element>` to our index so that the element rendered on the page.
+Note: If we say 'yes' to the second question, it will import the element via `button.html` and add `<polymer-button></polymer-button>` to our index so that the element rendered on the page.
 
 ```shell
 $ yo polymer:element button
