@@ -159,7 +159,7 @@ Yeoman will have both imported the button element into panel.html using HTML imp
 Snippet from index.html:
 
 ```html
-<link rel="import" href="../bower_components/polymer/polymer.html">
+<script src="bower_components/platform/platform.js"></script>
 <link rel="import" href="elements/panel.html">
 </head>
 <body>
@@ -184,10 +184,6 @@ Snippet from index.html:
     });
   </script>
 
-    <!-- build:js scripts/vendor.js -->
-    <script src="bower_components/polymer/polymer.min.js"></script>
-    <!-- endbuild -->
-  
 ```
 
 What will be rendered to the page is an element (panel) which uses another element (button). 
