@@ -65,7 +65,11 @@ Example:
 
 ![](http://i.imgur.com/3H9DtME.png)
 
-If you would like to edit and have the browser LiveReload on each save, fire up `grunt server`. Our initial app should look a little like this:
+If you would like to edit and have the browser LiveReload on each save, fire up `grunt server`. Our initial app should look a little like this if you selected Sass Bootstrap:
+
+<img src="http://i.imgur.com/oLRZghM.png" width="400px"/>
+
+or the following if you didn't:
 
 <img src="http://i.imgur.com/hRHs2XQ.png" width="650px"/>
 
