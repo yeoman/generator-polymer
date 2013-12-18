@@ -38,10 +38,14 @@ $ mkdir my-new-project && cd $_
 $ yo polymer
 
 # Preview what was scaffolded
+# Edit and the browser live reloads
 $ grunt server
 
 # Scaffold your own elements
 $ yo polymer:element foo
+
+# Build your project, creating an optimized build.html
+$ grunt build
 ```
 
 ## Getting started
@@ -224,6 +228,11 @@ Available generators:
 ## Notes
 
 Once the generator/yo is installed, you'll also have access to Bower, where you can now install `polymer-elements` and `polymer-ui-elements`. These are additional collections of premade Polymer Web Components for use in your project. They can be installed by running `bower install polymer-elements polymer-ui-elements` in the terminal.
+
+## Articles
+
+* [Building WebApps With Yeoman And Polymer](http://www.html5rocks.com/en/tutorials/webcomponents/yeoman/)
+* []
 
 ## Contribute
 
