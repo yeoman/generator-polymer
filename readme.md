@@ -12,12 +12,13 @@
 ## Features
 
 * Minimal HTML5 Boilerplate
-* Scaffolding for both Polymer elements
+* Scaffolding for both Polymer elements and regular custom elements
 * Wire up HTML imports
 * Edit and LiveReload for Polymer elements
-* Support for SASS Bootstrap
+* Support for SASS Bootstrap 3.0
 * JSHint linting for projects
 * HTML/CSS/JS optimization
+* `grunt-vulcanize` support for inlining HTML Imports, scripts and stylesheets.
 
 
 ## Preview
@@ -201,10 +202,6 @@ Available generators:
   Defaults to `mocha`. Can be switched for
   another supported testing framework like `jasmine`.
 
-
-## Build process
-
-We are currently still evaluating how a build process and asset optimization fit in a world using Web Components. Early experiments into how one might concatenate and optimize such projects can be found in [this](https://github.com/addyosmani/polymer-grunt-example) repo.
 
 ## Notes
 

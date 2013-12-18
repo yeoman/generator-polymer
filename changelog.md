@@ -7,3 +7,4 @@
 * Templates and dependencies updated to use bootstrap-sass 3.0.0. This comes with a face-lift for `index.html` which brings it more in-line with `generator-webapp`.
 * A new prompt is available for the `element` sub-generator offering very basic support for automatically adding/writing up an element installed with Bower. We are hoping to replace this with a solution using `grunt-bower-install` in the future.
 * Improved comments for the Polymer element file generated. All life-cycle events are also now included to improve the getting started experience.
+* Fixed a bug where `bower install` wasn't being run after the initial application was being scaffolded.
