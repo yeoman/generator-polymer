@@ -1,4 +1,4 @@
-## A Yeoman generator for Polymer projects.
+## Yeoman generator for Polymer projects.
 
 <img src="http://i.imgur.com/J7bp9al.png" width="250px"/>
 
@@ -11,10 +11,10 @@
 
 ## Features
 
+* Scaffolding for Polymer elements & Custom elements
 * Minimal HTML5 Boilerplate
-* Scaffolding for both Polymer elements and regular custom elements
 * Wire up HTML imports
-* Edit and LiveReload for Polymer elements
+* Edit and LiveReload
 * Support for SASS Bootstrap 3.0
 * JSHint linting for projects
 * HTML/CSS/JS optimization
@@ -23,8 +23,7 @@
 
 ## Preview
 
-![](http://i.imgur.com/hrAO7M1.gif)
-
+![](http://i.imgur.com/tr9NwBB.gif)
 
 ## Installation
 
@@ -40,6 +39,9 @@ $ yo polymer
 
 # Preview what was scaffolded
 $ grunt server
+
+# Scaffold your own elements
+$ yo polymer:element foo
 ```
 
 ## Getting started
@@ -74,6 +76,7 @@ $ yo polymer:element button
 [?] Would you like to include constructor=””? No
 [?] Import to your index.html using HTML imports? No
 [?] Import other elements into this one? (e.g "another_element.html" or leave blank) 
+[?] Import installed Bower elements? (e.g "polymer-ajax" or leave blank)
    create app/elements/button.html
 ```
 
@@ -117,6 +120,7 @@ $ yo polymer:element panel
 [?] Would you like to include constructor=””? No
 [?] Import to your index.html using HTML imports? Yes
 [?] Import other elements into this one? (e.g "another_element.html" or leave blank) button.html
+[?] Import installed Bower elements? (e.g "polymer-ajax" or leave blank)
    create app/elements/panel.html
 
 ```
