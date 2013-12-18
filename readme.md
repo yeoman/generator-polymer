@@ -52,7 +52,7 @@ To begin, we run `yo polymer`. This scaffolds out our initial index.html, direct
 $ yo polymer
 
 Out of the box I include HTML5 Boilerplate and Polymer.
-[?] Would you like to include Twitter Bootstrap for Sass? Yes
+[?] Include Twitter Bootstrap for Sass? Yes
 ```
 
 Example:
@@ -80,20 +80,28 @@ $ yo polymer:element button
 This creates a new element in the `/elements` directory named `button.html` that looks a little like this:
 
 ```html
-<polymer-element name="button-element"  attributes="">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<polymer-element name="polymer-button"  attributes="">
   <template>
     <style>
       @host { :scope {display: block;} }
     </style>
-    <span>I'm <b>button-element</b>. This is my Shadow DOM.</span>
+    <span>I'm <b>polymer-button</b>. This is my Shadow DOM.</span>
   </template>
   <script>
-    Polymer('button-element', {
+    Polymer('polymer-button', {
       //applyAuthorStyles: true,
       //resetStyleInheritance: true,
+
+      // element is fully prepared
+      ready: function(){ },
+      // instance of the element is created
       created: function() { },
+      // instance was inserted into the document
       enteredView: function() { },
+      // instance was removed from the document
       leftView: function() { },
+      // attribute added, removed or updated
       attributeChanged: function(attrName, oldVal, newVal) { }
     });
   </script>
@@ -116,22 +124,30 @@ $ yo polymer:element panel
 As before, a new element will be added to `/elements`, this time named `panel.html` resembling: 
 
 ```html
+<link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="button.html">
-<polymer-element name="panel-element"  attributes="">
+<polymer-element name="polymer-panel"  attributes="">
   <template>
     <style>
       @host { :scope {display: block;} }
     </style>
-    <span>I'm <b>panel-element</b>. This is my Shadow DOM.</span>
-        <button-element></button-element>
+    <span>I'm <b>polymer-panel</b>. This is my Shadow DOM.</span>
+        <polymer-button></polymer-button>
   </template>
   <script>
-    Polymer('panel-element', {
+    Polymer('polymer-panel', {
       //applyAuthorStyles: true,
       //resetStyleInheritance: true,
+
+      // element is fully prepared
+      ready: function(){ },
+      // instance of the element is created
       created: function() { },
+      // instance was inserted into the document
       enteredView: function() { },
+      // instance was removed from the document
       leftView: function() { },
+      // attribute added, removed or updated
       attributeChanged: function(attrName, oldVal, newVal) { }
     });
   </script>
@@ -143,7 +159,8 @@ Yeoman will have both imported the button element into panel.html using HTML imp
 Snippet from index.html:
 
 ```html
-  <link rel="import" href="elements/panel.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="elements/panel.html">
 </head>
 <body>
     <div class="container">
@@ -157,6 +174,7 @@ Snippet from index.html:
             </ul>
             <p>installed.</p>
             <h3>Enjoy coding! - Yeoman</h3>
+            <polymer-panel></polymer-panel>
         </div>
     </div>
 
@@ -169,7 +187,7 @@ Snippet from index.html:
     <!-- build:js scripts/vendor.js -->
     <script src="bower_components/polymer/polymer.min.js"></script>
     <!-- endbuild -->
-  <panel-element></panel-element>
+  
 ```
 
 What will be rendered to the page is an element (panel) which uses another element (button). 
