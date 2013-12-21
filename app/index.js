@@ -104,10 +104,13 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.mkdir('app/scripts/vendor/');
   this.mkdir('app/styles');
   this.mkdir('app/images');
+  this.mkdir('app/elements');
   this.template('app/404.html');
   this.template('app/favicon.ico');
   this.template('app/robots.txt');
   this.copy('app/htaccess', 'app/.htaccess');
+  this.copy('app/list.html', 'app/elements/list.html');
+  this.copy('app/greeting.html', 'app/elements/greeting.html');
   this.write('app/index.html', this.indexFile);
 };
 

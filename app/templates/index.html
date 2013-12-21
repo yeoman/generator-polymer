@@ -17,6 +17,8 @@
 
         <!-- Place your HTML imports here -->
         <script src="bower_components/platform/platform.js"></script>
+        <link rel="import" href="elements/list.html">
+        <link rel="import" href="elements/greeting.html">
     </head>
     <body>
 
@@ -60,13 +62,9 @@
         </div>
         <% } else { // compassBootstrap %>
         <div class="hero-unit">
-          <h1>'Allo, 'Allo!</h1>
+          <polymer-greeting></polymer-greeting>
           <p>You now have</p>
-          <ul>
-            <li>HTML5 Boilerplate</li>
-            <li>Web Component Polyfills</li>
-            <li>Polymer</li>
-          </ul>
+          <polymer-list><polymer-list>
         </div>
         <% } // compassBootstrap %>
 

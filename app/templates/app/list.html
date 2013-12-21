@@ -1,0 +1,30 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="polymer-list"  attributes="">
+  <template>
+    <style>
+      /* styles for the custom element itself - lowest specificity */
+      :host { display: block; }
+      /* 
+      style if an ancestor has the different class
+      :host(.different) { } 
+      */
+    </style>
+    <ul>
+      <template id="greeting" repeat="{{ item in items }}">
+        <li>{{ item }}</li>
+      </template>
+    </ul>
+  </template>
+  <script>
+    Polymer('polymer-list', {
+      ready: function() {
+        this.items = [
+          'HTML5 Boilerplate',
+          'Web Component Polyfills',
+          'Polymer'
+        ];
+      }
+    });
+  </script>
+</polymer-element>
