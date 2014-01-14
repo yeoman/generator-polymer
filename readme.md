@@ -27,35 +27,32 @@
 
 ## Installation
 
-```
-# Install the generator
-$ npm install -g generator-polymer
+Install the generator
+`npm install -g generator-polymer`
 
-# Make a new directory and cd into it
-$ mkdir my-new-project && cd $_
+Make a new directory and cd into it
+`mkdir my-new-project && cd $_`
 
-# Start using the generator
-$ yo polymer
+Start using the generator
+`yo polymer`
 
-# Preview what was scaffolded
-# Edit and the browser live reloads
-$ grunt server
+Preview what was scaffolded. Edit and the browser live reloads
+`grunt serve`
 
-# Scaffold your own elements
-$ yo polymer:element foo
+Scaffold your own elements
+`yo polymer:element foo`
 
-# Build your project, creating an optimized build.html
-$ grunt build
-```
+Build your project, creating an optimized build.html
+`grunt build`
 
 ## Getting started
 
-Feel like building with the future? Let's scaffold out a Polymer app with two custom elements - a button and a panel. 
+Feel like building with the future? Let's scaffold out a Polymer app with two custom elements - a button and a panel.
 
-To begin, we run `yo polymer`. This scaffolds out our initial index.html, directory structure and Grunt tasks for our workflow. 
+To begin, we run `yo polymer`. This scaffolds out our initial index.html, directory structure and Grunt tasks for our workflow.
 
 ```shell
-$ yo polymer
+yo polymer
 
 Out of the box I include HTML5 Boilerplate and Polymer.
 [?] Include Twitter Bootstrap for Sass? Yes
@@ -65,7 +62,7 @@ Example:
 
 ![](http://i.imgur.com/3H9DtME.png)
 
-If you would like to edit and have the browser LiveReload on each save, fire up `grunt server`. Our initial app should look a little like this if you selected Sass Bootstrap:
+If you would like to edit and have the browser LiveReload on each save, fire up `grunt serve`. Our initial app should look a little like this if you selected Sass Bootstrap:
 
 <img src="http://i.imgur.com/oLRZghM.png" width="400px"/>
 
@@ -80,7 +77,7 @@ It asks us a few questions such as whether we would like to include a constructo
 Note: If we say 'yes' to the second question, it will import the element via `button.html` and add `<polymer-button></polymer-button>` to our index so that the element rendered on the page.
 
 ```shell
-$ yo polymer:element button
+yo polymer:element button
 [?] Would you like to include constructor=””? No
 [?] Import to your index.html using HTML imports? No
 [?] Import other elements into this one? (e.g "another_element.html" or leave blank) 
@@ -124,7 +121,7 @@ Next, let's create our panel element by running `yo polymer:element panel`.
 This time we will ask for the panel to be imported into `index.html` using HTML imports as we wish for it to appear on the page. For the thid option this time, we specify `button` as the element we would like to include.
 
 ```shell
-$ yo polymer:element panel
+yo polymer:element panel
 [?] Would you like to include constructor=””? No
 [?] Import to your index.html using HTML imports? Yes
 [?] Import other elements into this one? (e.g "another_element.html" or leave blank) button.html
@@ -235,13 +232,13 @@ Once the generator/yo is installed, you'll also have access to Bower, where you 
 
 ```
 # Install a Polymer ajax element
-$ bower install Polymer/polymer-ajax --save
+bower install Polymer/polymer-ajax --save
 
 # Install a tabs element
-$ bower install Polymer/polymer-ui-tabs --save
+bower install Polymer/polymer-ui-tabs --save
 
 # Install a ratings elements
-$ bower install Polymer/polymer-ui-ratings --save
+bower install Polymer/polymer-ui-ratings --save
 ```
 
 If you wish to include one of these elements in a new element you are scaffolding, you can use the final prompt in `yo polymer:element` and just type in the element name. e.g:
