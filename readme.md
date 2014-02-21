@@ -251,7 +251,7 @@ polymer-ui-ratings
 ## Articles
 
 * [Building WebApps With Yeoman And Polymer](http://www.html5rocks.com/en/tutorials/webcomponents/yeoman/)
-* DotJS - yo polymer (Video coming soon)
+* [Yo Polymer - A Whirlwind Tour Of Web Component Tooling](http://updates.html5rocks.com/2014/01/Yo-Polymer-A-Whirlwind-Tour-Of-Web-Component-Tooling)
 
 ## Contribute
 
