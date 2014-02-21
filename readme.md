@@ -1,6 +1,6 @@
 ## Yeoman generator for Polymer projects.
 
-<img src="http://i.imgur.com/J7bp9al.png" width="250px"/>
+<img src="http://i.imgur.com/9PDzAid.png"/>
 
 ## Introduction
 
