@@ -55,7 +55,7 @@ To begin, we run `yo polymer`. This scaffolds out our initial index.html, direct
 yo polymer
 
 Out of the box I include HTML5 Boilerplate and Polymer.
-[?] Include Twitter Bootstrap for Sass? Yes
+[?] Include Bootstrap for Sass? Yes
 ```
 
 Example:
