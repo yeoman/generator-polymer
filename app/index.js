@@ -42,7 +42,7 @@ Generator.prototype.askFor = function askFor() {
   var prompts = [{
     type: 'confirm',
     name: 'compassBootstrap',
-    message: 'Include Twitter Bootstrap for Sass?',
+    message: 'Include Bootstrap for Sass?',
     default: true
   }];
 
