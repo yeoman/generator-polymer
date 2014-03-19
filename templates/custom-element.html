@@ -9,7 +9,7 @@
       var section = this.querySelector('section');
 
       // Has built-in 'window' protection.
-      this.register({
+      this.registerElement({
         prototype: {
           readyCallback: function() {
             this.innerHTML = section.innerHTML;
