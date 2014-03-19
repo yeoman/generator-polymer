@@ -11,7 +11,7 @@
       // Has built-in 'window' protection.
       this.registerElement({
         prototype: {
-          readyCallback: function() {
+          createdCallback: function() {
             this.innerHTML = section.innerHTML;
           },
           foo: function() {
