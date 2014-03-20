@@ -90,8 +90,8 @@ Generator.prototype.createElementFiles = function createElementFiles() {
      this.addImportToFile({
       fileName:  'index.html',
       importUrl: 'elements/' + this.name + '.html',
-      tagName: 'polymer-' + this.name
-    });   
+      tagName: this.name
+    });
   }
 };
 
