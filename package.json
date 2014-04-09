@@ -1,6 +1,6 @@
 {
   "name": "generator-polymer",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Yeoman generator for Polymer",
   "keywords": [
     "yeoman-generator",
