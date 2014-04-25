@@ -1,8 +1,8 @@
-<%= _.slugify(appname) %>
+<%= _.slugify(elementName) %>
 ================
 
-See the [component page](http://polymerlabs.github.io/<%= _.slugify(appname) %>) for more information.
+See the [component page](http://polymerlabs.github.io/<%= _.slugify(elementName) %>) for more information.
 
 ## Getting Started
 
-We've put together a [guide to <%= _.slugify(appname) %>](http://www.polymer-project.org/docs/start/reusableelements.html) to help get you rolling.
+We've put together a [guide to <%= _.slugify(elementName) %>](http://www.polymer-project.org/docs/start/reusableelements.html) to help get you rolling.

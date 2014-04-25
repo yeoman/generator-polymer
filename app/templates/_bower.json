@@ -1,5 +1,5 @@
 {
-  "name": "<%= _.slugify(appname) %>",
+  "name": "<%= _.slugify(elementName) %>",
   "version": "0.0.0",
   "dependencies": {
     "polymer": "Polymer/polymer#master"

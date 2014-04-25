@@ -5,19 +5,19 @@ Element providing solution to no problem in particular.
 
 ##### Example
 
-    <<%= _.slugify(appname) %>></<%= _.slugify(appname) %>>
+    <<%= _.slugify(elementName) %>></<%= _.slugify(elementName) %>>
 
-@element <%= _.slugify(appname) %>
+@element <%= _.slugify(elementName) %>
 @blurb Element providing solution to no problem in particular.
 @status alpha
 @url github.io
 -->
-<polymer-element name="<%= _.slugify(appname) %>" attributes="notitle">
+<polymer-element name="<%= _.slugify(elementName) %>" attributes="notitle">
 
   <template>
 
-    <link href="<%= _.slugify(appname) %>.css" rel="stylesheet" />
-    <h1>Hello from <%= _.slugify(appname) %>!</h1>
+    <link href="<%= _.slugify(elementName) %>.css" rel="stylesheet" />
+    <h1>Hello from <%= _.slugify(elementName) %>!</h1>
     <content></content>
 
   </template>
