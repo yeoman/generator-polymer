@@ -10,21 +10,21 @@ Element providing solution to no problem in particular.
 @element <%= _.slugify(elementName) %>
 @blurb Element providing solution to no problem in particular.
 @status alpha
-@url github.io
+@homepage http://<%= ghUser %>.github.io/<%= _.slugify(elementName) %>
 -->
 <polymer-element name="<%= _.slugify(elementName) %>" attributes="notitle">
 
   <template>
 
-    <link href="<%= _.slugify(elementName) %>.css" rel="stylesheet" />
-    <h1>Hello from <%= _.slugify(elementName) %>!</h1>
+    <link rel="stylesheet" href="<%= _.slugify(elementName) %>.css" />
+
     <content></content>
 
   </template>
 
   <script>
 
-    Polymer({
+    Polymer('<%= _.slugify(elementName) %>', {
       /**
        * The `noevent` event is not actually fired from here,
        * we document it as an example of documenting events.
@@ -39,6 +39,14 @@ Element providing solution to no problem in particular.
        * @type string
        */
       notitle: '',
+
+      /**
+       * The `aProp` is a property that does something cool.
+       *
+       * @property aProp
+       * @type bool
+       */
+      aProp: false,
 
       ready: function() {
       },
