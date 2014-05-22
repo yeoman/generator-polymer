@@ -1,10 +1,9 @@
 {
-  "name": "<%= _.slugify(appname) %>",
+  "name": "<%= _.slugify(elementName) %>",
   "version": "0.0.0",
-  "dependencies": {<% if (compassBootstrap) { %>
-    "sass-bootstrap": "~3.0.0",<% } %>
-    "platform": "Polymer/platform#master",
-    "polymer": "Polymer/polymer#master"
-  },
-  "devDependencies": {}
+  "keywords": "seed, polymer, web-components",
+  "main": "<%= _.slugify(elementName) %>.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.2.4"
+  }
 }
