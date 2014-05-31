@@ -4,6 +4,6 @@
   "keywords": "seed, polymer, web-components",
   "main": "<%= _.slugify(elementName) %>.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.3.0"
+    "polymer": "Polymer/polymer#~0.3.1"
   }
 }
