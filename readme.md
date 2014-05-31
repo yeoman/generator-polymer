@@ -20,7 +20,7 @@ Install the generator
 `npm install -g generator-polymer`
 
 Make a new directory and cd into it
-`mkdir my-new-project && cd $_`
+`mkdir -p development/my-element && cd $_`
 
 Scaffold a new Polymer element:
 `yo polymer`
