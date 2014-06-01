@@ -1,6 +1,6 @@
 ## Yeoman generator for Polymer projects [![Build Status](https://secure.travis-ci.org/yeoman/generator-polymer.svg?branch=master)](https://travis-ci.org/yeoman/generator-polymer)
 
-<img src="http://i.imgur.com/9PDzAid.png"/>
+<img src="http://i.imgur.com/dsFChIk.png"/>
 
 ## Introduction
 
