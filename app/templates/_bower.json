@@ -1,9 +1,12 @@
 {
-  "name": "<%= _.slugify(elementName) %>",
+  "name": "<%= _.slugify(appname) %>",
   "version": "0.0.0",
-  "keywords": "seed, polymer, web-components",
-  "main": "<%= _.slugify(elementName) %>.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.3.1"
-  }
+    <% if (includeCore) { %>
+    "core-elements": "Polymer/core-elements#~0.3.3",<% } %>
+    <% if (includePaper) { %>
+    "paper-elements": "Polymer/paper-elements#~0.3.3",<% } %>
+    "polymer": "Polymer/polymer#~0.3.3"
+  },
+  "devDependencies": {}
 }

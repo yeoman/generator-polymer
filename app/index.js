@@ -5,11 +5,12 @@ var yosay = require('yosay');
 
 module.exports = yeoman.generators.Base.extend({
   init: function () {
+    this.testFramework = this.options['test-framework'] || 'mocha';
+
     this.on('end', function () {
       if (!this.options['skip-install']) {
         this.installDependencies({
-          skipMessage: this.options['skip-install-message'],
-          npm: false
+          skipMessage: this.options['skip-install-message']
         });
       }
     });
@@ -18,24 +19,25 @@ module.exports = yeoman.generators.Base.extend({
     var done = this.async();
 
     // Have Yeoman greet the user.
-    this.log(yosay('Out of the box I include the Polymer seed-element.'));
+    this.log(yosay('Out of the box I include HTML5 Boilerplate and Polymer'));
 
     var defaultName = path.basename(process.cwd());
     var prompts = [
       {
-        name: 'ghUser',
-        message: 'What is your GitHub username?'
+        name: 'includeCore',
+        message: 'Would you like to include core-elements?',
+        type: 'confirm'
       },
       {
-        name: 'elementName',
-        message: 'What is your element\'s name',
-        default: defaultName
+        name: 'includePaper',
+        message: 'Would you like to include paper-elements?',
+        type: 'confirm'
       }
     ];
 
     this.prompt(prompts, function (props) {
-      this.ghUser = props.ghUser;
-      this.elementName = props.elementName
+      this.includeCore = props.includeCore;
+      this.includePaper = props.includePaper;
 
       done();
     }.bind(this));
@@ -44,13 +46,27 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
     this.copy('bowerrc', '.bowerrc');
-    this.template('_bower.json', 'bower.json');
+    this.copy('_bower.json', 'bower.json');
     this.copy('jshintrc', '.jshintrc');
     this.copy('editorconfig', '.editorconfig');
-    this.template('_seed-element.css', this.elementName + '.css');
-    this.template('_seed-element.html', this.elementName + '.html');
-    this.template('_index.html', 'index.html');
-    this.template('_demo.html', 'demo.html');
-    this.template('_README.md', 'README.md');
+    this.template('Gruntfile.js');
+    this.template('_package.json', 'package.json');
+    this.copy('main.css', 'app/styles/main.css');
+    this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
+    this.indexFile = this.engine(this.indexFile, this);
+  },
+  setupEnv: function() {
+    this.mkdir('app');
+    this.mkdir('app/styles');
+    this.mkdir('app/images');
+    this.mkdir('app/scripts');
+    this.mkdir('app/elements');
+    this.template('app/404.html');
+    this.template('app/favicon.ico');
+    this.template('app/robots.txt');
+    this.copy('app/htaccess', 'app/.htaccess');
+    this.copy('app/yo-list.html', 'app/elements/yo-list.html');
+    this.copy('app/yo-greeting.html', 'app/elements/yo-greeting.html');
+    this.write('app/index.html', this.indexFile);
   }
 });
