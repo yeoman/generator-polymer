@@ -3,7 +3,7 @@
 var path    = require('path');
 var helpers = require('yeoman-generator').test;
 
-describe('Polymer generator test', function () {
+describe('yo polymer:app test', function () {
   before(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {
@@ -43,6 +43,7 @@ describe('Polymer generator test', function () {
       'app/favicon.ico',
       'app/.htaccess',
       'app/robots.txt',
+      'app/elements/elements.html',
       'app/elements/yo-greeting.html',
       'app/elements/yo-list.html'
     ];
