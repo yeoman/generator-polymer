@@ -43,6 +43,8 @@ module.exports = yeoman.generators.Base.extend({
     }.bind(this));
   },
   app: function () {
+    this.mkdir(this.elementName);
+    this.destinationRoot(this.elementName);
     this.copy('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
     this.copy('bowerrc', '.bowerrc');
