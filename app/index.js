@@ -65,6 +65,7 @@ module.exports = yeoman.generators.Base.extend({
     this.template('app/favicon.ico');
     this.template('app/robots.txt');
     this.copy('app/htaccess', 'app/.htaccess');
+    this.copy('app/elements.html', 'app/elements/elements.html');
     this.copy('app/yo-list.html', 'app/elements/yo-list.html');
     this.copy('app/yo-greeting.html', 'app/elements/yo-greeting.html');
     this.write('app/index.html', this.indexFile);

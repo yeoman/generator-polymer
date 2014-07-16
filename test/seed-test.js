@@ -3,7 +3,7 @@
 var path    = require('path');
 var helpers = require('yeoman-generator').test;
 
-describe('Polymer generator test', function () {
+describe('yo polymer:seed test', function () {
   before(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {
