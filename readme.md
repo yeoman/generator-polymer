@@ -47,7 +47,7 @@ yo polymer
 ```
 
 ### El
-Generates a polymer element in `app/elements`.
+Generates a polymer element in `app/elements` and appends an import to `app/elements/elements.html`.
 
 Example:
 ```bash
