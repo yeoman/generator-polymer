@@ -39,6 +39,7 @@ describe('yo polymer:app test', function () {
       '.jshintrc',
       'app/index.html',
       'app/styles/main.css',
+      'app/scripts/app.js',
       'app/404.html',
       'app/favicon.ico',
       'app/.htaccess',

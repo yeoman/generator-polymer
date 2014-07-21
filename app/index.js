@@ -51,11 +51,6 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('editorconfig', '.editorconfig');
     this.template('Gruntfile.js');
     this.template('_package.json', 'package.json');
-    this.copy('main.css', 'app/styles/main.css');
-    this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
-    this.indexFile = this.engine(this.indexFile, this);
-  },
-  setupEnv: function() {
     this.mkdir('app');
     this.mkdir('app/styles');
     this.mkdir('app/images');
@@ -64,10 +59,12 @@ module.exports = yeoman.generators.Base.extend({
     this.template('app/404.html');
     this.template('app/favicon.ico');
     this.template('app/robots.txt');
+    this.copy('app/main.css', 'app/styles/main.css');
+    this.copy('app/app.js', 'app/scripts/app.js');
     this.copy('app/htaccess', 'app/.htaccess');
     this.copy('app/elements.html', 'app/elements/elements.html');
     this.copy('app/yo-list.html', 'app/elements/yo-list.html');
     this.copy('app/yo-greeting.html', 'app/elements/yo-greeting.html');
-    this.write('app/index.html', this.indexFile);
+    this.copy('app/index.html', 'app/index.html');
   }
 });

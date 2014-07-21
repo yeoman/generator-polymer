@@ -1,10 +1,8 @@
 {
   "name": "<%= _.slugify(appname) %>",
   "version": "0.0.0",
-  "dependencies": {
-    <% if (includeCore) { %>
-    "core-elements": "Polymer/core-elements#~0.3.3",<% } %>
-    <% if (includePaper) { %>
+  "dependencies": {<% if (includeCore) { %>
+    "core-elements": "Polymer/core-elements#~0.3.3",<% } %><% if (includePaper) { %>
     "paper-elements": "Polymer/paper-elements#~0.3.3",<% } %>
     "polymer": "Polymer/polymer#~0.3.3"
   },
