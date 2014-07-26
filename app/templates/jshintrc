@@ -20,6 +20,9 @@
   "smarttabs": true,
   "jquery": true,
   "globals": {
-    "wrap": true
+    "wrap": true,
+    "unwrap": true,
+    "Polymer": true,
+    "Platform": true
   }
 }
