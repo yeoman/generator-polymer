@@ -1,4 +1,9 @@
-## Yeoman generator for Polymer projects [![Build Status](https://secure.travis-ci.org/yeoman/generator-polymer.svg?branch=master)](https://travis-ci.org/yeoman/generator-polymer)
+[![NPM version](http://img.shields.io/npm/v/generator-polymer.svg?style=flat)](http://npmjs.org/generator-polymer)
+[![NPM downloads](http://img.shields.io/npm/dm/generator-polymer.svg?style=flat)](http://npmjs.org/generator-polymer)
+[![Build Status](http://img.shields.io/travis/yeoman/generator-polymer/master.svg?style=flat)](https://travis-ci.org/yeoman/generator-polymer)
+[![Dependency Status](http://img.shields.io/david/yeoman/generator-polymer.svg?style=flat)](https://david-dm.org/yeoman/generator-polymer)
+
+## Yeoman generator for Polymer projects
 
 <img src="http://i.imgur.com/dsFChIk.png"/>
 
