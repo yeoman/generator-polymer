@@ -24,8 +24,8 @@
     "yeoman-generator": "~0.17.0",
     "lodash": "~2.4.1",
     "underscore.string": "~2.3.3",
-    "yosay": "~0.2.1",
-    "ncp": "~0.5.1",
+    "yosay": "~0.3.0",
+    "ncp": "~0.6.0",
     "rimraf": "~2.2.8"
   },
   "peerDependencies": {
