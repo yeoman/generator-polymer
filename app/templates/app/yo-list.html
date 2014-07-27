@@ -17,16 +17,21 @@
     </ul>
   </template>
   <script>
-    Polymer({
-      ready: function() {
-        this.items = [
-          'HTML5 Boilerplate',
-          'Web Component Polyfills',
-          <% if (includeCore) { %>'Core Elements', <% } %>
-          <% if (includePaper) { %>'Paper Elements', <% } %>
-          'Polymer'
-        ];
-      }
-    });
+    (function () {
+      'use strict';
+
+      Polymer({
+        ready: function() {
+          this.items = [
+            'HTML5 Boilerplate',
+            'Web Component Polyfills',
+            <% if (includeCore) { %>'Core Elements', <% } %>
+            <% if (includePaper) { %>'Paper Elements', <% } %>
+            'Polymer'
+          ];
+        }
+      });
+
+    })();
   </script>
 </polymer-element>

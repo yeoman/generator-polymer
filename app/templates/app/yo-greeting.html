@@ -15,8 +15,13 @@
     <input type="text" value="{{ greeting }}">
   </template>
   <script>
-    Polymer({
-      greeting : '\'Allo'
-    });
+    (function () {
+      'use strict';
+
+      Polymer({
+        greeting : '\'Allo'
+      });
+
+    })();
   </script>
 </polymer-element>
