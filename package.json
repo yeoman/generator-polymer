@@ -26,7 +26,8 @@
     "underscore.string": "~2.3.3",
     "yosay": "~0.3.0",
     "ncp": "~0.6.0",
-    "rimraf": "~2.2.8"
+    "rimraf": "~2.2.8",
+    "yeoman-generator": "~0.17.1"
   },
   "peerDependencies": {
     "generator-mocha": ">=0.1.3",
