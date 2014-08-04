@@ -1,12 +1,13 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
 <polymer-element name="<%= elementName %>" attributes="">
-  <template>
+  <template><% if (!externalStyle) { %>
     <style>
       :host {
         display: block;
       }
-    </style>
+    </style><% } else { %>
+    <link rel="stylesheet" href="<%= elementName %>.css"><% } %>
   </template>
   <script>
     (function () {

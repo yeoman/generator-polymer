@@ -28,25 +28,73 @@ module.exports = function (grunt) {
     watch: {
       options: {
         nospawn: true,
-        livereload: true
+        livereload: { liveCSS: false }
       },
       livereload: {
         options: {
-          livereload: LIVERELOAD_PORT
+          livereload: true
         },
         files: [
           '<%%= yeoman.app %>/*.html',
-          '<%%= yeoman.app %>/elements/**/*.html',
+          '<%%= yeoman.app %>/elements/{,*/}*.html',
+          '{.tmp,<%%= yeoman.app %>}/elements/{,*/}*.css',
           '{.tmp,<%%= yeoman.app %>}/styles/{,*/}*.css',
           '{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js',
           '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}'
         ]
+      },
+      js: {
+        files: ['<%%= yeoman.app %>/scripts/{,*/}*.js'],
+        tasks: ['jshint']
+      },
+      styles: {
+        files: [
+          '<%%= yeoman.app %>/styles/{,*/}*.css',
+          '<%%= yeoman.app %>/elements/{,*/}*.css'
+        ],
+        tasks: ['copy:styles']
       }<% if (testFramework === 'jasmine') { %>,
       test: {
         files: ['<%%= yeoman.app %>/scripts/{,*/}*.js', 'test/spec/**/*.js'],
         tasks: ['test']
+      }<% } %><% if (includeSass) { %>,
+      sass: {
+        files: [
+          '<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}',
+          '<%%= yeoman.app %>/elements/{,*/}*.{scss,sass}'
+        ],
+        tasks: ['sass:server']
       }<% } %>
-    },
+    },<% if (includeSass) { %>
+
+    // Compiles Sass to CSS and generates necessary files if requested
+    sass: {
+      options: {<% if (includeLibSass) { %>
+        sourceMap: true,
+        includePaths: ['bower_components']
+        <% } else { %>
+        sourcemap: true,
+        loadPath: 'bower_components'
+      <% } %>},
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%%= yeoman.app %>',
+          src: ['styles/{,*/}*.{scss,sass}', 'elements/{,*/}*.{scss,sass}'],
+          dest: '<%%= yeoman.dist %>',
+          ext: '.css'
+        }]
+      },
+      server: {
+        files: [{
+          expand: true,
+          cwd: '<%%= yeoman.app %>',
+          src: ['styles/{,*/}*.{scss,sass}', 'elements/{,*/}*.{scss,sass}'],
+          dest: '.tmp',
+          ext: '.css'
+        }]
+      }
+    },<% } %>
     connect: {
       options: {
         port: 9000,
@@ -92,8 +140,7 @@ module.exports = function (grunt) {
     },
     clean: {
       dist: ['.tmp', '<%%= yeoman.dist %>/*'],
-      server: '.tmp',
-      tmp: '.tmp'
+      server: '.tmp'
     },
     jshint: {
       options: {
@@ -164,6 +211,14 @@ module.exports = function (grunt) {
             '<%%= yeoman.app %>/styles/{,*/}*.css'
           ]
         }
+      },
+      elements: {
+        files: [{
+          expand: true,
+          cwd: '<%%= yeoman.app %>/elements',
+          src: '{,*/}*.css',
+          dest: '<%%= yeoman.dist %>'
+        }]
       }
     },
     htmlmin: {
@@ -205,10 +260,19 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,txt}',
             '.htaccess',
-            'elements/**',
+            'elements/**',<% if (includeSass) { %>
+            '!elements/**/*.scss',<% } %>
             'images/{,*/}*.{webp,gif}',
             'bower_components/**'
           ]
+        }]
+      },
+      styles: {
+        files: [{
+          expand: true,
+          cwd: '<%%= yeoman.app %>',
+          dest: '.tmp',
+          src: ['{styles,elements}/{,*/}*.css']
         }]
       }
     }
@@ -225,9 +289,10 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
-      'clean:server',
+      'clean:server',<% if (includeSass) { %>
+      'sass:server',<% } %>
+      'copy:styles',
       'connect:livereload',
-      'copy',
       'open',
       'watch'
     ]);
@@ -242,17 +307,17 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'clean:dist',
+    'clean:dist',<% if (includeSass) { %>
+    'sass',<% } %>
     'copy',
-    'vulcanize',
     'useminPrepare',
+    'vulcanize',
     'imagemin',
     'concat',
     'cssmin',
     'uglify',
     'htmlmin',
-    'usemin',
-    'clean:tmp'
+    'usemin'
   ]);
 
   grunt.registerTask('default', [

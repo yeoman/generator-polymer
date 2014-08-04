@@ -1,15 +1,8 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <polymer-element name="yo-list"  attributes="">
   <template>
-    <style>
-      /* styles for the custom element itself - lowest specificity */
-      :host { display: block; }
-      /*
-      style if an ancestor has the different class
-      :host-context(.different) { }
-      */
-    </style>
+    <link rel="stylesheet" href="yo-list.css">
     <ul>
       <template id="greeting" repeat="{{ item in items }}">
         <li>{{ item }}</li>
