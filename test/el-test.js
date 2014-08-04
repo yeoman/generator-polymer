@@ -38,12 +38,18 @@ describe('yo polymer:el test', function () {
 
   it('creates expected files', function (done) {
     var expected = [
-      'app/elements/x-foo.html'
+      'app/elements/x-foo/x-foo.html',
+      'app/elements/x-foo/x-foo.css'
     ];
 
     helpers.mockPrompt(this.polymer, {
       includeCore: true,
-      includePaper: true
+      includePaper: true,
+      includeSass: false  // FIXME: figure out why .yo-rc isn't generated
+    });
+
+    helpers.mockPrompt(this.element, {
+      externalStyle: true
     });
 
     // Run the polymer:app generator

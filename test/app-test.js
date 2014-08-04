@@ -38,20 +38,24 @@ describe('yo polymer:app test', function () {
       'Gruntfile.js',
       '.jshintrc',
       'app/index.html',
-      'app/styles/main.css',
+      'app/styles/main.scss',
       'app/scripts/app.js',
       'app/404.html',
       'app/favicon.ico',
       'app/.htaccess',
       'app/robots.txt',
       'app/elements/elements.html',
-      'app/elements/yo-greeting.html',
-      'app/elements/yo-list.html'
+      'app/elements/yo-greeting/yo-greeting.html',
+      'app/elements/yo-greeting/yo-greeting.scss',
+      'app/elements/yo-list/yo-list.html',
+      'app/elements/yo-list/yo-list.scss'
     ];
 
     helpers.mockPrompt(this.polymer, {
       includeCore: true,
-      includePaper: true
+      includePaper: true,
+      includeSass: true,
+      includeLibSass: true
     });
 
     this.polymer.run({}, function () {
