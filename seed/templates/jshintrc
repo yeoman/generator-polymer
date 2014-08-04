@@ -18,5 +18,11 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
-  "jquery": true
+  "jquery": true,
+  "globals": {
+    "wrap": true,
+    "unwrap": true,
+    "Polymer": true,
+    "Platform": true
+  }
 }
