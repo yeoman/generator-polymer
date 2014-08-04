@@ -14,12 +14,19 @@ module.exports = yeoman.generators.Base.extend({
         name: 'externalStyle',
         message: 'Would you like an external ' + styleType + ' file for this element?',
         type: 'confirm'
+      },
+      {
+        name: 'includeImport',
+        message: 'Would you like to include an import in your elements.html file?',
+        type: 'confirm',
+        default: false
       }
     ];
 
     this.prompt(prompts, function (answers) {
       this.includeSass = includeSass;
       this.externalStyle = answers.externalStyle;
+      this.includeImport = answers.includeImport;
 
       done();
     }.bind(this));
@@ -52,8 +59,10 @@ module.exports = yeoman.generators.Base.extend({
     }
 
     // Wire up the dependency in elements.html
-    var file = this.readFileAsString('app/elements/elements.html');
-    file += '<link rel="import" href="' + el + '.html">\n';
-    this.writeFileFromString(file, 'app/elements/elements.html');
+    if (this.includeImport) {
+      var file = this.readFileAsString('app/elements/elements.html');
+      file += '<link rel="import" href="' + el + '.html">\n';
+      this.writeFileFromString(file, 'app/elements/elements.html');
+    }
   }
 });

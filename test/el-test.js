@@ -49,7 +49,8 @@ describe('yo polymer:el test', function () {
     });
 
     helpers.mockPrompt(this.element, {
-      externalStyle: true
+      externalStyle: true,
+      includeImport: false
     });
 
     // Run the polymer:app generator
