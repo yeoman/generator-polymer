@@ -1,7 +1,11 @@
 {
   "name": "<%= _.slugify(elementName) %>",
   "version": "0.0.0",
-  "keywords": "seed, polymer, web-components",
+  "keywords": [
+    "seed",
+    "polymer",
+    "web-components"
+  ],
   "main": "<%= _.slugify(elementName) %>.html",
   "dependencies": {
     "polymer": "Polymer/polymer#~0.3.4"
