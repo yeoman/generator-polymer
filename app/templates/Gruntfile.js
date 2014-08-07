@@ -275,6 +275,26 @@ module.exports = function (grunt) {
           src: ['{styles,elements}/{,*/}*.css']
         }]
       }
+    },
+    // See this tutorial if you'd like to run PageSpeed
+    // against localhost: http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/
+    pagespeed: {
+      options: {
+        // By default, we use the PageSpeed Insights
+        // free (no API key) tier. You can use a Google
+        // Developer API key if you have one. See
+        // http://goo.gl/RkN0vE for info
+        nokey: true
+      },
+      // Update `url` below to the public URL for your site
+      mobile: {
+        options: {
+          url: "https://developers.google.com/web/fundamentals/",
+          locale: "en_GB",
+          strategy: "mobile",
+          threshold: 80
+        }
+      }
     }
   });
 

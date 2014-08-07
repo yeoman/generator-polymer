@@ -19,6 +19,7 @@
     "grunt-contrib-jasmine": "~0.5.1",<% } else { %>
     "grunt-mocha": "~0.4.7",<% } %>
     "grunt-usemin": "~2.3.0",
+    "grunt-pagespeed": "~0.3.0",
     "grunt-rev": "~0.1.0",
     "grunt-open": "~0.2.3",
     "grunt-vulcanize": "~0.3.0",
