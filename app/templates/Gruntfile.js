@@ -52,7 +52,7 @@ module.exports = function (grunt) {
           '<%%= yeoman.app %>/styles/{,*/}*.css',
           '<%%= yeoman.app %>/elements/{,*/}*.css'
         ],
-        tasks: ['copy:styles']
+        tasks: ['copy:styles', 'autoprefixer:server']
       }<% if (testFramework === 'jasmine') { %>,
       test: {
         files: ['<%%= yeoman.app %>/scripts/{,*/}*.js', 'test/spec/**/*.js'],
@@ -63,10 +63,9 @@ module.exports = function (grunt) {
           '<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}',
           '<%%= yeoman.app %>/elements/{,*/}*.{scss,sass}'
         ],
-        tasks: ['sass:server']
+        tasks: ['sass:server', 'autoprefixer:server']
       }<% } %>
     },<% if (includeSass) { %>
-
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
       options: {<% if (includeLibSass) { %>
@@ -77,6 +76,9 @@ module.exports = function (grunt) {
         loadPath: 'bower_components'
       <% } %>},
       dist: {
+        options: {
+          style: 'compressed'
+        },
         files: [{
           expand: true,
           cwd: '<%%= yeoman.app %>',
@@ -95,6 +97,27 @@ module.exports = function (grunt) {
         }]
       }
     },<% } %>
+    autoprefixer: {
+      options: {
+        browsers: ['last 2 versions']
+      },
+      server: {
+        files: [{
+          expand: true,
+          cwd: '.tmp',
+          src: '**/*.css',
+          dest: '.tmp'
+        }]
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.dist %>',
+          src: '**/*.css',
+          dest: '<%= yeoman.dist %>'
+        }]
+      }
+    },
     connect: {
       options: {
         port: 9000,
@@ -193,6 +216,18 @@ module.exports = function (grunt) {
         }
       }
     },
+    vulcanize: {
+      default: {
+        options: {
+          strip: true
+        },
+        files: {
+          '<%%= yeoman.dist %>/elements/elements.vulcanized.html': [
+            '<%%= yeoman.dist %>/elements/elements.html'
+          ]
+        }
+      }
+    },
     imagemin: {
       dist: {
         files: [{
@@ -202,52 +237,36 @@ module.exports = function (grunt) {
           dest: '<%%= yeoman.dist %>/images'
         }]
       }
-    },
+    },<% if (!includeSass) { %>
     cssmin: {
-      dist: {
+      main: {
         files: {
           '<%%= yeoman.dist %>/styles/main.css': [
-            '.tmp/styles/{,*/}*.css',
-            '<%%= yeoman.app %>/styles/{,*/}*.css'
+            '.tmp/concat/styles/{,*/}*.css'
           ]
         }
       },
       elements: {
         files: [{
           expand: true,
-          cwd: '<%%= yeoman.app %>/elements',
+          cwd: '.tmp/elements',
           src: '{,*/}*.css',
-          dest: '<%%= yeoman.dist %>'
+          dest: '<%%= yeoman.dist %>/elements'
         }]
       }
-    },
-    htmlmin: {
-      dist: {
-        options: {
-          /*removeCommentsFromCDATA: true,
-          // https://github.com/yeoman/grunt-usemin/issues/44
-          //collapseWhitespace: true,
-          collapseBooleanAttributes: true,
-          removeAttributeQuotes: true,
-          removeRedundantAttributes: true,
-          useShortDoctype: true,
-          removeEmptyAttributes: true,
-          removeOptionalTags: true*/
-        },
+    },<% } %>
+    minifyHtml: {
+      options: {
+        quotes: true,
+        empty: true
+      },
+      app: {
         files: [{
           expand: true,
-          cwd: '<%%= yeoman.app %>',
+          cwd: '<%%= yeoman.dist %>',
           src: '*.html',
           dest: '<%%= yeoman.dist %>'
         }]
-      }
-    },
-    vulcanize: {
-      default: {
-        options: {},
-        files: {
-          '<%%= yeoman.dist %>/elements/elements.vulcanized.html': ['<%%= yeoman.dist %>/elements/elements.html'],
-        }
       }
     },
     copy: {
@@ -260,8 +279,10 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,txt}',
             '.htaccess',
+            '*.html',
             'elements/**',<% if (includeSass) { %>
-            '!elements/**/*.scss',<% } %>
+            '!elements/**/*.scss',<% } else { %>
+            '!elements/**/*.css',<% } %>
             'images/{,*/}*.{webp,gif}',
             'bower_components/**'
           ]
@@ -312,6 +333,7 @@ module.exports = function (grunt) {
       'clean:server',<% if (includeSass) { %>
       'sass:server',<% } %>
       'copy:styles',
+      'autoprefixer:server',
       'connect:livereload',
       'open',
       'watch'
@@ -331,13 +353,14 @@ module.exports = function (grunt) {
     'sass',<% } %>
     'copy',
     'useminPrepare',
+    'imagemin',<% if (!includeSass) { %>
+    'concat',<% } %>
+    'autoprefixer',
+    'uglify',<% if (!includeSass) { %>
+    'cssmin',<% } %>
     'vulcanize',
-    'imagemin',
-    'concat',
-    'cssmin',
-    'uglify',
-    'htmlmin',
-    'usemin'
+    'usemin',
+    'minifyHtml'
   ]);
 
   grunt.registerTask('default', [
