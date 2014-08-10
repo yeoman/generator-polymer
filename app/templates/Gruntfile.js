@@ -112,9 +112,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.dist %>',
-          src: '**/*.css',
-          dest: '<%= yeoman.dist %>'
+          cwd: '<%%= yeoman.dist %>',
+          src: ['**/*.css', '!bower_components/**/*.css'],
+          dest: '<%%= yeoman.dist %>'
         }]
       }
     },
@@ -353,8 +353,8 @@ module.exports = function (grunt) {
     'sass',<% } %>
     'copy',
     'useminPrepare',
-    'imagemin',<% if (!includeSass) { %>
-    'concat',<% } %>
+    'imagemin',
+    'concat',
     'autoprefixer',
     'uglify',<% if (!includeSass) { %>
     'cssmin',<% } %>
