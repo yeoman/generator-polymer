@@ -20,6 +20,8 @@
 * Boilerplate to create reusable Polymer elements
 * Quick deploy to GitHub pages
 * All the goodness of `seed-element` (docs & landing page for your element)
+* Support for SASS/SCSS and Autoprefixer
+* PageSpeed Insights for performance tuning
 
 ## Installation
 
@@ -80,6 +82,12 @@ Example:
 cd components/x-foo
 yo polymer:gh
 ```
+
+## Gotchas
+
+### Autoprefixer and style elements
+
+The Autoprefixer task will not work with `style` elements mixed into HTML files (it breaks). Meaning, if you drop a style tag inside of your Polymer element, it will not be processed by Autoprefixer. **Only external CSS files can/will be processed by Autoprefixer**.
 
 ## Contribute
 
