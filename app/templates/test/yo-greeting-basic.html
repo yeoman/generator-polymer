@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>yo-greeting-basic</title>
+
+  <script src="../bower_components/platform/platform.js"></script>
+  <link rel="import"
+    href="../bower_components/polymer-test-tools/tools.html">
+  <script src="../bower_components/polymer-test-tools/htmltest.js">
+  </script>
+
+  <!-- Step 1: import the element to test -->
+  <link rel="import" href="../elements/yo-greeting/yo-greeting.html">
+
+</head>
+<body>
+
+  <yo-greeting></yo-greeting>
+
+  <script>
+
+    document.addEventListener('polymer-ready', function() {
+      var el = document.querySelector('yo-greeting');
+      var header = el.shadowRoot.querySelector('h1');
+      assert.equal(header.textContent, '\'Allo, \'Allo!');
+
+      // IMPORTANT:
+      // Make sure to call done() at the end of every test suite!
+      done();
+    });
+
+  </script>
+
+</body>
+</html>

@@ -94,5 +94,6 @@ module.exports = yeoman.generators.Base.extend({
       this.includeSass ? 'app/elements/yo-greeting/yo-greeting.scss':
                          'app/elements/yo-greeting/yo-greeting.css');
     this.copy('app/index.html', 'app/index.html');
+    this.directory('test', 'app/test');
   }
 });

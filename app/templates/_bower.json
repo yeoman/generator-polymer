@@ -6,5 +6,7 @@
     "paper-elements": "Polymer/paper-elements#^0.4.0",<% } %>
     "polymer": "Polymer/polymer#^0.4.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "polymer-test-tools": "Polymer/polymer-test-tools#^0.4.0"
+  }
 }

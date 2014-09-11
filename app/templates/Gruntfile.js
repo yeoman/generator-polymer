@@ -53,11 +53,7 @@ module.exports = function (grunt) {
           '<%%= yeoman.app %>/elements/{,*/}*.css'
         ],
         tasks: ['copy:styles', 'autoprefixer:server']
-      }<% if (testFramework === 'jasmine') { %>,
-      test: {
-        files: ['<%%= yeoman.app %>/scripts/{,*/}*.js', 'test/spec/**/*.js'],
-        tasks: ['test']
-      }<% } %><% if (includeSass) { %>,
+      }<% if (includeSass) { %>,
       sass: {
         files: [
           '<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}',
@@ -137,13 +133,15 @@ module.exports = function (grunt) {
       },
       test: {
         options: {
+          open: {
+            target: 'http://localhost:<%%= connect.options.port %>/test/runner.html'
+          },
           middleware: function (connect) {
             return [
-              mountFolder(connect, '.tmp'),
-              mountFolder(connect, 'test'),
               mountFolder(connect, yeomanConfig.app)
             ];
-          }
+          },
+          keepalive: true
         }
       },
       dist: {
@@ -175,29 +173,7 @@ module.exports = function (grunt) {
         '!<%%= yeoman.app %>/scripts/vendor/*',
         'test/spec/{,*/}*.js'
       ]
-    }<% if (testFramework === 'mocha') { %>,
-    mocha: {
-      all: {
-        options: {
-          run: true,
-          urls: ['http://localhost:<%%= connect.options.port %>/index.html']
-        }
-      }
-    }<% } else { %>,
-    jasmine: {
-      all:{
-        src : '.tmp/scripts/combined-scripts.js',
-        options: {
-          keepRunner: true,
-          specs : 'test/spec/**/*.js',
-          vendor : [
-            '<%%= yeoman.app %>/bower_components/jquery/jquery.js',
-            '<%%= yeoman.app %>/bower_components/underscore/underscore.js',
-            '<%%= yeoman.app %>/bower_components/backbone/backbone.js'
-          ]
-        }
-      }
-    }<% } %>,
+    },
     useminPrepare: {
       html: '<%%= yeoman.app %>/index.html',
       options: {
@@ -341,11 +317,8 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'clean:server',<% if(testFramework === 'mocha') { %>
-    'connect:test',
-    'mocha'<% } else { %>
-    'jasmine',
-    'watch:test'<% } %>
+    'clean:server',
+    'connect:test'
   ]);
 
   grunt.registerTask('build', [

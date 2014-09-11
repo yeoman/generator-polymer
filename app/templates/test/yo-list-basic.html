@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>yo-list-basic</title>
+
+  <script src="../bower_components/platform/platform.js"></script>
+  <link rel="import"
+    href="../bower_components/polymer-test-tools/tools.html">
+  <script src="../bower_components/polymer-test-tools/htmltest.js">
+  </script>
+
+  <!-- Step 1: import the element to test -->
+  <link rel="import" href="../elements/yo-list/yo-list.html">
+
+</head>
+<body>
+
+  <yo-list></yo-list>
+
+  <script>
+
+    document.addEventListener('polymer-ready', function() {
+      // Test a property
+      var el = document.querySelector('yo-list');
+      el.items.push('Foo');
+
+      // Data bindings will stamp out new DOM asynchronously
+      // so wait to check for updates
+      setTimeout(function() {
+        var listItems = el.shadowRoot.querySelectorAll('li');
+        assert.equal(el.items.length, listItems.length);
+
+        // IMPORTANT:
+        // Make sure to call done() at the end of every test suite!
+        done();
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>
