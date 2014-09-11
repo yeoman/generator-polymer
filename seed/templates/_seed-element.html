@@ -5,60 +5,80 @@ Element providing solution to no problem in particular.
 
 ##### Example
 
-    <<%= _.slugify(elementName) %>></<%= _.slugify(elementName) %>>
+    <<%= elementName %>></<%= elementName %>>
 
-@element <%= _.slugify(elementName) %>
+@element <%= elementName %>
 @blurb Element providing solution to no problem in particular.
 @status alpha
-@homepage http://<%= ghUser %>.github.io/<%= _.slugify(elementName) %>
+@homepage http://polymerlabs.github.io/<%= elementName %>
 -->
-<polymer-element name="<%= _.slugify(elementName) %>" attributes="notitle">
+<polymer-element name="<%= elementName %>" attributes="notitle author">
 
   <template>
 
-    <link rel="stylesheet" href="<%= _.slugify(elementName) %>.css" />
+    <link rel="stylesheet" href="<%= elementName %>.css" />
 
+    <h1>Hello from <%= elementName %></h1>
     <content></content>
 
   </template>
 
   <script>
 
-    Polymer('<%= _.slugify(elementName) %>', {
+    Polymer({
       /**
-       * The `noevent` event is not actually fired from here,
-       * we document it as an example of documenting events.
+       * The `author` attribute sets an initial author
        *
-       * @event noevent
-       */
-
-      /**
-       * The `notitle` attribute does not yet have a purpose.
-       *
-       * @attribute notitle
+       * @attribute author
        * @type string
+       * @default 'Dimitri Glazkov'
        */
-      notitle: '',
+      author: 'Dimitri Glazkov',
 
       /**
-       * The `aProp` is a property that does something cool.
+       * `fancy` is a property that does something fancy.
        *
-       * @property aProp
+       * @property fancy
        * @type bool
+       * @default false
        */
-      aProp: false,
+      fancy: false,
 
       ready: function() {
+        // Ready is a lifecycle callback.
+        // You can do setup work in here.
+        // More info: http://www.polymer-project.org/docs/polymer/polymer.html#lifecyclemethods
       },
 
       /**
-       * The `task` method does no work at this time.
+       * The `sayHello` method will return a greeting.
        *
-       * @method task
-       * @return {Object} Returns undefined.
-       * @param {String} dummy Serves no purpose today.
+       * @method sayHello
+       * @param {String} greeting Pass in a specific greeting.
+       * @return {String} Returns a string greeting.
        */
-      task: function(dummy) {
+      sayHello: function(greeting) {
+        var response = greeting || 'Hello World!';
+        return '<%= elementName %> says, ' + response;
+      },
+
+      /**
+       * The `<%= elementName %>-lasers-success` event is fired whenever we
+       * call fireLasers.
+       *
+       * @event <%= elementName %>-lasers-success
+       * @param {Object} detail
+       *   @param {string} detail.sound An amazing sound.
+       */
+
+      /**
+       * The `fireLasers` method will fire the lasers. At least
+       * it will dispatch an event that claims lasers were fired :)
+       *
+       * @method fireLasers
+       */
+      fireLasers: function() {
+        this.fire('<%= elementName %>-lasers-success', { sound: 'Pew pew pew!' });
       }
 
     });

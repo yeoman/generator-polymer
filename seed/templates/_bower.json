@@ -1,13 +1,16 @@
 {
-  "name": "<%= _.slugify(elementName) %>",
+  "name": "<%= elementName %>",
   "version": "0.0.0",
   "keywords": [
     "seed",
     "polymer",
     "web-components"
   ],
-  "main": "<%= _.slugify(elementName) %>.html",
+  "main": "<%= elementName %>.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^0.4.0"
+  },
+  "devDependencies": {
+    "polymer-test-tools": "Polymer/polymer-test-tools#^0.4.0"
   }
 }

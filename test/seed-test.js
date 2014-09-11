@@ -38,7 +38,10 @@ describe('yo polymer:seed test', function () {
       'index.html',
       'README.md',
       'x-foo.css',
-      'x-foo.html'
+      'x-foo.html',
+      'test/runner.html',
+      'test/tests.html',
+      'test/x-foo-basic.html',
     ];
 
     helpers.mockPrompt(this.polymer, {

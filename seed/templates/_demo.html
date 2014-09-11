@@ -2,17 +2,17 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title><%= _.slugify(elementName) %> Demo</title>
+  <title><%= elementName %> Demo</title>
 
   <script src="../platform/platform.js"></script>
-  <link rel="import" href="<%= _.slugify(elementName) %>.html">
+  <link rel="import" href="<%= elementName %>.html">
 
 </head>
 <body unresolved>
 
-  <p>An `<%= _.slugify(elementName) %>` looks like this:</p>
+  <p>An `<%= elementName %>` looks like this:</p>
 
-  <<%= _.slugify(elementName) %>></<%= _.slugify(elementName) %>>
+  <<%= elementName %>></<%= elementName %>>
 
 </body>
 </html>
