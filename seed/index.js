@@ -62,7 +62,7 @@ module.exports = yeoman.generators.Base.extend({
     this.template('_index.html', 'index.html');
     this.template('_demo.html', 'demo.html');
     this.template('_README.md', 'README.md');
-    this.template('test/runner.html', 'test/runner.html');
+    this.template('test/index.html', 'test/index.html');
     this.template('test/seed-element-basic.html',
                   'test/' + this.elementName + '-basic.html');
     this.template('test/tests.html', 'test/tests.html');

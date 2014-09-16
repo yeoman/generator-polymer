@@ -134,7 +134,7 @@ module.exports = function (grunt) {
       test: {
         options: {
           open: {
-            target: 'http://localhost:<%%= connect.options.port %>/test/runner.html'
+            target: 'http://localhost:<%%= connect.options.port %>/test'
           },
           middleware: function (connect) {
             return [

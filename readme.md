@@ -22,6 +22,7 @@
 * All the goodness of `seed-element` (docs & landing page for your element)
 * Support for SASS/SCSS and Autoprefixer
 * PageSpeed Insights for performance tuning
+* Mocha test stubs
 
 ## Installation
 
