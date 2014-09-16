@@ -39,7 +39,7 @@ describe('yo polymer:seed test', function () {
       'README.md',
       'x-foo.css',
       'x-foo.html',
-      'test/runner.html',
+      'test/index.html',
       'test/tests.html',
       'test/x-foo-basic.html',
     ];
