@@ -4,4 +4,6 @@ contributing.md
 .jshintrc
 .npmignore
 test
+!app/templates/test
+!seed/templates/test
 .travis.yml
