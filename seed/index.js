@@ -1,4 +1,5 @@
 'use strict';
+var _ = require('lodash');
 var yeoman = require('yeoman-generator');
 var path = require('path');
 var yosay = require('yosay');
@@ -30,9 +31,39 @@ module.exports = yeoman.generators.Base.extend({
         'ex: yo polymer:seed my-element'
       ));
     }
+  },
+  checkForDanger: function () {
+    var done = this.async();
 
-    // Construct the element as a subdirectory.
-    this.destinationRoot(this.elementName);
+    // Because the element installs its dependencies as siblings, we want to
+    // make it clear to the user that it is potentially dangerous to generate
+    // their element from workspace containing other directories.
+    var entries = this.expand('*');
+    var bowerEntries = _.map(this.expand('*/bower.json'), path.dirname);
+    var nonComponents = _.difference(entries, bowerEntries);
+
+    // Whew, everything looks like a bower component!
+    if (nonComponents.length === 0) return done();
+
+    console.warn(
+      'You are generating your element in a workspace that appears to contain data\n' +
+      'other than web components. This is potentially dangerous, as your element\'s\n' +
+      'dependencies will be installed in the current directory. Bower will\n' +
+      'overwrite any conflicting directories.\n'
+    );
+    var prompts = [{
+      name: 'livesDangerously',
+      message: 'Are you ok with that?',
+      default: 'no',
+    }];
+
+    this.prompt(prompts, function (props) {
+      if (props.livesDangerously[0] === 'n') {
+        // Async done never gets called; process ends.
+      } else {
+        done();
+      }
+    }.bind(this));
   },
   askFor: function () {
     var done = this.async();
@@ -55,6 +86,9 @@ module.exports = yeoman.generators.Base.extend({
     }.bind(this));
   },
   seed: function () {
+    // Construct the element as a subdirectory.
+    this.destinationRoot(this.elementName);
+
     this.copy('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
     this.copy('bowerrc', '.bowerrc');
