@@ -4,14 +4,17 @@ var path = require('path');
 var yosay = require('yosay');
 
 module.exports = yeoman.generators.Base.extend({
-  init: function () {
-    this.on('end', function () {
-      if (!this.options['skip-install']) {
-        this.installDependencies({
-          skipMessage: this.options['skip-install-message'],
-          npm: false
-        });
-      }
+  constructor: function () {
+    yeoman.generators.Base.apply(this, arguments);
+
+    this.option('skip-install', {
+      desc:     'Whether bower dependencies should be installed',
+      defaults: false,
+    });
+
+    this.option('skip-install-message', {
+      desc:     'Whether commands run should be shown',
+      defaults: false,
     });
   },
   askFor: function () {
@@ -66,5 +69,12 @@ module.exports = yeoman.generators.Base.extend({
     this.template('test/seed-element-basic.html',
                   'test/' + this.elementName + '-basic.html');
     this.template('test/tests.html', 'test/tests.html');
+  },
+  install: function () {
+    this.installDependencies({
+      npm: false,
+      skipInstall: this.options['skip-install'],
+      skipMessage: this.options['skip-install-message'],
+    });
   }
 });

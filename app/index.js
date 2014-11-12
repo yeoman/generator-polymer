@@ -5,15 +5,17 @@ var yosay = require('yosay');
 var chalk = require('chalk');
 
 module.exports = yeoman.generators.Base.extend({
-  init: function () {
-    this.testFramework = this.options['test-framework'] || 'mocha';
+  constructor: function () {
+    yeoman.generators.Base.apply(this, arguments);
 
-    this.on('end', function () {
-      if (!this.options['skip-install']) {
-        this.installDependencies({
-          skipMessage: this.options['skip-install-message']
-        });
-      }
+    this.option('skip-install', {
+      desc:     'Whether dependencies should be installed',
+      defaults: false,
+    });
+
+    this.option('skip-install-message', {
+      desc:     'Whether commands run should be shown',
+      defaults: false,
     });
   },
   askFor: function () {
@@ -95,5 +97,11 @@ module.exports = yeoman.generators.Base.extend({
                          'app/elements/yo-greeting/yo-greeting.css');
     this.copy('app/index.html', 'app/index.html');
     this.directory('test', 'app/test');
+  },
+  install: function () {
+    this.installDependencies({
+      skipInstall: this.options['skip-install'],
+      skipMessage: this.options['skip-install-message'],
+    });
   }
 });
