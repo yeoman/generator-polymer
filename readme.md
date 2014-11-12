@@ -67,12 +67,15 @@ yo polymer:el my-element
 ### Seed
 Generates a reusable polymer element based on the [seed-element workflow](http://www.polymer-project.org/docs/start/reusableelements.html). **This should only be used if you're creating a standalone element repo that you intend to share with others via bower.** If you're just building a Polymer app, stick to the [El](#el) generator.
 
-To create a seed-element you'll first need to create a parent directory, then a sub directory to hold your seed-element. All bower dependencies will be installed into the parent directory. Please follow the [seed-element guide](http://www.polymer-project.org/docs/start/reusableelements.html) for more instructions.
+The seed-element generator will construct a new element _and_ its directory for
+you. Be aware: all bower dependencies will be installed as _siblings_ of the
+newly generated element. Make sure that you generate the seed element within a
+directory that is intended to contain multiple components!
 
 Example:
 ```bash
-mkdir -p components/x-foo && cd $_
-yo polymer:seed
+mkdir -p components && cd $_
+yo polymer:seed x-foo
 ```
 
 ### Gh

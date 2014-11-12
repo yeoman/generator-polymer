@@ -4,8 +4,10 @@ var path    = require('path');
 var helpers = require('yeoman-generator').test;
 
 describe('yo polymer:seed test', function () {
+  var testDir = path.join(__dirname, 'temp');
+
   before(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+    helpers.testDirectory(testDir, function (err) {
       if (err) {
         return done(err);
       }
@@ -15,7 +17,7 @@ describe('yo polymer:seed test', function () {
           helpers.createDummyGenerator(),
           'mocha:seed'
         ]
-      ]);
+      ], 'x-foo');
       this.polymer.options['skip-install'] = true;
 
       done();
@@ -29,19 +31,19 @@ describe('yo polymer:seed test', function () {
 
   it('creates expected files', function (done) {
     var expected = [
-      ['bower.json', /"name": "x-foo"/, /"main": "x-foo.html"/],
-      '.bowerrc',
-      '.editorconfig',
-      '.gitignore',
-      '.jshintrc',
-      'demo.html',
-      'index.html',
-      'README.md',
-      'x-foo.css',
-      'x-foo.html',
-      'test/index.html',
-      'test/tests.html',
-      'test/x-foo-basic.html',
+      ['x-foo/bower.json', /"name": "x-foo"/, /"main": "x-foo.html"/],
+      'x-foo/.bowerrc',
+      'x-foo/.editorconfig',
+      'x-foo/.gitignore',
+      'x-foo/.jshintrc',
+      'x-foo/demo.html',
+      'x-foo/index.html',
+      'x-foo/README.md',
+      'x-foo/x-foo.css',
+      'x-foo/x-foo.html',
+      'x-foo/test/index.html',
+      'x-foo/test/tests.html',
+      'x-foo/test/x-foo-basic.html',
     ];
 
     helpers.mockPrompt(this.polymer, {
@@ -50,6 +52,7 @@ describe('yo polymer:seed test', function () {
     });
 
     this.polymer.run({}, function () {
+      process.chdir(testDir);
       helpers.assertFiles(expected);
       done();
     });
