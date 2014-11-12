@@ -1,9 +1,14 @@
 'use strict';
+var _ = require('lodash');
 var yeoman = require('yeoman-generator');
-var path = require('path');
 var yosay = require('yosay');
 
-module.exports = yeoman.generators.Base.extend({
+// Helpers are mixed into an intermediate prototype so that yeoman doesn't pick
+// them up as generator steps.
+var IntermediateBase = yeoman.generators.Base.extend({});
+_.extend(IntermediateBase.prototype, require('./detect'));
+
+module.exports = IntermediateBase.extend({
   init: function () {
     this.on('end', function () {
       if (!this.options['skip-install']) {
@@ -20,16 +25,16 @@ module.exports = yeoman.generators.Base.extend({
     // Have Yeoman greet the user.
     this.log(yosay('Out of the box I include the Polymer seed-element.'));
 
-    var defaultName = path.basename(process.cwd());
     var prompts = [
       {
         name: 'ghUser',
-        message: 'What is your GitHub username?'
+        message: 'What is your GitHub username?',
+        default: this.currentGithubUser()
       },
       {
         name: 'elementName',
         message: 'What is your element\'s name',
-        default: defaultName
+        default: this.currentProjectName()
       }
     ];
 
