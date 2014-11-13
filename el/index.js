@@ -3,6 +3,23 @@ var yeoman = require('yeoman-generator');
 var path = require('path');
 
 module.exports = yeoman.generators.Base.extend({
+  constructor: function () {
+    yeoman.generators.Base.apply(this, arguments);
+
+    this.argument('element-name', {
+      desc: 'Tag name of the element to generate',
+      required: true,
+    });
+  },
+  init: function () {
+    this.elementName = this['element-name'];
+    if (this.elementName.indexOf('-') === -1) {
+      this.emit('error', new Error(
+        'Element name must contain a dash "-"\n' +
+        'ex: yo polymer:el my-element'
+      ));
+    }
+  },
   askFor: function () {
     var done = this.async();
 
@@ -32,19 +49,6 @@ module.exports = yeoman.generators.Base.extend({
     }.bind(this));
   },
   el: function () {
-    this.elementName = this.args[0];
-    if (!this.elementName) {
-      console.error('Element name required');
-      console.error('ex: yo polymer:el my-element');
-      return;
-    }
-
-    if (this.elementName.indexOf('-') === -1) {
-      console.error('Element name must contain a dash "-"');
-      console.error('ex: yo polymer:el my-element');
-      return;
-    }
-
     // Create the template element
 
     // el = "x-foo/x-foo"
