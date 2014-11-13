@@ -2,7 +2,7 @@
 var yeoman = require('yeoman-generator');
 var path = require('path');
 var yosay = require('yosay');
-var ncp = require('ncp')
+var ncp = require('ncp');
 var spawn = require('child_process').spawn;
 var rimraf = require('rimraf');
 
