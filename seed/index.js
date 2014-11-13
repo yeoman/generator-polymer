@@ -7,6 +7,11 @@ module.exports = yeoman.generators.Base.extend({
   constructor: function () {
     yeoman.generators.Base.apply(this, arguments);
 
+    this.argument('element-name', {
+      desc: 'Tag name of the element and directory to generate.',
+      required: true,
+    });
+
     this.option('skip-install', {
       desc:     'Whether bower dependencies should be installed',
       defaults: false,
@@ -17,43 +22,39 @@ module.exports = yeoman.generators.Base.extend({
       defaults: false,
     });
   },
+  validate: function () {
+    this.elementName = this['element-name'];
+    if (this.elementName.indexOf('-') === -1) {
+      this.emit('error', new Error(
+        'Element name must contain a dash "-"\n' +
+        'ex: yo polymer:seed my-element'
+      ));
+    }
+
+    // Construct the element as a subdirectory.
+    this.destinationRoot(this.elementName);
+  },
   askFor: function () {
     var done = this.async();
 
     // Have Yeoman greet the user.
-    this.log(yosay('Out of the box I include the Polymer seed-element.'));
+    this.log(yosay('Out of the box I follow the seed-element pattern.'));
 
     var defaultName = path.basename(process.cwd());
     var prompts = [
       {
         name: 'ghUser',
         message: 'What is your GitHub username?'
-      },
-      {
-        name: 'elementName',
-        message: 'What is your element\'s name',
-        default: defaultName
       }
     ];
 
     this.prompt(prompts, function (props) {
       this.ghUser = props.ghUser;
-      this.elementName = props.elementName;
 
       done();
     }.bind(this));
   },
   seed: function () {
-    if (this.elementName.indexOf('-') === -1) {
-      console.error(
-        'The element name you provided: ' + this.elementName + ' ' +
-        'is invalid.'
-      );
-      console.error('Element name must contain a dash "-"');
-      console.error('ex: my-element');
-      return;
-    }
-
     this.copy('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
     this.copy('bowerrc', '.bowerrc');
