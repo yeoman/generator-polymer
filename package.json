@@ -25,6 +25,7 @@
     "lodash": "^2.4.1",
     "ncp": "^1.0.1",
     "rimraf": "^2.2.8",
+    "shelljs": "^0.3.0",
     "underscore.string": "^2.3.3",
     "yeoman-generator": "^0.17.2",
     "yosay": "^1.0.0"
