@@ -7,6 +7,6 @@
     "polymer": "Polymer/polymer#^0.5.1"
   },
   "devDependencies": {
-    "polymer-test-tools": "Polymer/polymer-test-tools#^0.5.1"
+    "web-component-tester": "Polymer/web-component-tester#~2.0.0"
   }
 }
