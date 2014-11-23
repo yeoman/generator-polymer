@@ -50,7 +50,6 @@ describe('yo polymer:app test', function () {
       'app/elements/yo-list/yo-list.html',
       'app/elements/yo-list/yo-list.scss',
       'app/test/index.html',
-      'app/test/tests.html',
       'app/test/yo-greeting-basic.html',
       'app/test/yo-list-basic.html'
     ];

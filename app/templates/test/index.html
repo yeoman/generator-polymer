@@ -7,14 +7,15 @@
     <meta charset="UTF-8">
 
     <script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
-
-    <link rel="import" href="tests.html">
-
+    <script src="../bower_components/web-component-tester/browser.js"></script>
   </head>
 
   <body>
 
-    <div id="mocha"></div>
+    <script>
+      WCT.loadSuites(['yo-greeting-basic.html', 'yo-list-basic.html']);
+    </script>
+
 
   </body>
 
