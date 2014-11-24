@@ -5,8 +5,7 @@
   <title><%= elementName %></title>
 
   <script src="../../webcomponentsjs/webcomponents.js"></script>
-  <link rel="import" href="../../polymer-test-tools/tools.html">
-  <script src="../../polymer-test-tools/htmltest.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
 
   <!-- Step 1: import the element to test -->
   <link rel="import" href="../<%= elementName %>.html">
@@ -14,31 +13,32 @@
 </head>
 <body>
 
-  <<%= elementName %>></<%= elementName %>>
+  <<%= elementName %> id="fixture"></<%= elementName %>>
 
   <script>
+    var myEl = document.getElementById('fixture');
 
-    document.addEventListener('polymer-ready', function() {
-      // Test a property
-      var myEl = document.querySelector('<%= elementName %>');
-      assert.equal(myEl.author, 'Dimitri Glazkov');
+    suite('<<%= elementName %>>', function() {
 
-      // Test a method
-      var hello = myEl.sayHello();
-      assert.equal(hello, '<%= elementName %> says, Hello World!');
-      var greetings = myEl.sayHello('greetings Earthlings');
-      assert.equal(greetings, '<%= elementName %> says, greetings Earthlings');
-
-      // Test an event
-      myEl.addEventListener('<%= elementName %>-lasers-success', function(event) {
-        assert.equal(event.detail.sound, 'Pew pew pew!');
-        // IMPORTANT:
-        // Make sure to call done() at the end of every test suite!
-        done();
+      test('defines the "author" property', function() {
+        assert.equal(myEl.author, 'Dimitri Glazkov');
       });
-      myEl.fireLasers();
-    });
 
+      test('says hello', function() {
+        assert.equal(myEl.sayHello(), '<%= elementName %> says, Hello World!');
+        var greetings = myEl.sayHello('greetings Earthlings');
+        assert.equal(greetings, '<%= elementName %> says, greetings Earthlings');
+      });
+
+      test('fires lasers', function(done) {
+        myEl.addEventListener('<%= elementName %>-lasers-success', function(event) {
+          assert.equal(event.detail.sound, 'Pew pew pew!');
+          done();
+        });
+        myEl.fireLasers();
+      });
+
+    });
   </script>
 
 </body>

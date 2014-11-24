@@ -103,7 +103,6 @@ module.exports = yeoman.generators.Base.extend({
     this.template('test/index.html', 'test/index.html');
     this.template('test/seed-element-basic.html',
                   'test/' + this.elementName + '-basic.html');
-    this.template('test/tests.html', 'test/tests.html');
   },
   install: function () {
     this.installDependencies({
