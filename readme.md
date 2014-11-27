@@ -54,11 +54,15 @@ Example:
 yo polymer
 ```
 
-### El
+### Element (alias: El)
 Generates a polymer element in `app/elements` and appends an import to `app/elements/elements.html`.
 
 Example:
 ```bash
+yo polymer:element my-element
+
+# or use the alias
+
 yo polymer:el my-element
 ```
 
