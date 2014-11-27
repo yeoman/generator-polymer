@@ -40,7 +40,7 @@ Scaffold a new Polymer project:
 Available generators:
 
 - [polymer (aka polymer:app)](#app)
-- [polymer:el](#el)
+- [polymer:el](#element-alias-el)
 - [polymer:seed](#seed)
 - [polymer:gh](#gh)
 
@@ -69,7 +69,7 @@ yo polymer:el my-element
 **Note: You must pass in an element name, and the name must contain a dash "-"**
 
 ### Seed
-Generates a reusable polymer element based on the [seed-element workflow](http://www.polymer-project.org/docs/start/reusableelements.html). **This should only be used if you're creating a standalone element repo that you intend to share with others via bower.** If you're just building a Polymer app, stick to the [El](#el) generator.
+Generates a reusable polymer element based on the [seed-element workflow](http://www.polymer-project.org/docs/start/reusableelements.html). **This should only be used if you're creating a standalone element repo that you intend to share with others via bower.** If you're just building a Polymer app, stick to the [Element](#element-alias-el) generator.
 
 The seed-element generator will construct a new element _and_ its directory for
 you. Be aware: all bower dependencies will be installed as _siblings_ of the
