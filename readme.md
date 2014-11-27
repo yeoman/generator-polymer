@@ -40,7 +40,7 @@ Scaffold a new Polymer project:
 Available generators:
 
 - [polymer (aka polymer:app)](#app)
-- [polymer:el](#element-alias-el)
+- [polymer:element](#element-alias-el)
 - [polymer:seed](#seed)
 - [polymer:gh](#gh)
 
