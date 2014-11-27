@@ -55,9 +55,9 @@ module.exports = yeoman.generators.Base.extend({
     var el = path.join(this.elementName, this.elementName);
     // pathToEl = "app/elements/x-foo/x-foo"
     var pathToEl = path.join('app/elements', el);
-    this.template('_element.html', pathToEl + '.html');
+    this.template(path.join(__dirname, 'templates/_element.html'), pathToEl + '.html');
     if (this.externalStyle) {
-      this.template('_element.css',
+      this.template(path.join(__dirname, 'templates/_element.css'),
         this.includeSass ? pathToEl + '.scss':
                            pathToEl + '.css');
     }
