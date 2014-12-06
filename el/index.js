@@ -10,9 +10,19 @@ module.exports = yeoman.generators.Base.extend({
       desc: 'Tag name of the element to generate',
       required: true,
     });
+
+    /*
+    Is this better?
+    this.argument('component-name', {
+      desc: 'Name of the external component',
+      required: false
+    });*/
   },
   init: function () {
     this.elementName = this['element-name'];
+    this.args.splice(0,1);
+    this.components = this.args;
+
     if (this.elementName.indexOf('-') === -1) {
       this.emit('error', new Error(
         'Element name must contain a dash "-"\n' +
@@ -55,6 +65,7 @@ module.exports = yeoman.generators.Base.extend({
     var el = path.join(this.elementName, this.elementName);
     // pathToEl = "app/elements/x-foo/x-foo"
     var pathToEl = path.join('app/elements', el);
+    console.log("here",this.components);
     this.template(path.join(__dirname, 'templates/_element.html'), pathToEl + '.html');
     if (this.externalStyle) {
       this.template(path.join(__dirname, 'templates/_element.css'),
