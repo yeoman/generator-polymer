@@ -66,6 +66,14 @@ yo polymer:element my-element
 yo polymer:el my-element
 ```
 
+One can also include external components i.e those are already registered in bower.
+
+```bash
+
+yo polymer:el my-element core-animation
+
+```
+
 **Note: You must pass in an element name, and the name must contain a dash "-"**
 
 ### Seed
