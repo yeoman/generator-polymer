@@ -1,21 +1,585 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<polymer-element name="<%= elementName %>" attributes="">
-  <template><% if (!externalStyle) { %>
+<!--
+  This template contains a very detailed description about how we can use Polymer to build better WebApps. The
+  descriptions are an approach to give people a very clean overview of how they can use Polymer.
+
+  The most text and content is extracted/based on from https://www.polymer-project.org/docs/polymer/polymer.html
+  (licensed under CC BY 3.0.).
+
+  The attribute 'attributes' is used to publish attributes and declare a public API for the consumers of this element.
+    -> https://www.polymer-project.org/docs/polymer/polymer.html#published-properties
+
+  If the 'extends' attribute is used, then this element extends from the existing element.
+    -> https://www.polymer-project.org/docs/polymer/polymer.html#extending-other-elements
+
+  If 'noscript' is set, the Custom Element doesn't have any scripts inside and Polymer() don't need to be called.
+    -> https://www.polymer-project.org/docs/polymer/polymer.html#altregistration
+
+  Default attributes like class="active" or 'mycustomattr' can be given. They will be included on each instance of the
+  element.
+
+  Summary:
+    - name        (required)    Name for the custom element. Requires a "-".
+    - attributes                Used to publish properties.
+    - extends                   Used to extend other elements.
+    - noscript                  For simple elements that don't need to call Polymer(). See Element registration.
+    - constructor               The name of the constructor to put on the global object. Allows users to create
+                                instances of your element using the new operator (e.g. var tagName = new TagName()).
+-->
+<polymer-element name="my-awesome-custom-element" attributes="attr1 attr2 attr3">
+
+  <!-- template must come before <script> -->
+  <template>
+    <!-- use inline css -->
     <style>
       :host {
         display: block;
       }
-    </style><% } else { %>
-    <link rel="stylesheet" href="<%= elementName %>.css"><% } %>
-  </template>
-  <script>
-    (function () {
+    </style>
 
+    <!-- or use external css files -->
+    <link rel="stylesheet" href="my-awesome-custom-element.css">
+
+    <!-- shadow DOM here, will be automatically cloned into the Shadow DOM by Polymer -->
+    <input type="number" value="{{num}}"><br>
+    <em>{{num}}^2 = {{square}}</em>
+
+    <!-- declarative event handling with on-<eventName> (preferred way!) -->
+    <button on-click="{{clickHandler}}" on-keypress="{{keypressHandler}}"></button>
+  </template>
+
+  <script>
+    /**
+     * This is a IIFE (Immediately-invoked function expression), a JavaScript design pattern. which produces a lexical
+     * scope using JavaScript's function scoping. Immediately-invoked function expressions can be used to avoid
+     * variable hoisting from within blocks, protect against polluting the global environment and simultaneously
+     * allow public access to methods while retaining privacy for variables defined within the function. This pattern
+     * has been referred to as a self-executing anonymous function.
+     *
+     * Source: http://en.wikipedia.org/wiki/Immediately-invoked_function_expression
+     */
+    (function () {
+      // private AND static section, cannot be accessed from the outside. Will only run once!
+      // This can be used as sharing global variables for several elements.
+      var myVar = 'Hey dude, what\'s up?';
+
+      /**
+       * Polymer element. This code will run for EVERY instance of this Custom Element.
+       *
+       * - this references the custom element itself inside a Polymer element. For example, this.localName == 'tag-name'
+       */
       Polymer({
         // define element prototype here
+
+        // ***** Published attributes (this is the same as using attributes="foo bar baz" above) *****
+
+        // But note: property reflection to attributes is enabled. This means, that all three attributes are
+        // on any change reflected to the attribute of the element. So, for example this.foo = 'Yes, I am foo!' from
+        // within an element is the same as calling this.setAttribute('foo', 'Yes, I am foo!')
+        publish: {
+          foo: 'I am foo!',
+          bar: 5,
+
+          // this is explicitly set, but has no effect in the publish block, it's always reflected
+          baz: {
+            value: false,
+            reflect: true
+          },
+
+          num: 2,
+          // 'square' can be accessed from the outside, as we had defined attributes="square"
+          computed: {
+            // syntax: property-name: 'polymer-expression'
+            square: 'num * num' // *read-only*: will result in 2*2 = 4, default values for that attribute are ignored
+          }
+        },
+
+        computed: {
+          square2: 'num * num' // can only be accessed from within the element, private!
+        },
+
+        // Property with forced reflection, same as it were defined in the publish: { ... } block or on attributes="..."
+        // the declarative way.
+        //
+        // NOTE:
+        //  - if 'value' is an OBJECT, ARRAY or FUNCTION the value NEVER reflected, whatever 'reflect' is set to!
+        //  - if 'value' is a boolean -> the attribute appears only in the element if the value is TRUE
+        //  - the initial value is NOT reflected into the DOM unless you set another value
+        //
+        // There is also to note, that attribute reflection is separate from data binding. Two-way data binding is
+        // available on published properties whether or not they’re reflected. Not published properties that are not
+        // explicitly reflected will not reflect their value into a placeholder {{varName}} and keep the brackets.
+        propertyName: {
+          value: defaultValue,
+          reflect: true
+        },
+
+        // ***** Events *****
+
+        // Event handlers for the bound events in the <template> above
+        //
+        //  - event: standard event object
+        //  - detail: A convienience form of inEvent.detail
+        //  - sender: A reference to the node that decalared the handler.
+        keypressHandler: function(event, detail, sender) {
+          // handle keypress
+        },
+        clickHandler: function(event, detail, sender) {
+          // handle click
+        },
+
+        // Imperative event handling (not preferred!)
+        // This is the same as to declare it declarative like: <polymer-element on-tap="{{onTap}}">
+        eventDelegates: {
+          // the keys (up and down) are the event names to listen for and to map them with the value to a handler func.
+          up: 'onTap',
+          down: 'onTap'
+        },
+
+        onTap: function(event, detail, sender) {
+          // handle the up/down event from the imperative declared events
+        },
+
+        // ***** ECMAScript 5 getter (DO NOT USE THEM ANYMORE!) *****
+        get var() {
+          return myVar;
+        },
+
+        // works like the getter above
+        getVar: function(){
+          return myVar;
+        },
+
+        // ***** Lifecycle methods *****
+        created: function() {
+          // An instance of the element is created.
+        },
+
+        ready: function() {
+          // The <polymer-element> has been fully prepared
+          // (e.g. shadow DOM created, property observers
+          // setup, event listeners attached, etc).
+        },
+
+        attached: function () {
+          // An instance of the element was inserted into the DOM.
+        },
+
+        domReady: function() {
+          // Called when the element’s initial set of children are
+          // guaranteed to exist. This is an appropriate time to
+          // poke at the element’s parent or light DOM children.
+          // Another use is when you have sibling custom elements
+          // (e.g. they’re .innerHTML‘d together, at the same time).
+          // Before element A can use B’s API/properties, element B
+          // needs to be upgraded. The domReady callback ensures
+          // both elements exist.
+        },
+
+        detached: function() {
+          // An instance was removed from the DOM.
+        },
+
+        attributeChanged: function(attrName, oldVal, newVal) {
+          // An attribute was added, removed, or updated. Note: Changed
+          // watchers are often easier to use and can watch either
+          // ordinary properties or attribute changes matching published
+          // properties.
+
+          //var newVal = this.getAttribute(attrName);
+          console.log(attrName, 'old: ' + oldVal, 'new:', newVal);
+        },
+
+        // ***** Observing properties *****
+        //
+        // Changed watchers
+        //
+        //   When the value of a watched property changes, the appropriate
+        //   change handler is automatically invoked. Please note, that this
+        //   is often easier to use as to handle changed attributes with the
+        //   'attributeChanged' lifecycle method above.
+        better: '',
+        best: '',
+        betterChanged: function(oldValue, newValue) {
+          // attribute 'better' has changed from 'oldValue' to 'newValue'
+        },
+
+        bestChanged: function(oldValue, newValue) {
+          // attribute 'best' has changed from 'oldValue' to 'newValue'
+        },
+
+        // Custom property observers - 'observe blocks'
+        //
+        //   An observe block defines a custom property/observer mapping for
+        //   one or more properties. It can be used to watch for changes to
+        //   nested objects or share the same callback for several properties.
+        observe: {
+          // for these properties, Polymer DOES NOT CALL the *propertyName*Changed
+          // callback, instead the defined observer gets called.
+          better: 'validate',
+          best: 'validate'
+        },
+
+        // 'validate' is called whenever 'foo' or 'bar' changes
+        validate: function(oldValue, newValue) {
+          // check if it's a valid format/value for your purpose, like a valid number format
+        },
+
+        // it's also possible to use automatic node finding in an 'observe block'
+        observe: {
+          // this will search within the <template> for an element with id="foo" and watches
+          // for the attribute 'someProperty' to change.
+          '$.foo.someProperty': 'fooPropertyChanged',
+
+          // even nested object path
+          'a.b.c': 'validateSubPath'
+        },
+
+        fooPropertyChanged: function(oldValue, newValue) {
+          // ...
+        },
+
+        validateSubPath: function(oldValue, newValue) {
+          // here we can use the Polymer helper to get the value of the nested path
+          var value = Path.get('a.b.c').getValueFrom(this);
+
+          // oldValue == undefined, if the value was not declaratively set in the HTML markup
+          // newValue == value == this.a.b.c
+        },
+
+        // if a property is defined in an 'observe block', the defined method will be
+        // called - even if the property is defined within the object.
+        bar: '',
+        observe: {
+          bar: 'validate'
+        },
+        barChanged: function(oldValue, newValue) {
+          console.log("I'm not called");
+        },
+        validate: function(oldValue, newValue) {
+          console.log("I'm called instead");
+        },
+
+        // ***** Automatic node finding *****
+        // Another useful feature of Polymer is automatic node finding. Nodes in a component’s
+        // shadow DOM that are tagged with an id attribute are automatically referenced in the
+        // component’s this.$ hash.
+        //
+        // NOTE: Nodes created dynamically using data binding are not added to the this.$ hash
+        // The hash includes only statically created shadow DOM nodes (that is, the nodes
+        // defined in the element’s outermost template).
+        //
+        // <template>
+        //   <input type="text" id="nameInput">
+        // </template>
+        //
+        logNameValue: function() {
+          console.log(this.$.nameInput.value);
+        },
+
+        // but also not IDed elements can be grabbed with querySelector:
+        // <template>
+        //  <div id="container">
+        //    <template if="{{some_condition}}">
+        //      <div id="inner">
+        //        This content is created by data binding.
+        //      </div>
+        //    </template>
+        //    </div>
+        // </template>
+        //
+        // locateable via -> this.$.container.querySelector('#inner');
+        // or             -> this.shadowRoot.querySelector('#inner')
+
+        // ***** Custom Events *****
+        // Polymer provides fire() which is a wrapper around the standard node.dispatchEvent(new CustomEvent(...))
+        // When a microtask has ended is sometimes better to use asyncFire(), which is asynchronous.
+        //
+        // <template>
+        //   <button on-click="{{onClick}}">Send hurt</button>
+        // </template>
+        //
+        // You can use
+        //
+        // document.querySelector('my-element-having-the-above-template').addEventListener('ouch', function() {
+        //   console.log(e.type, e.detail.msg); // "ouch" "That hurt!"
+        // });
+        //
+        // which can be simplified to:
+        // <my-element-having-the-above-template on-ouch="{{myMethod}}"></my-element-having-the-above-template>
+        onClick: function() {
+          this.fire('ouch', {msg: 'That hurt!'}); // fire(type, detail, targetNode, bubbles?, cancelable?)
+        }
       });
 
     })();
   </script>
 </polymer-element>
+
+<!-- ***** Extending other elements ***** -->
+<polymer-element name="polymer-cool">
+  <template>
+    You are {{praise}} <content></content>!
+  </template>
+  <script>
+    Polymer({
+      praise: 'cool'
+    });
+  </script>
+</polymer-element>
+
+<polymer-element name="polymer-cooler" extends="polymer-cool">
+  <template>
+    <!-- A shadow element render's the extended
+         element's shadow dom here. -->
+    <shadow></shadow> <!-- "You are cool Matt" -->
+  </template>
+  <script>
+    Polymer();
+  </script>
+</polymer-element>
+
+<polymer-cooler>Matt</polymer-cooler>
+
+<!-- overriding a parent's methods -->
+
+<!--
+  When you override an inherited method, you can call the parent’s
+  method with
+  this.super(), and optionally pass it a list of arguments (e.g.
+  this.super([arg1, arg2])). The reason the parameter is an array is so you can write
+  this.super(arguments).
+-->
+
+<!--
+  In this example, when the user clicks on a <polymer-cooler> element, its makeCoolest()
+  method is called, which in turn calls the parent’s version using this.super(). The
+  praise property (inherited from <polymer-cool>) is set to “coolest”.
+-->
+<polymer-element name="polymer-cool">
+  <template>
+    You are {{praise}} <content></content>!
+  </template>
+  <script>
+    Polymer({
+      praise: 'cool',
+      makeCoolest: function() {
+        this.praise = 'the coolest';
+      }
+    });
+  </script>
+</polymer-element>
+
+<polymer-element name="polymer-cooler" extends="polymer-cool"
+                 on-click="{{makeCoolest}}">
+  <template>
+    <shadow></shadow>
+  </template>
+  <script>
+    Polymer({
+      praise: 'cool',
+      makeCoolest: function() {
+        this.super(); // calls polymer-cool's makeCoolest()
+      }
+    });
+  </script>
+</polymer-element>
+
+<polymer-cooler>Matt</polymer-cooler>
+
+<!-- ***** Built-in element methods ***** -->
+<!-- Polymer includes a few handy methods on your element’s prototype. -->
+
+<!--
+  To know when light DOM children change, you can setup a Mutation Observer to be notified
+  when nodes are added or removed. To make this more convenient, Polymer adds an onMutation()
+  callback to every element. Its first argument is the DOM element to observe. The second
+  argument is a callback which is passed the MutationObserver and the mutation records:
+
+  this.onMutation(domElement, someCallback);
+
+  Example - Observe changes to (light DOM) children elements:
+
+  ready: function() {
+    // Observe a single add/remove.
+    this.onMutation(this, this.childrenUpdated);
+  },
+  childrenUpdated: function(observer, mutations) {
+    // getDistributedNodes() has new stuff.
+
+    // Monitor again.
+    this.onMutation(this, this.childrenUpdated);
+  }
+-->
+
+<!-- ***** Dealing with asynchronous tasks ***** -->
+<!--
+  Many things in Polymer happen asynchronously. Changes are gathered up and executed all at once,
+  instead of executing right away. Batching changes creates an optimization that (a) prevents
+  duplicated work and (b) reduces unwanted FOUC.
+
+  Change watchers and situations that rely on data-bindings are examples that fit under this async
+  behavior. For example, conditional templates may not immediately render after setting properties
+  because changes to those renderings are saved up and performed all at once after you return from
+  JavaScript.
+
+  To do work after changes have been processed, Polymer provides async(). It’s similar to window.setTimeout(),
+  but it automatically binds this to the correct value and is timed to requestAnimationFrame:
+
+  // async(inMethod, inArgs, inTimeout)
+  this.async(function() {
+    this.foo = 3;
+  }, null, 1000);
+
+  // Roughly equivalent to:
+  //setTimeout(function() {
+  //  this.foo = 3;
+  //}.bind(this), 1000);
+
+  The first argument is a function or string name for the method to call asynchronously. The second argument,
+  inArgs, is an optional object or array of arguments to pass to the callback.
+
+  In the case of property changes that result in DOM modifications, follow this pattern:
+-->
+<script>
+    Polymer('my-element', {
+      propChanged: function() {
+        // If "prop" changing results in our DOM changing,
+        // schedule an update after the new microtask.
+        this.async(this.updateValues);
+      },
+      updateValues: function() {
+        // ...
+      }
+    });
+</script>
+
+<!-- ***** Delaying work ***** -->
+<!--
+  Sometimes it’s useful to delay a task after an event, property change, or user interaction. A common
+  way to do this is with window.setTimeout():
+
+  this.responseChanged = function() {
+    if (this.timeout1) {
+      clearTimeout(this.toastTimeout1);
+    }
+    this.timeout1 = window.setTimeout(function() {
+      ...
+    }, 500);
+  }
+
+  However, this is such a common pattern that Polymer provides the job() utility for doing the same thing:
+
+  this.responseChanged = function() {
+    this.job('job1', function() { // first arg is the name of the "job"
+      this.fire('done');
+    }, 500);
+  }
+
+  job() can be called repeatedly before the timeout but it only results in a single side-effect. In other
+  words, if responseChanged() is immediately executed 250ms later, the done event won’t fire until 750ms.
+-->
+
+<!-- ***** Advanced topics ***** -->
+<!--
+  1) Life of an element’s bindings
+
+  When you remove an element from the DOM, Polymer asynchronously deactivates its {{}} bindings and *Changed
+  methods. This helps prevent memory leaks, ensuring the element will be garbage collected.
+
+  If you want the element to “remain active” when it’s not in the document, call cancelUnbindAll() right after
+  you remove it. The lifecycle methods are a good place for this:
+
+  Polymer('my-element', {
+    detached: function() {
+      // Keep bindings active when this element is removed
+      this.cancelUnbindAll();
+    }
+  });
+
+
+
+  2) How data changes are propagated
+
+  Data changes in Polymer happen almost immediately (at end of a microtask) when Object.observe() is available.
+  When it’s not supported, Polymer uses a polyfill (observe-js) to poll and periodically propagate data-changes
+  throughout the system. This is done through a method called Platform.flush().
+
+  What is Platform.flush()?
+
+  Platform.flush() is part of Polymer’s data observation polyfill, observe-js. It dirty check’s all objects that
+  have been observed and ensures notification callbacks are dispatched. Polymer automatically calls Platform.flush()
+  periodically, and this should be sufficient for most application workflows. However, there are times when you’ll
+  want to call Platform.flush() in application code.
+
+  Note: on platforms that support Object.observe() natively, Platform.flush() does nothing.
+
+  When should I call Platform.flush()?
+
+  Instead of waiting for the next poll interval, one can manually schedule an update by calling Platform.flush().
+  There are very few cases where you need to call Platform.flush() directly.
+
+  If it’s important that a data change propagates before the next screen paint, you may need to manually call
+  Platform.flush(). Here are specific examples:
+
+  a) A property change results in a CSS class being added to a node. Often, this works out fine, but sometimes,
+     it’s important to make sure the node does not display without the styling from the added class applied to it.
+     To ensure this, call Platform.flush() in the property change handler after adding the CSS class.
+
+  b) The author of a slider element wants to ensure that data can propagate from it as the user slides the slider.
+     A user of the element, might, for example, bind the slider’s value to an input and expect to see the input
+     change while the slider is moving. To achieve this, the element author calls Platform.flush() after setting
+     the element’s value in the ontrack event handler.
+
+  Note: Polymer is designed such that change notifications are asynchronous. Both Platform.flush() and Object.observe()
+  (after which it’s modeled) are asynchronous. Therefore, Platform.flush() should not be used to try to enforce
+  synchronous data notifications. Instead, always use change watchers to be informed about state.
+
+
+
+  3) How Polymer elements prepare themselves
+
+  For performance reasons, <polymer-element>s avoid the expense of preparing ShadowDOM, event listeners, and property
+  observers if they’re created outside the main document. This behavior is similar to how native elements such as
+  <img> and <video> behave. They remain in a semi-inert state when created outside the main document (e.g. an <img>
+  avoids the expense of loading its src).
+
+  Polymer elements prepare themselves automatically in the following cases:
+
+  a) when they’re created in a document that has a defaultView (the main document)
+  b) when they receive the attached callback
+  c) when they’re created in the shadowRoot of another element that is preparing itself
+
+  In addition, if the .alwaysPrepare property is set to true, Polymer elements prepare themselves even when they
+  do not satisfy the above rules.
+
+  Polymer('my-element', {
+    alwaysPrepare: true
+  });
+
+  Note: an element’s ready() lifecycle callback is called after an element has been prepared. Use ready() to know when
+  an element is done initializing itself.
+-->
+
+<!-- ***** Resolving paths of sibling elements ***** -->
+<!--
+  For the general case of element re-use and sharing, URLs in HTML Imports are meant to be relative to the location of
+  the import. The majority of the time, the browser takes care of this for you.
+
+  However, JavaScript doesn’t have a notion of a local import. Therefore, Polymer provides a resolvePath() utility for
+  converting paths relative to the import to paths relative to the document.
+
+  For example: If you know your import is in a folder containing a resource (e.g x-foo.png), you can get a path to
+  x-foo.png which will work relative to the main document by calling this.resolvePath('x-foo.png').
+
+  Visually, this might look like the following:
+
+  index.html
+  components/x-foo/
+    x-foo.html
+    x-foo.png
+
+  At an element level, where this refers to an instance of an x-foo created by index.html,
+  this.resolvePath('x-foo.png') === 'components/x-foo/x-foo.png'.
+-->

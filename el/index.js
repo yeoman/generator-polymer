@@ -69,6 +69,8 @@ module.exports = yeoman.generators.Base.extend({
     // copy templates/_demo.html -> app/elements/x-foo/demo.html (demo page)
     this.template(path.join(__dirname, 'templates/_demo.html'), path.join(pathToElementDir, 'demo.html'));
     
+    this.template(path.join(__dirname, 'templates/_bower.json'), path.join(pathToElementDir, 'bower.json'));
+    
     if (this.externalStyle) {
       this.template(path.join(__dirname, 'templates/_element.css'),
         this.includeSass ? pathToEl + '.scss':
