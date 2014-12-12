@@ -16,6 +16,7 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
+  grunt.loadNpmTasks('web-component-tester');
 
   // configurable paths
   var yeomanConfig = {
@@ -274,6 +275,17 @@ module.exports = function (grunt) {
         }]
       }
     },
+    'wct-test': {
+      options: {
+        root: '<%%= yeoman.app %>'
+      },
+      local: {
+        options: {remote: false}
+      },
+      remote: {
+        options: {remote: true}
+      }
+    },
     // See this tutorial if you'd like to run PageSpeed
     // against localhost: http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/
     pagespeed: {
@@ -317,9 +329,9 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('test', [
-    'connect:test'
-  ]);
+  grunt.registerTask('test', ['wct-test:local']);
+  grunt.registerTask('test:browser', ['connect:test']);
+  grunt.registerTask('test:remote', ['wct-test:remote']);
 
   grunt.registerTask('build', [
     'clean:dist',<% if (includeSass) { %>
