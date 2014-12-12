@@ -138,6 +138,7 @@ module.exports = function (grunt) {
           },
           middleware: function (connect) {
             return [
+              mountFolder(connect, '.tmp'),
               mountFolder(connect, yeomanConfig.app)
             ];
           },
@@ -317,7 +318,6 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'clean:server',
     'connect:test'
   ]);
 
