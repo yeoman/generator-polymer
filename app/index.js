@@ -25,6 +25,11 @@ module.exports = yeoman.generators.Base.extend({
     this.log(yosay('Out of the box I include HTML5 Boilerplate and Polymer'));
 
     var prompts = [{
+        name: 'includeGulp',
+        message: 'Would you prefer Gulp or Grunt?',
+        type: 'list',
+        choices: ['Gulp', 'Grunt']
+      }, {
         name: 'includeCore',
         message: 'Would you like to include core-elements?',
         type: 'confirm'
@@ -36,23 +41,17 @@ module.exports = yeoman.generators.Base.extend({
         name: 'includeSass',
         message: 'Would you like to use SASS/SCSS for element styles?',
         type: 'confirm'
-      }, {
-        when: function (answers) {
-          return answers.includeSass;
-        },
-        type: 'confirm',
-        name: 'includeLibSass',
-        message: 'Would you like to use libsass? Read up more at \n' +
-          chalk.green('https://github.com/andrew/node-sass#node-sass'),
-        default: false
       }];
 
     this.prompt(prompts, function (answers) {
+      this.includeGulp = answers.includeGulp == 'Gulp';
       this.includeCore = answers.includeCore;
       this.includePaper = answers.includePaper;
       this.includeSass = answers.includeSass;
-      this.includeLibSass = answers.includeLibSass;
-      this.includeRubySass = !answers.includeLibSass;
+      // LibSASS disabled until this is fixed
+      // https://github.com/sass/libsass/issues/452
+      this.includeLibSass = false;
+      this.includeRubySass = answers.includeSass;
 
       // Save user configuration options to .yo-rc.json file
       this.config.set({
@@ -70,7 +69,11 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('bower.json', 'bower.json');
     this.copy('jshintrc', '.jshintrc');
     this.copy('editorconfig', '.editorconfig');
-    this.template('Gruntfile.js');
+    if (this.includeGulp) {
+      this.template('gulpfile.js');
+    } else {
+      this.template('Gruntfile.js');
+    }
     this.template('_package.json', 'package.json');
     this.mkdir('app');
     this.mkdir('app/styles');
