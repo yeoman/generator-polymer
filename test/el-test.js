@@ -39,4 +39,23 @@ describe('yo polymer:el test', function () {
     assert.file(expected);
   });
 
+  it('imports optional dependencies', function (done) {
+    helpers.run(path.join(__dirname, '../el'))
+      .inDir(path.join(__dirname, './tmp'))
+      .withArguments(['fancy-menu', 'core-menu', 'core-icon-button'])
+      .withPrompt({
+        externalStyle: true,
+        includeImport: false
+      })
+      .on('end', function() {
+        assert.fileContent(
+          'app/elements/fancy-menu/fancy-menu.html', /<link rel="import" href="..\/..\/bower_components\/core-menu\/core-menu.html">/
+        );
+        assert.fileContent(
+          'app/elements/fancy-menu/fancy-menu.html', /<link rel="import" href="..\/..\/bower_components\/core-icon-button\/core-icon-button.html">/
+        );
+        done();
+      });
+  });
+
 });

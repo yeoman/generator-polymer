@@ -68,6 +68,12 @@ yo polymer:el my-element
 
 **Note: You must pass in an element name, and the name must contain a dash "-"**
 
+One can also include element dependencies to be imported. For instance, if you're creating a `fancy-menu` element which needs to import `core-menu` and `core-icon-button` as dependencies, you can generate the file like so:
+
+```bash
+yo polymer:el fancy-menu core-menu core-icon-button
+```
+
 ### Seed
 Generates a reusable polymer element based on the [seed-element workflow](http://www.polymer-project.org/docs/start/reusableelements.html). **This should only be used if you're creating a standalone element repo that you intend to share with others via bower.** If you're just building a Polymer app, stick to the [Element](#element-alias-el) generator.
 

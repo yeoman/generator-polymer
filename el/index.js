@@ -13,6 +13,9 @@ module.exports = yeoman.generators.Base.extend({
   },
   init: function () {
     this.elementName = this['element-name'];
+    this.args.splice(0,1);
+    this.components = this.args;
+
     if (this.elementName.indexOf('-') === -1) {
       this.emit('error', new Error(
         'Element name must contain a dash "-"\n' +
