@@ -13,8 +13,6 @@
   "quotmark": "single",
   "undef": true,
   "unused": true,
-  "strict": true,
-  "jquery": true,
   "globals": {
     "wrap": true,
     "unwrap": true,
