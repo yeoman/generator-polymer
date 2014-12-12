@@ -192,6 +192,19 @@ module.exports = function (grunt) {
         }
       }
     },
+    replace: {
+      dist: {
+        options: {
+          patterns: [{
+            match: /elements\/elements\.html/g,
+            replacement: 'elements/elements.vulcanized.html'
+          }]
+        },
+        files: {
+          '<%%= yeoman.dist %>/index.html': ['<%%= yeoman.dist %>/index.html']
+        }
+      }
+    },
     vulcanize: {
       default: {
         options: {
@@ -351,6 +364,7 @@ module.exports = function (grunt) {
     'cssmin',<% } %>
     'vulcanize',
     'usemin',
+    'replace',
     'minifyHtml'
   ]);
 
