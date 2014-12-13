@@ -68,7 +68,6 @@ module.exports = function (grunt) {
       options: {<% if (includeLibSass) { %>
         includePaths: ['bower_components']
         <% } else { %>
-        sourcemap: true,
         loadPath: 'bower_components'
       <% } %>},
       dist: {
