@@ -1,8 +1,8 @@
 'use strict';
 var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
-var mountFolder = function (connect, dir) {
-  return connect.static(require('path').resolve(dir));
+var mountFolder = function (dir) {
+  return require('serve-static')(require('path').resolve(dir));
 };
 
 // # Globbing
@@ -121,11 +121,11 @@ module.exports = function (grunt) {
       },
       livereload: {
         options: {
-          middleware: function (connect) {
+          middleware: function () {
             return [
               lrSnippet,
-              mountFolder(connect, '.tmp'),
-              mountFolder(connect, yeomanConfig.app)
+              mountFolder('.tmp'),
+              mountFolder(yeomanConfig.app)
             ];
           }
         }
@@ -135,10 +135,10 @@ module.exports = function (grunt) {
           open: {
             target: 'http://localhost:<%%= connect.options.port %>/test'
           },
-          middleware: function (connect) {
+          middleware: function () {
             return [
-              mountFolder(connect, '.tmp'),
-              mountFolder(connect, yeomanConfig.app)
+              mountFolder('.tmp'),
+              mountFolder(yeomanConfig.app)
             ];
           },
           keepalive: true
@@ -146,9 +146,9 @@ module.exports = function (grunt) {
       },
       dist: {
         options: {
-          middleware: function (connect) {
+          middleware: function () {
             return [
-              mountFolder(connect, yeomanConfig.dist)
+              mountFolder(yeomanConfig.dist)
             ];
           }
         }
@@ -275,7 +275,14 @@ module.exports = function (grunt) {
     },
     'wct-test': {
       options: {
-        root: '<%%= yeoman.app %>'
+        root: '<%%= yeoman.app %>',
+        plugins: {
+          serveStatic: {
+            middleware: function() {
+              return mountFolder('.tmp');
+            }
+          }
+        }
       },
       local: {
         options: {remote: false}
