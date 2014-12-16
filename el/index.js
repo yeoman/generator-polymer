@@ -10,6 +10,8 @@ module.exports = yeoman.generators.Base.extend({
       desc: 'Tag name of the element to generate',
       required: true,
     });
+    
+    this.option('collaborative'); // This method adds support for a `--collaborative` flag
   },
   init: function () {
     this.elementName = this['element-name'];
@@ -63,11 +65,14 @@ module.exports = yeoman.generators.Base.extend({
     // pathToElementDir = "app/elements/x-foo"
     var pathToElementDir = path.join(elementDir, this.elementName);
     
-    // copy templates/_index.html -> app/elements/x-foo/index.html (documentation page)
-    this.template(path.join(__dirname, 'templates/_index.html'), path.join(pathToElementDir, 'index.html'));
-    
-    // copy templates/_demo.html -> app/elements/x-foo/demo.html (demo page)
-    this.template(path.join(__dirname, 'templates/_demo.html'), path.join(pathToElementDir, 'demo.html'));
+    // copy documentation page and demo page only if flag is set
+    if (this.options.collaborative) {
+        // copy templates/_index.html -> app/elements/x-foo/index.html (documentation page)
+        this.template(path.join(__dirname, 'templates/_index.html'), path.join(pathToElementDir, 'index.html'));
+
+        // copy templates/_demo.html -> app/elements/x-foo/demo.html (demo page)
+        this.template(path.join(__dirname, 'templates/_demo.html'), path.join(pathToElementDir, 'demo.html'));
+    }
     
     this.template(path.join(__dirname, 'templates/_bower.json'), path.join(pathToElementDir, 'bower.json'));
     

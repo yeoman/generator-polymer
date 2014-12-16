@@ -24,7 +24,7 @@
 
         // Data bindings will stamp out new DOM asynchronously
         // so wait to check for updates
-        setTimeout(function() {
+        flush(function() {
           var listItems = el.shadowRoot.querySelectorAll('li');
           assert.equal(el.items.length, listItems.length);
           done();

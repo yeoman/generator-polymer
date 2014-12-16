@@ -16,6 +16,7 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
+  grunt.loadNpmTasks('web-component-tester');
 
   // configurable paths
   var yeomanConfig = {
@@ -40,7 +41,7 @@ module.exports = function (grunt) {
           '{.tmp,<%%= yeoman.app %>}/elements/{,*/}*.css',
           '{.tmp,<%%= yeoman.app %>}/styles/{,*/}*.css',
           '{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js',
-          '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}'
+          '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       },
       js: {
@@ -65,7 +66,6 @@ module.exports = function (grunt) {
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
       options: {<% if (includeLibSass) { %>
-        sourceMap: true,
         includePaths: ['bower_components']
         <% } else { %>
         sourcemap: true,
@@ -138,6 +138,7 @@ module.exports = function (grunt) {
           },
           middleware: function (connect) {
             return [
+              mountFolder(connect, '.tmp'),
               mountFolder(connect, yeomanConfig.app)
             ];
           },
@@ -209,7 +210,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg}',
+          src: '{,*/}*.{png,jpg,jpeg,svg}',
           dest: '<%%= yeoman.dist %>/images'
         }]
       }
@@ -273,6 +274,17 @@ module.exports = function (grunt) {
         }]
       }
     },
+    'wct-test': {
+      options: {
+        root: '<%%= yeoman.app %>'
+      },
+      local: {
+        options: {remote: false}
+      },
+      remote: {
+        options: {remote: true}
+      }
+    },
     // See this tutorial if you'd like to run PageSpeed
     // against localhost: http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/
     pagespeed: {
@@ -316,10 +328,9 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('test', [
-    'clean:server',
-    'connect:test'
-  ]);
+  grunt.registerTask('test', ['wct-test:local']);
+  grunt.registerTask('test:browser', ['connect:test']);
+  grunt.registerTask('test:remote', ['wct-test:remote']);
 
   grunt.registerTask('build', [
     'clean:dist',<% if (includeSass) { %>
