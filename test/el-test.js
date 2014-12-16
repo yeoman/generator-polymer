@@ -33,9 +33,7 @@ describe('yo polymer:el test', function () {
   it('creates expected files', function () {
     var expected = [
       'app/elements/x-foo/x-foo.html',
-      'app/elements/x-foo/x-foo.css',
-      'app/elements/x-foo/index.html',
-      'app/elements/x-foo/demo.html'
+      'app/elements/x-foo/x-foo.css'
     ];
 
     assert.file(expected);
@@ -59,27 +57,44 @@ describe('yo polymer:el test', function () {
         done();
       });
   });
-  
-  if('imports demo and documentation files on ', function (done) {
-    helpers.run(path.join(__dirname, '../el'))
-      .inDir(path.join(__dirname, './tmp'))
-      .withArguments(['my-element'])
-      .withOptions({ collaborative: true })
-      .withPrompt({
-        externalStyle: false,
-        includeImport: false
-      })
-      .on('end', function() {
-        var expected = [
-          'app/elements/my-element/my-element.html',
-          'app/elements/my-element/index.html',
-          'app/elements/my-element/demo.html'
-        ];
 
-        assert.file(expected);
-        
-        done();
-      });
+});
+
+describe('yo polymer:el --collaborative test', function () {
+
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../app'))
+      .inDir(path.join(__dirname, './tmp'))
+      .withArguments(['--skip-install'])
+      .withPrompt({
+        includeCore: false,
+        includePaper: false,
+        includeSass: false,
+        includeLibSass: false
+      })
+      .on('end', done);
   });
 
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../el'))
+      .inDir(path.join(__dirname, './tmp'))
+      .withArguments(['x-foo'])
+      .withOptions({ 'collaborative': true })
+      .withPrompt({
+        externalStyle: true,
+        includeImport: false
+      })
+      .on('end', done);
+  });
+
+  it('creates expected files', function () {
+    var expected = [
+      'app/elements/x-foo/x-foo.html',
+      'app/elements/x-foo/x-foo.css',
+      'app/elements/x-foo/index.html',
+      'app/elements/x-foo/demo.html'
+    ];
+
+    assert.file(expected);
+  });
 });
