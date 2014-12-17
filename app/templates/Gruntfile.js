@@ -234,7 +234,8 @@ module.exports = function (grunt) {
     minifyHtml: {
       options: {
         quotes: true,
-        empty: true
+        empty: true,
+        spare: true
       },
       app: {
         files: [{
