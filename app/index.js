@@ -68,7 +68,7 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
     this.copy('bowerrc', '.bowerrc');
-    this.copy('_bower.json', 'bower.json');
+    this.copy('bower.json', 'bower.json');
     this.copy('jshintrc', '.jshintrc');
     this.copy('editorconfig', '.editorconfig');
     this.template('Gruntfile.js');

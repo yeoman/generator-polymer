@@ -14,12 +14,12 @@ module.exports = yeoman.generators.Base.extend({
     });
 
     this.option('skip-install', {
-      desc:     'Whether bower dependencies should be installed',
+      desc: 'Whether bower dependencies should be installed',
       defaults: false,
     });
 
     this.option('skip-install-message', {
-      desc:     'Whether commands run should be shown',
+      desc: 'Whether commands run should be shown',
       defaults: false,
     });
   },
@@ -43,7 +43,10 @@ module.exports = yeoman.generators.Base.extend({
     var nonComponents = _.difference(entries, bowerEntries);
 
     // Whew, everything looks like a bower component!
-    if (nonComponents.length === 0) return done();
+    if (nonComponents.length === 0) {
+      done();
+      return;
+    }
 
     console.warn(
       'You are generating your element in a workspace that appears to contain data\n' +
@@ -51,6 +54,7 @@ module.exports = yeoman.generators.Base.extend({
       'dependencies will be installed in the current directory. Bower will\n' +
       'overwrite any conflicting directories.\n'
     );
+
     var prompts = [{
       name: 'livesDangerously',
       message: 'Are you ok with that?',
@@ -58,9 +62,7 @@ module.exports = yeoman.generators.Base.extend({
     }];
 
     this.prompt(prompts, function (props) {
-      if (props.livesDangerously[0] === 'n') {
-        // Async done never gets called; process ends.
-      } else {
+      if (props.livesDangerously[0] !== 'n') {
         done();
       }
     }.bind(this));
@@ -81,7 +83,6 @@ module.exports = yeoman.generators.Base.extend({
 
     this.prompt(prompts, function (props) {
       this.ghUser = props.ghUser;
-
       done();
     }.bind(this));
   },
@@ -92,14 +93,14 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
     this.copy('bowerrc', '.bowerrc');
-    this.template('_bower.json', 'bower.json');
+    this.template('bower.json', 'bower.json');
     this.copy('jshintrc', '.jshintrc');
     this.copy('editorconfig', '.editorconfig');
-    this.template('_seed-element.css', this.elementName + '.css');
-    this.template('_seed-element.html', this.elementName + '.html');
-    this.template('_index.html', 'index.html');
-    this.template('_demo.html', 'demo.html');
-    this.template('_README.md', 'README.md');
+    this.template('seed-element.css', this.elementName + '.css');
+    this.template('seed-element.html', this.elementName + '.html');
+    this.template('index.html', 'index.html');
+    this.template('demo.html', 'demo.html');
+    this.template('README.md', 'README.md');
     this.template('test/index.html', 'test/index.html');
     this.template('test/seed-element-basic.html',
                   'test/' + this.elementName + '-basic.html');

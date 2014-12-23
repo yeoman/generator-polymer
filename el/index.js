@@ -25,7 +25,6 @@ module.exports = yeoman.generators.Base.extend({
   },
   askFor: function () {
     var done = this.async();
-
     var includeSass = this.config.get('includeSass');
     var styleType = includeSass ? 'SCSS' : 'CSS';
 
@@ -47,7 +46,6 @@ module.exports = yeoman.generators.Base.extend({
       this.includeSass = includeSass;
       this.externalStyle = answers.externalStyle;
       this.includeImport = answers.includeImport;
-
       done();
     }.bind(this));
   },
@@ -58,9 +56,9 @@ module.exports = yeoman.generators.Base.extend({
     var el = path.join(this.elementName, this.elementName);
     // pathToEl = "app/elements/x-foo/x-foo"
     var pathToEl = path.join('app/elements', el);
-    this.template(path.join(__dirname, 'templates/_element.html'), pathToEl + '.html');
+    this.template(path.join(__dirname, 'templates/element.html'), pathToEl + '.html');
     if (this.externalStyle) {
-      this.template(path.join(__dirname, 'templates/_element.css'),
+      this.template(path.join(__dirname, 'templates/element.css'),
         this.includeSass ? pathToEl + '.scss':
                            pathToEl + '.css');
     }

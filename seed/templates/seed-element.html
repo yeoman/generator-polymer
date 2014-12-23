@@ -13,18 +13,12 @@ Element providing solution to no problem in particular.
 @homepage http://<%= ghUser %>.github.io/<%= elementName %>
 -->
 <polymer-element name="<%= elementName %>" attributes="notitle author">
-
   <template>
-
-    <link rel="stylesheet" href="<%= elementName %>.css" />
-
+    <link rel="stylesheet" href="<%= elementName %>.css">
     <h1>Hello from <%= elementName %></h1>
     <content></content>
-
   </template>
-
   <script>
-
     Polymer({
       /**
        * The `author` attribute sets an initial author
@@ -44,7 +38,7 @@ Element providing solution to no problem in particular.
        */
       fancy: false,
 
-      ready: function() {
+      ready: function () {
         // Ready is a lifecycle callback.
         // You can do setup work in here.
         // More info: http://www.polymer-project.org/docs/polymer/polymer.html#lifecyclemethods
@@ -57,7 +51,7 @@ Element providing solution to no problem in particular.
        * @param {String} greeting Pass in a specific greeting.
        * @return {String} Returns a string greeting.
        */
-      sayHello: function(greeting) {
+      sayHello: function (greeting) {
         var response = greeting || 'Hello World!';
         return '<%= elementName %> says, ' + response;
       },
@@ -77,12 +71,9 @@ Element providing solution to no problem in particular.
        *
        * @method fireLasers
        */
-      fireLasers: function() {
+      fireLasers: function () {
         this.fire('<%= elementName %>-lasers-success', { sound: 'Pew pew pew!' });
       }
-
     });
-
   </script>
-
 </polymer-element>

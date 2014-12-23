@@ -1,38 +1,34 @@
 <!doctype html>
-<html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= appname %></title>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><%= appname %></title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild-->
 
-  <!-- build:css styles/main.css -->
-  <link rel="stylesheet" href="styles/main.css">
-  <!-- endbuild-->
+    <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
+    <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+    <!-- endbuild -->
 
-  <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
-  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
-  <!-- endbuild -->
+    <!-- build:vulcanized elements/elements.vulcanized.html -->
+    <link rel="import" href="elements/elements.html">
+    <!-- endbuild-->
+  </head>
+  <body unresolved>
+    <div class="hero-unit">
+      <yo-greeting></yo-greeting>
+      <p>You now have</p>
+      <yo-list></yo-list>
+    </div>
 
-  <!-- build:vulcanized elements/elements.vulcanized.html -->
-  <link rel="import" href="elements/elements.html">
-  <!-- endbuild-->
-</head>
-
-<body unresolved>
-
-  <div class="hero-unit">
-    <yo-greeting></yo-greeting>
-    <p>You now have</p>
-    <yo-list></yo-list>
-  </div>
-
-  <!-- build:js scripts/app.js -->
-  <script src="scripts/app.js"></script>
-  <!-- endbuild-->
-</body>
-
+    <!-- build:js scripts/app.js -->
+    <script src="scripts/app.js"></script>
+    <!-- endbuild-->
+  </body>
 </html>
