@@ -7,6 +7,7 @@
 # Run in a clean directory passing in a GitHub org and repo name
 org=$1
 repo=$2
+getdevdeps=$3
 
 # make folder (same as input, no checking!)
 mkdir $repo
@@ -25,6 +26,15 @@ bower install --config.directory="components" $org/$repo#master
 
 # redirect by default to the component folder
 echo "<META http-equiv="refresh" content=\"0;URL=components/$repo/\">" >index.html
+
+
+# install the project's dev dependencies
+if [ "$getdevdeps" = "yes" ]
+then
+  cd components/$repo
+  bower install --config.directory="../"
+  cd ../../
+fi
 
 # send it all to github
 git add -A .

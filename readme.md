@@ -91,6 +91,8 @@ yo polymer:seed x-foo
 ### Gh
 Generates a Github pages branch for your [seed-element](#seed).
 
+If your documentation or demo pages have dependencies declared as devDependencies in bower.json, you can include them in the Github pages branch by answering _yes_ to the relevant question.
+
 Example:
 ```bash
 cd components/x-foo

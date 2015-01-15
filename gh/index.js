@@ -23,12 +23,19 @@ module.exports = yeoman.generators.Base.extend({
         name: 'elementName',
         message: 'What is your element\'s name',
         default: defaultName
+      },
+      {
+        name: 'includeDevDeps',
+        message: 'Would you like to include the devDependencies from your bower.json file?',
+        type: 'confirm',
+        default: false
       }
     ];
 
     this.prompt(prompts, function (props) {
       this.ghUser = props.ghUser;
       this.elementName = props.elementName;
+      this.includeDevDeps = props.includeDevDeps ? 'yes' : 'no';
 
       done();
     }.bind(this));
@@ -44,7 +51,7 @@ module.exports = yeoman.generators.Base.extend({
         return this.log(err);
       }
 
-      var gp = spawn('sh', ['gp.sh', this.ghUser, this.elementName], {cwd: dest});
+      var gp = spawn('sh', ['gp.sh', this.ghUser, this.elementName, this.includeDevDeps], {cwd: dest});
 
       gp.stdout.on('data', function (data) {
         this.log(data.toString());
