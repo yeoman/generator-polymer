@@ -24,7 +24,6 @@ module.exports = yeoman.generators.Base.extend({
     // Have Yeoman greet the user.
     this.log(yosay('Out of the box I include HTML5 Boilerplate and Polymer'));
 
-    var defaultName = path.basename(process.cwd());
     var prompts = [{
         name: 'includeCore',
         message: 'Would you like to include core-elements?',
