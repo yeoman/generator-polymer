@@ -73,7 +73,6 @@ module.exports = yeoman.generators.Base.extend({
     // Have Yeoman greet the user.
     this.log(yosay('Out of the box I follow the seed-element pattern.'));
 
-    var defaultName = path.basename(process.cwd());
     var prompts = [
       {
         name: 'ghUser',
