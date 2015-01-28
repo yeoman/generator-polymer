@@ -10,7 +10,7 @@ describe('yo polymer:el test', function () {
     helpers.run(path.join(__dirname, '../app'))
       .inDir(path.join(__dirname, './tmp'))
       .withArguments(['--skip-install'])
-      .withPrompt({
+      .withPrompts({
         includeCore: false,
         includePaper: false,
         includeSass: false,
@@ -24,19 +24,19 @@ describe('yo polymer:el test', function () {
     helpers.run(path.join(__dirname, '../el'))
       .inDir(path.join(__dirname, './tmp'))
       .withArguments(['x-foo'])
-      .withPrompt({
+      .withPrompts({
         externalStyle: true,
         includeImport: false
       })
       .on('end', done);
   });
 
-  //el supplied with path baz/foo
+  //el supplied with path baz/x-foo
   before(function (done) {
     helpers.run(path.join(__dirname, '../el'))
       .inDir(path.join(__dirname, './tmp'))
-      .withArguments(['baz/foo'])
-      .withPrompt({
+      .withArguments(['baz/x-foo'])
+      .withPrompts({
         externalStyle: true,
         includeImport: false
       })
@@ -52,10 +52,10 @@ describe('yo polymer:el test', function () {
     assert.file(expected);
   });
 
-  it('supports paths as an argument', function () {
+  it('accepts paths and creates expected files', function () {
     var expected = [
-      'app/elements/baz/foo.html',
-      'app/elements/baz/foo.css'
+      'app/elements/baz/foo-element/foo-element.html',
+      'app/elements/baz/foo-element/foo-element.css'
     ];
 
     assert.file(expected);
@@ -65,7 +65,7 @@ describe('yo polymer:el test', function () {
     helpers.run(path.join(__dirname, '../el'))
       .inDir(path.join(__dirname, './tmp'))
       .withArguments(['fancy-menu', 'core-menu', 'core-icon-button'])
-      .withPrompt({
+      .withPrompts({
         externalStyle: true,
         includeImport: false
       })

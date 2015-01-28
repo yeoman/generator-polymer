@@ -16,6 +16,16 @@ module.exports = yeoman.generators.Base.extend({
     this.args.splice(0,1);
     this.components = this.args;
 
+    if (this.elementName.indexOf('/') > 1) { //path param was given
+      var elPathArr = [], path = this.elementName.split('/').reverse();
+      for (var i = 0; i < path.length; i++) {
+        if (path.length - 1 === i) {
+          elPathArr.push(path[i]);
+        }
+      }
+      this.elPath = elPathArr.join('/');
+      this.elHtmlName = path[0];
+    }
     if (this.elementName.indexOf('-') === -1) {
       this.emit('error', new Error(
         'Element name must contain a dash "-"\n' +
@@ -55,8 +65,7 @@ module.exports = yeoman.generators.Base.extend({
 
     if(this.elementName.indexOf('/') > 0) {
       //get what/the/path/elName is;
-      var elName = this.elementName.split('/')[this.elementName.split('/').length - 1];
-      el = path.join(path.dirname(this.elementName), elName);
+      el = path.join(this.elPath, this.elHtmlName, this.elHtmlName);
     } else {
       el = path.join(this.elementName, this.elementName);
     }
