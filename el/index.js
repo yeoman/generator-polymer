@@ -8,7 +8,7 @@ module.exports = yeoman.generators.Base.extend({
 
     this.argument('element-name', {
       desc: 'Tag name of the element to generate',
-      required: true,
+      required: true
     });
   },
   init: function () {
@@ -51,9 +51,15 @@ module.exports = yeoman.generators.Base.extend({
   },
   el: function () {
     // Create the template element
+    var el; // el = "x-foo/x-foo" || "yourpath/your-element";
 
-    // el = "x-foo/x-foo"
-    var el = path.join(this.elementName, this.elementName);
+    if(this.elementName.indexOf('/') > 0) {
+      //get what/the/path/elName is;
+      var elName = this.elementName.split('/')[this.elementName.split('/').length - 1];
+      el = path.join(path.dirname(this.elementName), elName);
+    } else {
+      el = path.join(this.elementName, this.elementName);
+    }
     // pathToEl = "app/elements/x-foo/x-foo"
     var pathToEl = path.join('app/elements', el);
     this.template(path.join(__dirname, 'templates/element.html'), pathToEl + '.html');
