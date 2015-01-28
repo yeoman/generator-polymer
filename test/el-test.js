@@ -19,6 +19,7 @@ describe('yo polymer:el test', function () {
       .on('end', done);
   });
 
+  //el supplied with name only
   before(function (done) {
     helpers.run(path.join(__dirname, '../el'))
       .inDir(path.join(__dirname, './tmp'))
@@ -30,10 +31,31 @@ describe('yo polymer:el test', function () {
       .on('end', done);
   });
 
+  //el supplied with path baz/foo
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../el'))
+      .inDir(path.join(__dirname, './tmp'))
+      .withArguments(['baz/foo'])
+      .withPrompt({
+        externalStyle: true,
+        includeImport: false
+      })
+      .on('end', done);
+  });
+
   it('creates expected files', function () {
     var expected = [
       'app/elements/x-foo/x-foo.html',
       'app/elements/x-foo/x-foo.css'
+    ];
+
+    assert.file(expected);
+  });
+
+  it('supports paths as an argument', function () {
+    var expected = [
+      'app/elements/baz/foo.html',
+      'app/elements/baz/foo.css'
     ];
 
     assert.file(expected);
