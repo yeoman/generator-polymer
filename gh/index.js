@@ -7,6 +7,14 @@ var spawn = require('child_process').spawn;
 var rimraf = require('rimraf');
 
 module.exports = yeoman.generators.Base.extend({
+  constructor: function () {
+    yeoman.generators.Base.apply(this, arguments);
+    this.option('nodevdeps', {
+      desc: 'Whether devDependencies should be installed in the gh-pages branch',
+      default: false
+    });
+    this.includeDevDeps = this.options.nodevdeps ? 'no' : 'yes';
+  },
   askFor: function () {
     var done = this.async();
 
@@ -23,19 +31,12 @@ module.exports = yeoman.generators.Base.extend({
         name: 'elementName',
         message: 'What is your element\'s name',
         default: defaultName
-      },
-      {
-        name: 'includeDevDeps',
-        message: 'Would you like to include the devDependencies from your bower.json file?',
-        type: 'confirm',
-        default: false
       }
     ];
 
     this.prompt(prompts, function (props) {
       this.ghUser = props.ghUser;
       this.elementName = props.elementName;
-      this.includeDevDeps = props.includeDevDeps ? 'yes' : 'no';
 
       done();
     }.bind(this));
