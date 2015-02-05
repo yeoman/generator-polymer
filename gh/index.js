@@ -7,6 +7,14 @@ var spawn = require('child_process').spawn;
 var rimraf = require('rimraf');
 
 module.exports = yeoman.generators.Base.extend({
+  constructor: function () {
+    yeoman.generators.Base.apply(this, arguments);
+    this.option('nodevdeps', {
+      desc: 'Whether devDependencies should be installed in the gh-pages branch',
+      default: false
+    });
+    this.includeDevDeps = this.options.nodevdeps ? 'no' : 'yes';
+  },
   askFor: function () {
     var done = this.async();
 
@@ -44,7 +52,7 @@ module.exports = yeoman.generators.Base.extend({
         return this.log(err);
       }
 
-      var gp = spawn('sh', ['gp.sh', this.ghUser, this.elementName], {cwd: dest});
+      var gp = spawn('sh', ['gp.sh', this.ghUser, this.elementName, this.includeDevDeps], {cwd: dest});
 
       gp.stdout.on('data', function (data) {
         this.log(data.toString());
