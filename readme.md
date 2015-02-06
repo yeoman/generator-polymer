@@ -124,6 +124,10 @@ See the [web-component-tester Grunt readme](https://github.com/Polymer/web-compo
 
 ## Gotchas
 
+### The `elements.html` file
+
+The `app` generator will produce an `elements.html` file where you can place your imports. This file will be [vulcanized](https://www.polymer-project.org/articles/concatenating-web-components.html) when you run the default `grunt` or `gulp` tasks. **You'll want to make sure that elements.html is the only import in your index.html file, otherwise there's a good chance you'll accidentally load Polymer twice and break the app**.
+
 ### Autoprefixer and style elements
 
 The Autoprefixer task will not work with `style` elements mixed into HTML files (it breaks). Meaning, if you drop a style tag inside of your Polymer element, it will not be processed by Autoprefixer. **Only external CSS files can/will be processed by Autoprefixer**.
