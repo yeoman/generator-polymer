@@ -121,11 +121,12 @@ module.exports = function (grunt) {
       },
       livereload: {
         options: {
-          middleware: function () {
+          middleware: function (connect) {
             return [
               lrSnippet,
-              mountFolder('.tmp'),
-              mountFolder(yeomanConfig.app)
+              connect.static('.tmp'),
+              connect.static(yeomanConfig.app),
+              connect().use('/bower_components', connect.static('./bower_components'))
             ];
           }
         }
@@ -135,10 +136,12 @@ module.exports = function (grunt) {
           open: {
             target: 'http://localhost:<%%= connect.options.port %>/test'
           },
-          middleware: function () {
+          middleware: function (connect) {
             return [
-              mountFolder('.tmp'),
-              mountFolder(yeomanConfig.app)
+              connect.static('.tmp'),
+              connect.static('test'),
+              connect.static(yeomanConfig.app),
+              connect().use('/bower_components', connect.static('./bower_components'))
             ];
           },
           keepalive: true
@@ -146,9 +149,9 @@ module.exports = function (grunt) {
       },
       dist: {
         options: {
-          middleware: function () {
+          middleware: function (connect) {
             return [
-              mountFolder(yeomanConfig.dist)
+              connect.static(yeomanConfig.dist)
             ];
           }
         }
@@ -184,20 +187,15 @@ module.exports = function (grunt) {
       html: ['<%%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
-        dirs: ['<%%= yeoman.dist %>'],
-        blockReplacements: {
-          vulcanized: function (block) {
-            return '<link rel="import" href="' + block.dest + '">';
-          }
-        }
+        dirs: ['<%%= yeoman.dist %>']
       }
     },
     replace: {
       dist: {
         options: {
           patterns: [{
-            match: /elements\/elements\.html/g,
-            replacement: 'elements/elements.vulcanized.html'
+            match: /\/elements\/elements\.html/g,
+            replacement: '/elements/elements.vulcanized.html'
           }]
         },
         files: {
@@ -264,17 +262,22 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           dot: true,
+          cwd: '<%%= yeoman.app %>',
           dest: '<%%= yeoman.dist %>',
           src: [
-            '<%%= yeoman.app %>/*.{ico,txt}',
-            '<%%= yeoman.app %>/.htaccess',
-            '<%%= yeoman.app %>/*.html',
-            '<%%= yeoman.app %>/elements/**',<% if (includeSass) { %>
-            '<%%= yeoman.app %>/!elements/**/*.scss',<% } else { %>
-            '<%%= yeoman.app %>/!elements/**/*.css',<% } %>
-            '<%%= yeoman.app %>/images/{,*/}*.{webp,gif}',
-            'bower_components/**'
+            '*.{ico,txt}',
+            '.htaccess',
+            '*.html',
+            'elements/**',<% if (includeSass) { %>
+            '!elements/**/*.scss',<% } else { %>
+            '!elements/**/*.css',<% } %>
+            'images/{,*/}*.{webp,gif}'
           ]
+        }, {
+          expand: true,
+          dot: true,
+          dest: '<%%= yeoman.dist %>',
+          src: ['bower_components/**']
         }]
       },
       styles: {
