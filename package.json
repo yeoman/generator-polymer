@@ -25,6 +25,7 @@
     "lodash": "^2.4.1",
     "ncp": "^1.0.1",
     "rimraf": "^2.2.8",
+    "validate-element-name": "^1.0.0",
     "yeoman-generator": "^0.17.0",
     "yosay": "^1.0.0"
   },

@@ -3,6 +3,8 @@ var _ = require('lodash');
 var yeoman = require('yeoman-generator');
 var path = require('path');
 var yosay = require('yosay');
+var elementNameValidator = require('validate-element-name');
+var chalk = require('chalk');
 
 module.exports = yeoman.generators.Base.extend({
   constructor: function () {
@@ -25,12 +27,17 @@ module.exports = yeoman.generators.Base.extend({
   },
   validate: function () {
     this.elementName = this['element-name'];
-    if (this.elementName.indexOf('-') === -1) {
-      this.emit('error', new Error(
-        'Element name must contain a dash "-"\n' +
-        'ex: yo polymer:seed my-element'
-      ));
+    var result = elementNameValidator(this.elementName);
+
+    if (!result.isValid) {
+      this.emit('error', new Error(chalk.red(result.message)));
     }
+
+    if (result.message) {
+      console.warn(chalk.yellow(result.message + '\n'));
+    }
+
+    return true;
   },
   checkForDanger: function () {
     var done = this.async();
