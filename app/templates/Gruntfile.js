@@ -113,53 +113,37 @@ module.exports = function (grunt) {
         }]
       }
     },
-    connect: {
+    browserSync: {
       options: {
+        notify: false,
         port: 9000,
-        // change this to '0.0.0.0' to access the server from outside
-        hostname: 'localhost'
+        open: true
       },
-      livereload: {
+      app: {
         options: {
-          middleware: function (connect) {
-            return [
-              lrSnippet,
-              connect.static('.tmp'),
-              connect.static(yeomanConfig.app),
-              connect().use('/bower_components', connect.static('./bower_components'))
-            ];
+          watchTask: true,
+          server: {
+            baseDir: ['.tmp', '<%%= yeoman.app %>'],
+            routes: {
+              '/bower_components': 'bower_components'
+            }
           }
-        }
-      },
-      test: {
-        options: {
-          open: {
-            target: 'http://localhost:<%%= connect.options.port %>/test'
-          },
-          middleware: function (connect) {
-            return [
-              connect.static('.tmp'),
-              connect.static('test'),
-              connect.static(yeomanConfig.app),
-              connect().use('/bower_components', connect.static('./bower_components'))
-            ];
-          },
-          keepalive: true
-        }
+        },
+        src: [
+          '.tmp/**/*.{css,html,js}',
+          '<%%= yeoman.app %>/**/*.{css,html,js}'
+        ]
       },
       dist: {
         options: {
-          middleware: function (connect) {
-            return [
-              connect.static(yeomanConfig.dist)
-            ];
+          server: {
+            baseDir: 'dist'
           }
-        }
-      }
-    },
-    open: {
-      server: {
-        path: 'http://localhost:<%%= connect.options.port %>'
+        },
+        src: [
+          '<%%= yeoman.dist %>/**/*.{css,html,js}',
+          '!<%%= yeoman.dist %>/bower_components/**/*'
+        ]
       }
     },
     clean: {
@@ -336,7 +320,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
+      return grunt.task.run(['build', 'browserSync:dist']);
     }
 
     grunt.task.run([
@@ -344,8 +328,7 @@ module.exports = function (grunt) {
       'sass:server',<% } %>
       'copy:styles',
       'autoprefixer:server',
-      'connect:livereload',
-      'open',
+      'browserSync:app',
       'watch'
     ]);
   });
