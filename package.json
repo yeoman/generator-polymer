@@ -26,7 +26,7 @@
     "ncp": "^1.0.1",
     "rimraf": "^2.2.8",
     "validate-element-name": "^1.0.0",
-    "yeoman-generator": "^0.17.0",
+    "yeoman-generator": "^0.18.8",
     "yosay": "^1.0.0"
   },
   "peerDependencies": {
