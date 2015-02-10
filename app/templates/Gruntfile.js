@@ -1,15 +1,4 @@
 'use strict';
-var LIVERELOAD_PORT = 35729;
-var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
-var mountFolder = function (dir) {
-  return require('serve-static')(require('path').resolve(dir));
-};
-
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to match all subfolders:
-// 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
   // show elapsed time at the end
@@ -28,13 +17,9 @@ module.exports = function (grunt) {
     yeoman: yeomanConfig,
     watch: {
       options: {
-        nospawn: true,
-        livereload: { liveCSS: false }
+        nospawn: true
       },
-      livereload: {
-        options: {
-          livereload: true
-        },
+      default: {
         files: [
           '<%%= yeoman.app %>/*.html',
           '<%%= yeoman.app %>/elements/{,*/}*.html',
@@ -122,6 +107,7 @@ module.exports = function (grunt) {
       app: {
         options: {
           watchTask: true,
+          injectChanges: false, // can't inject Shadow DOM
           server: {
             baseDir: ['.tmp', '<%%= yeoman.app %>'],
             routes: {
@@ -275,14 +261,8 @@ module.exports = function (grunt) {
     },
     'wct-test': {
       options: {
-        root: '<%%= yeoman.app %>',
-        plugins: {
-          serveStatic: {
-            middleware: function() {
-              return mountFolder('.tmp');
-            }
-          }
-        }
+        root: '.',
+        suite: ['<%%= yeoman.app %>/test']
       },
       local: {
         options: {remote: false}
@@ -334,7 +314,6 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', ['wct-test:local']);
-  grunt.registerTask('test:browser', ['connect:test']);
   grunt.registerTask('test:remote', ['wct-test:remote']);
 
   grunt.registerTask('build', [
