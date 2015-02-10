@@ -260,10 +260,6 @@ module.exports = function (grunt) {
       }
     },
     'wct-test': {
-      options: {
-        root: '.',
-        suite: ['<%%= yeoman.app %>/test']
-      },
       local: {
         options: {remote: false}
       },
@@ -313,7 +309,7 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('test', ['wct-test:local']);
+  grunt.registerTask('test:local', ['wct-test:local']);
   grunt.registerTask('test:remote', ['wct-test:remote']);
 
   grunt.registerTask('build', [

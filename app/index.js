@@ -67,6 +67,7 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('gitattributes', '.gitattributes');
     this.copy('bowerrc', '.bowerrc');
     this.copy('bower.json', 'bower.json');
+    this.copy('wct.conf.js', 'wct.conf.js');
     this.copy('jshintrc', '.jshintrc');
     this.copy('editorconfig', '.editorconfig');
     if (this.includeGulp) {

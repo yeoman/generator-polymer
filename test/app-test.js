@@ -23,6 +23,7 @@ describe('yo polymer:app test', function () {
     var expected = [
       'bower.json',
       'package.json',
+      'wct.conf.js',
       '.bowerrc',
       '.editorconfig',
       '.gitattributes',
