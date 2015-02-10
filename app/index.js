@@ -44,7 +44,7 @@ module.exports = yeoman.generators.Base.extend({
       }];
 
     this.prompt(prompts, function (answers) {
-      this.includeGulp = answers.includeGulp == 'Gulp';
+      this.includeGulp = answers.includeGulp === 'Gulp';
       this.includeCore = answers.includeCore;
       this.includePaper = answers.includePaper;
       this.includeSass = answers.includeSass;
