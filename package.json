@@ -21,9 +21,9 @@
     "test": "jshint {app,el,gh,seed}/*.js && mocha --reporter spec"
   },
   "dependencies": {
-    "chalk": "^0.5.1",
-    "lodash": "^2.4.1",
-    "ncp": "^1.0.1",
+    "chalk": "^1.0.0",
+    "lodash": "^3.3.0",
+    "ncp": "^2.0.0",
     "rimraf": "^2.2.8",
     "validate-element-name": "^1.0.0",
     "yeoman-generator": "^0.18.8",
