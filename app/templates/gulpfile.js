@@ -9,6 +9,7 @@ var browserSync = require('browser-sync');
 var pagespeed = require('psi');
 var reload = browserSync.reload;
 var merge = require('merge-stream');
+var path = require('path');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -21,6 +22,40 @@ var AUTOPREFIXER_BROWSERS = [
   'android >= 4.4',
   'bb >= 10'
 ];
+
+var styleTask = function (stylesPath, srcs) {
+  return gulp.src(srcs.map(function(src) {
+      return path.join('app', stylesPath, src);
+    }))<% if (includeSass) {%>
+    .pipe($.changed(stylesPath, {extension: '.scss'}))<% } else {%>
+    .pipe($.changed(stylesPath, {extension: '.css'}))<% } %><% if (includeSass && includeLibSass) {%>
+    .pipe($.sourcemaps.init())
+      .pipe($.sass({
+        onError: console.error.bind(console)
+      }))
+    .pipe($.sourcemaps.write())
+    <% } else if (includeSass && includeRubySass) { %>
+    .pipe($.rubySass({
+        style: 'expanded',
+        precision: 10
+      })
+      .on('error', console.error.bind(console))
+    )<% } %>
+    .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
+    .pipe(gulp.dest('.tmp/' + stylesPath))
+    .pipe($.if('*.css', $.cssmin()))
+    .pipe(gulp.dest('dist/' + stylesPath))
+    .pipe($.size({title: stylesPath}));
+};
+
+// Compile and Automatically Prefix Stylesheets
+gulp.task('styles', function () {
+  return styleTask('styles', ['**/*.css'<% if (includeSass) {%>, '*.scss'<% } %>]);
+});
+
+gulp.task('elements', function () {
+  return styleTask('elements', ['**/*.css'<% if (includeSass) {%>, '**/*.scss'<% } %>]);
+});
 
 // Lint JavaScript
 gulp.task('jshint', function () {
@@ -76,61 +111,6 @@ gulp.task('fonts', function () {
   return gulp.src(['app/fonts/**'])
     .pipe(gulp.dest('dist/fonts'))
     .pipe($.size({title: 'fonts'}));
-});
-
-// Compile and Automatically Prefix Stylesheets
-gulp.task('styles', function () {
-  return gulp.src([
-      'app/styles/**/*.css'<% if (includeSass) {%>,
-      'app/styles/*.scss'<% } %>
-    ])<% if (includeSass) {%>
-    .pipe($.changed('styles', {extension: '.scss'}))<% } else {%>
-    .pipe($.changed('styles', {extension: '.css'}))<% } %><% if (includeSass && includeLibSass) {%>
-    .pipe($.sourcemaps.init())
-      .pipe($.sass({
-        onError: console.error.bind(console)
-      }))
-    .pipe($.sourcemaps.write())
-    <% } else if (includeSass && includeRubySass) { %>
-    .pipe($.rubySass({
-        style: 'expanded',
-        precision: 10
-      })
-      .on('error', console.error.bind(console))
-    )<% } %>
-    .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
-    .pipe(gulp.dest('.tmp/styles'))
-    // Concatenate And Minify Styles
-    .pipe($.if('*.css', $.cssmin()))
-    .pipe(gulp.dest('dist/styles'))
-    .pipe($.size({title: 'styles'}));
-});
-
-gulp.task('elements', function () {
-  return gulp.src([
-    'app/elements/**/*.css'<% if (includeSass) {%>,
-    'app/elements/**/*.scss'<% } %>
-    ])<% if (includeSass) {%>
-    .pipe($.changed('elements', {extension: '.scss'}))<% } else {%>
-    .pipe($.changed('styles', {extension: '.css'}))<% } %><% if (includeSass && includeLibSass) {%>
-    .pipe($.sourcemaps.init())
-      .pipe($.sass({
-        onError: console.error.bind(console)
-      }))
-    .pipe($.sourcemaps.write())
-    <% } else if (includeSass && includeRubySass) {%>
-    .pipe($.rubySass({
-        style: 'expanded',
-        precision: 10
-      })
-      .on('error', console.error.bind(console))
-    )<% } %>
-    .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
-    .pipe(gulp.dest('.tmp/elements'))
-    // Concatenate And Minify Styles
-    .pipe($.if('*.css', $.cssmin()))
-    .pipe(gulp.dest('dist/elements'))
-    .pipe($.size({title: 'elements'}));
 });
 
 // Scan Your HTML For Assets & Optimize Them
