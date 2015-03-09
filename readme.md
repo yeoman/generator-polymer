@@ -74,6 +74,13 @@ One can also include element dependencies to be imported. For instance, if you'r
 yo polymer:el fancy-menu core-menu core-icon-button
 ```
 
+#### Options
+
+```
+--docs, include core-component-pages docs with your element and demo.html
+--path, override default directory structure, ex: --path foo/bar will put your element in app/elements/foo/bar
+```
+
 ### Seed
 Generates a reusable polymer element based on the [seed-element workflow](http://www.polymer-project.org/docs/start/reusableelements.html). **This should only be used if you're creating a standalone element repo that you intend to share with others via bower.** If you're just building a Polymer app, stick to the [Element](#element-alias-el) generator.
 
