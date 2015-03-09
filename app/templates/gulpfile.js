@@ -146,8 +146,13 @@ gulp.task('vulcanize', function () {
   return gulp.src('dist/elements/elements.vulcanized.html')
     .pipe($.vulcanize({
       dest: DEST_DIR,
-      strip: true
+      strip: true,
+      csp: true,
+      inline: true
     }))
+    .pipe($.if('*.js', $.uglify({
+      preserveComments: 'some'
+    })))
     .pipe(gulp.dest(DEST_DIR))
     .pipe($.size({title: 'vulcanize'}));
 });
