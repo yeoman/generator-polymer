@@ -9,10 +9,10 @@ describe('yo polymer:seed test', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../seed'))
       .inDir(path.join(__dirname, './tmp'))
-      .withArguments(['x-foo'])
+      .withArguments(['seed-el'])
       .withPrompt({
         ghUser: 'test-user',
-        elementName: 'x-foo'
+        elementName: 'seed-el'
       })
       .on('end', done);
   });
@@ -27,18 +27,18 @@ describe('yo polymer:seed test', function () {
       'demo.html',
       'index.html',
       'README.md',
-      'x-foo.css',
-      'x-foo.html',
+      'seed-el.css',
+      'seed-el.html',
       'test/index.html',
-      'test/x-foo-basic.html'
+      'test/seed-el-basic.html'
     ];
 
     assert.file(expected);
   });
 
   it('creates the correct bower.json content', function () {
-    assert.fileContent('bower.json', /"name": "x-foo"/);
-    assert.fileContent('bower.json', /"main": "x-foo.html"/);
+    assert.fileContent('bower.json', /"name": "seed-el"/);
+    assert.fileContent('bower.json', /"main": "seed-el.html"/);
   });
 
 });
