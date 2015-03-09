@@ -15,6 +15,13 @@ module.exports = yeoman.generators.Base.extend({
     // An element generated with --docs will include core-component-pages
     // and a demo.html file
     this.option('docs');
+
+    // This method adds support for a `--path` flag
+    // An element generated with a --path will create a matching directory
+    // structure in the `app/elements` dir.
+    // ex: yo polymer:el x-foo --path foo/bar/baz will create
+    // app/elements/foo/bar/baz/x-foo
+    this.option('path');
   },
   init: function () {
     this.elementName = this['element-name'];
@@ -58,10 +65,33 @@ module.exports = yeoman.generators.Base.extend({
   el: function () {
     // Create the template element
 
-    // el = "x-foo/x-foo"
-    var el = path.join(this.elementName, this.elementName);
-    // pathToEl = "app/elements/x-foo/x-foo"
-    var pathToEl = path.join('app/elements', el);
+    var el;
+    var pathToEl;
+
+    if (this.flags.path) {
+
+      // --path foo/bar
+      // el = "foo/bar/x-foo"
+      el = path.join(this.flags.path, this.elementName);
+
+      // pathToEl = "app/elements/foo/bar/x-foo"
+      pathToEl = path.join('app/elements', el);
+
+    } else {
+
+      // el = "x-foo/x-foo"
+      el = path.join(this.elementName, this.elementName);
+
+      // pathToEl = "app/elements/x-foo/x-foo"
+      pathToEl = path.join('app/elements', el);
+
+    }
+
+    // Used by element template
+    this.pathToPolymer = path.relative(
+      path.dirname(pathToEl),
+      path.join(process.cwd(), 'bower_components/polymer/polymer.html')
+    );
     this.template(path.join(__dirname, 'templates/element.html'), pathToEl + '.html');
     if (this.externalStyle) {
       this.template(path.join(__dirname, 'templates/element.css'),
