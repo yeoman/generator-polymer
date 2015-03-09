@@ -8,13 +8,16 @@ module.exports = yeoman.generators.Base.extend({
 
     this.argument('element-name', {
       desc: 'Tag name of the element to generate',
-      required: true,
+      required: true
     });
+
+    this.option('collaborative'); // This method adds support for a `--collaborative` flag
   },
   init: function () {
     this.elementName = this['element-name'];
     this.args.splice(0,1);
     this.components = this.args;
+    this.flags = this.options;
 
     if (this.elementName.indexOf('-') === -1) {
       this.emit('error', new Error(
@@ -60,7 +63,7 @@ module.exports = yeoman.generators.Base.extend({
     if (this.externalStyle) {
       this.template(path.join(__dirname, 'templates/element.css'),
         this.includeSass ? pathToEl + '.scss':
-                           pathToEl + '.css');
+        pathToEl + '.css');
     }
 
     // Wire up the dependency in elements.html
@@ -69,6 +72,20 @@ module.exports = yeoman.generators.Base.extend({
       el = el.replace('\\', '/');
       file += '<link rel="import" href="' + el + '.html">\n';
       this.writeFileFromString(file, 'app/elements/elements.html');
+    }
+
+    // copy documentation page and demo page only if flag is set
+    if (this.flags.collaborative) {
+      var elementDir = 'app/elements';
+
+      // pathToElementDir = "app/elements/x-foo"
+      var pathToElementDir = path.join(elementDir, this.elementName);
+
+      // copy templates/_index.html -> app/elements/x-foo/index.html (documentation page)
+      this.template(path.join(__dirname, 'templates/_index.html'), path.join(pathToElementDir, 'index.html'));
+
+      // copy templates/_demo.html -> app/elements/x-foo/demo.html (demo page)
+      this.template(path.join(__dirname, 'templates/_demo.html'), path.join(pathToElementDir, 'demo.html'));
     }
   }
 });
