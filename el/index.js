@@ -22,6 +22,16 @@ module.exports = yeoman.generators.Base.extend({
     this.components = this.args;
     this.flags = this.options;
 
+    if (this.elementName.indexOf('/') > 1) { //path param was given
+      var elPathArr = [], path = this.elementName.split('/').reverse();
+      for (var i = 0; i < path.length; i++) {
+        if (path.length - 1 === i) {
+          elPathArr.push(path[i]);
+        }
+      }
+      this.elPath = elPathArr.join('/');
+      this.elHtmlName = path[0];
+    }
     if (this.elementName.indexOf('-') === -1) {
       this.emit('error', new Error(
         'Element name must contain a dash "-"\n' +
@@ -57,9 +67,14 @@ module.exports = yeoman.generators.Base.extend({
   },
   el: function () {
     // Create the template element
+    var el; // el = "x-foo/x-foo" || "yourpath/your-element";
 
-    // el = "x-foo/x-foo"
-    var el = path.join(this.elementName, this.elementName);
+    if(this.elementName.indexOf('/') > 0) {
+      //get what/the/path/elName is;
+      el = path.join(this.elPath, this.elHtmlName, this.elHtmlName);
+    } else {
+      el = path.join(this.elementName, this.elementName);
+    }
     // pathToEl = "app/elements/x-foo/x-foo"
     var pathToEl = path.join('app/elements', el);
     this.template(path.join(__dirname, 'templates/element.html'), pathToEl + '.html');
