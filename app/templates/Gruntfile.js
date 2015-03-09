@@ -164,8 +164,8 @@ module.exports = function (grunt) {
       dist: {
         options: {
           patterns: [{
-            match: /\/elements\/elements\.html/g,
-            replacement: '/elements/elements.vulcanized.html'
+            match: /elements\/elements\.html/g,
+            replacement: 'elements/elements.vulcanized.html'
           }]
         },
         files: {
