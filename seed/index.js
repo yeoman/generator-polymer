@@ -80,17 +80,21 @@ module.exports = yeoman.generators.Base.extend({
     // Have Yeoman greet the user.
     this.log(yosay('Out of the box I follow the seed-element pattern.'));
 
-    var prompts = [
-      {
+    var prompts = [{
         name: 'ghUser',
         message: 'What is your GitHub username?'
+      }, {
+        name: 'includeWCT',
+        message: 'Would you like to include web-component-tester?'
       }
     ];
 
     this.prompt(prompts, function (props) {
       this.ghUser = props.ghUser;
+      this.includeWCT = props.includeWCT;
       done();
     }.bind(this));
+
   },
   seed: function () {
     // Construct the element as a subdirectory.
@@ -107,9 +111,11 @@ module.exports = yeoman.generators.Base.extend({
     this.template('index.html', 'index.html');
     this.template('demo.html', 'demo.html');
     this.template('README.md', 'README.md');
-    this.template('test/index.html', 'test/index.html');
-    this.template('test/seed-element-basic.html',
-                  'test/' + this.elementName + '-basic.html');
+    if (this.includeWCT) {
+      this.template('test/index.html', 'test/index.html');
+      this.template('test/seed-element-basic.html',
+                    'test/' + this.elementName + '-basic.html');
+    }
   },
   install: function () {
     this.installDependencies({

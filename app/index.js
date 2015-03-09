@@ -41,6 +41,10 @@ module.exports = yeoman.generators.Base.extend({
         name: 'includeSass',
         message: 'Would you like to use SASS/SCSS for element styles?',
         type: 'confirm'
+      }, {
+        name: 'includeWCT',
+        message: 'Would you like to include web-component-tester?',
+        type: 'confirm'
       }];
 
     this.prompt(prompts, function (answers) {
@@ -52,6 +56,7 @@ module.exports = yeoman.generators.Base.extend({
       // https://github.com/sass/libsass/issues/452
       this.includeLibSass = false;
       this.includeRubySass = answers.includeSass;
+      this.includeWCT = answers.includeWCT;
 
       // Save user configuration options to .yo-rc.json file
       this.config.set({
@@ -99,7 +104,9 @@ module.exports = yeoman.generators.Base.extend({
       this.includeSass ? 'app/elements/yo-greeting/yo-greeting.scss':
                          'app/elements/yo-greeting/yo-greeting.css');
     this.copy('app/index.html', 'app/index.html');
-    this.directory('test', 'app/test');
+    if (this.includeWCT) {
+      this.directory('test', 'app/test');
+    }
   },
   install: function () {
     this.installDependencies({

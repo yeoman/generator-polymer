@@ -14,7 +14,8 @@ describe('yo polymer:app test', function () {
         includeCore: true,
         includePaper: true,
         includeSass: true,
-        includeLibSass: true
+        includeLibSass: true,
+        includeWCT: true
       })
       .on('end', done);
   });

@@ -12,7 +12,8 @@ describe('yo polymer:seed test', function () {
       .withArguments(['seed-el'])
       .withPrompt({
         ghUser: 'test-user',
-        elementName: 'seed-el'
+        elementName: 'seed-el',
+        includeWCT: true
       })
       .on('end', done);
   });

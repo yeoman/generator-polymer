@@ -14,7 +14,8 @@ describe('yo polymer:el test', function () {
         includeCore: false,
         includePaper: false,
         includeSass: false,
-        includeLibSass: false
+        includeLibSass: false,
+        includeWCT: true
       })
       .on('end', done);
   });
@@ -70,7 +71,8 @@ describe('yo polymer:el --docs test', function () {
         includeCore: false,
         includePaper: false,
         includeSass: false,
-        includeLibSass: false
+        includeLibSass: false,
+        includeWCT: true
       })
       .on('end', done);
   });
@@ -109,7 +111,8 @@ describe('yo polymer:el --path test', function () {
         includeCore: false,
         includePaper: false,
         includeSass: false,
-        includeLibSass: false
+        includeLibSass: false,
+        includeWCT: true
       })
       .on('end', done);
   });
