@@ -1,16 +1,31 @@
 {
   "name": "<%= elementName %>",
   "version": "0.0.0",
+  "authors": [
+    "Anonymous <anonymous@example.com>"
+  ],
   "keywords": [
     "seed",
     "polymer",
     "web-components"
   ],
   "main": "<%= elementName %>.html",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/<USERNAME>/seed-element"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "ignore": [
+    "/.*",
+    "/demo/",
+    "/test/"
+  ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^0.5.4"
+    "polymer": "Polymer/polymer#0.8-preview"
   },
   "devDependencies": {<% if (includeWCT) { %>
-    "web-component-tester": "Polymer/web-component-tester#^2.2.3"<% } %>
+    "test-fixture": "*",
+    "web-component-tester": "*"<% } %>
   }
 }
