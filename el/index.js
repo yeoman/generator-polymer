@@ -88,9 +88,9 @@ module.exports = yeoman.generators.Base.extend({
     }
 
     // Used by element template
-    this.pathToPolymer = path.relative(
+    this.pathToBower = path.relative(
       path.dirname(pathToEl),
-      path.join(process.cwd(), 'bower_components/polymer/polymer.html')
+      path.join(process.cwd(), 'app/bower_components')
     );
     this.template(path.join(__dirname, 'templates/element.html'), pathToEl + '.html');
     if (this.externalStyle) {

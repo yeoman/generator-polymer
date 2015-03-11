@@ -50,10 +50,10 @@ describe('yo polymer:el test', function () {
       })
       .on('end', function() {
         assert.fileContent(
-          'app/elements/fancy-menu/fancy-menu.html', /<link rel="import" href="..\/..\/..\/bower_components\/core-menu\/core-menu.html">/
+          'app/elements/fancy-menu/fancy-menu.html', /<link rel="import" href="..\/..\/bower_components\/core-menu\/core-menu.html">/
         );
         assert.fileContent(
-          'app/elements/fancy-menu/fancy-menu.html', /<link rel="import" href="..\/..\/..\/bower_components\/core-icon-button\/core-icon-button.html">/
+          'app/elements/fancy-menu/fancy-menu.html', /<link rel="import" href="..\/..\/bower_components\/core-icon-button\/core-icon-button.html">/
         );
         done();
       });
@@ -141,7 +141,7 @@ describe('yo polymer:el --path test', function () {
   it('creates the right path to polymer', function () {
     assert.fileContent(
       'app/elements/foo/bar/baz/path-el.html',
-      /<link rel="import" href="..\/..\/..\/..\/..\/bower_components\/polymer\/polymer.html">/
+      /<link rel="import" href="..\/..\/..\/..\/bower_components\/polymer\/polymer.html">/
     );
   });
 });
