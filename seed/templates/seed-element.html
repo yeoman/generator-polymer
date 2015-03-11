@@ -12,14 +12,41 @@ Element providing solution to no problem in particular.
 @status alpha
 @homepage http://<%= ghUser %>.github.io/<%= elementName %>
 -->
-<polymer-element name="<%= elementName %>" attributes="author fancy">
+
+<dom-module id="<%= elementName %>">
+
+  <style>
+
+    :host {
+      display: block;
+    }
+
+    /* styling elements distributed to content (via ::content) requires */
+    /* using a wrapper element for compatibility with shady DOM */
+    .content-wrapper > ::content h2 {
+      color: blue;
+    }
+
+  </style>
+
   <template>
-    <link rel="stylesheet" href="<%= elementName %>.css">
+
     <h1>Hello from <%= elementName %></h1>
-    <content></content>
+
+    <div class="content-wrapper"><content></content></div>
+
   </template>
-  <script>
-    Polymer({
+
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: '<%= elementName %>',
+
+    properties: {
+
       /**
        * The `author` attribute sets an initial author
        *
@@ -27,7 +54,10 @@ Element providing solution to no problem in particular.
        * @type string
        * @default 'Dimitri Glazkov'
        */
-      author: 'Dimitri Glazkov',
+      author: {
+        type: String,
+        value: 'Dimitri Glazkov'
+      },
 
       /**
        * `fancy` is a property that does something fancy.
@@ -36,44 +66,50 @@ Element providing solution to no problem in particular.
        * @type bool
        * @default false
        */
-      fancy: false,
-
-      ready: function () {
-        // Ready is a lifecycle callback.
-        // You can do setup work in here.
-        // More info: http://www.polymer-project.org/docs/polymer/polymer.html#lifecyclemethods
-      },
-
-      /**
-       * The `sayHello` method will return a greeting.
-       *
-       * @method sayHello
-       * @param {String} greeting Pass in a specific greeting.
-       * @return {String} Returns a string greeting.
-       */
-      sayHello: function (greeting) {
-        var response = greeting || 'Hello World!';
-        return '<%= elementName %> says, ' + response;
-      },
-
-      /**
-       * The `<%= elementName %>-lasers-success` event is fired whenever we
-       * call fireLasers.
-       *
-       * @event <%= elementName %>-lasers-success
-       * @param {Object} detail
-       *   @param {string} detail.sound An amazing sound.
-       */
-
-      /**
-       * The `fireLasers` method will fire the lasers. At least
-       * it will dispatch an event that claims lasers were fired :)
-       *
-       * @method fireLasers
-       */
-      fireLasers: function () {
-        this.fire('<%= elementName %>-lasers-success', { sound: 'Pew pew pew!' });
+      fancy: {
+        type: Boolean,
+        type: false
       }
-    });
-  </script>
-</polymer-element>
+
+    },
+
+    ready: function() {
+      // Ready is a lifecycle callback.
+      // You can do setup work in here.
+      // More info: http://www.polymer-project.org/docs/polymer/polymer.html#lifecyclemethods
+    },
+
+    /**
+     * The `sayHello` method will return a greeting.
+     *
+     * @method sayHello
+     * @param {String} greeting Pass in a specific greeting.
+     * @return {String} Returns a string greeting.
+     */
+    sayHello: function(greeting) {
+      var response = greeting || 'Hello World!';
+      return '<%= elementName %> says, ' + response;
+    },
+
+    /**
+     * The `<%= elementName %>-lasers-success` event is fired whenever we
+     * call fireLasers.
+     *
+     * @event <%= elementName %>-lasers-success
+     * @param {Object} detail
+     *   @param {string} detail.sound An amazing sound.
+     */
+
+    /**
+     * The `fireLasers` method will fire the lasers. At least
+     * it will dispatch an event that claims lasers were fired :)
+     *
+     * @method fireLasers
+     */
+    fireLasers: function() {
+      this.fire('<%= elementName %>-lasers-success', { sound: 'Pew pew pew!' });
+    }
+
+  });
+
+</script>

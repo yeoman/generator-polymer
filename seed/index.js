@@ -109,7 +109,7 @@ module.exports = yeoman.generators.Base.extend({
     this.template('seed-element.css', this.elementName + '.css');
     this.template('seed-element.html', this.elementName + '.html');
     this.template('index.html', 'index.html');
-    this.template('demo.html', 'demo.html');
+    this.template('demo/index.html', 'demo/index.html');
     this.template('README.md', 'README.md');
     if (this.includeWCT) {
       this.template('test/index.html', 'test/index.html');
