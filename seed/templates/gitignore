@@ -2,3 +2,4 @@ node_modules
 dist
 .sass-cache
 .tmp
+.bowerrc
