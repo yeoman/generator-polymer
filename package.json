@@ -1,7 +1,7 @@
 {
   "name": "generator-polymer",
   "version": "0.7.2",
-  "description": "Yeoman generator for Polymer",
+  "description": "Scaffold out a Polymer project",
   "keywords": [
     "yeoman-generator",
     "scaffold",
@@ -9,14 +9,9 @@
     "mvc",
     "polymer"
   ],
-  "homepage": "https://github.com/yeoman/generator-polymer",
-  "bugs": "https://github.com/yeoman/generator-polymer/issues",
   "author": "Chrome Developer Relations",
   "main": "app/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/yeoman/generator-polymer.git"
-  },
+  "repository": "yeoman/generator-polymer",
   "scripts": {
     "test": "jshint {app,el,gh,seed}/*.js && mocha --reporter spec"
   },
@@ -30,20 +25,23 @@
     "yosay": "^1.0.0"
   },
   "peerDependencies": {
-    "generator-mocha": ">=0.1.3",
-    "yo": ">=1.0.0"
+    "generator-mocha": ">=0.1.3"
   },
   "devDependencies": {
     "jshint": "*",
     "mocha": "*"
   },
   "engines": {
-    "node": ">=0.10.0",
-    "npm": ">=1.2.10"
+    "node": ">=0.10.0"
   },
-  "licenses": [
-    {
-      "type": "BSD"
-    }
+  "licenses": "BSD",
+  "files": [
+    "app",
+    "el",
+    "element",
+    "gh",
+    "seed",
+    "script-base.js",
+    "util.js"
   ]
 }

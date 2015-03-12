@@ -1,9 +1,0 @@
-contributing.md
-.editorconfig
-.gitattributes
-.jshintrc
-.npmignore
-test
-!app/templates/test
-!seed/templates/test
-.travis.yml
