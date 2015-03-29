@@ -65,11 +65,12 @@ module.exports = yeoman.generators.Base.extend({
     var prompts = [{
       name: 'livesDangerously',
       message: 'Are you ok with that?',
-      default: 'no',
+      type: 'confirm',
+      default: false,
     }];
 
     this.prompt(prompts, function (props) {
-      if (props.livesDangerously[0] !== 'n') {
+      if (props.livesDangerously) {
         done();
       }
     }.bind(this));
@@ -85,7 +86,8 @@ module.exports = yeoman.generators.Base.extend({
         message: 'What is your GitHub username?'
       }, {
         name: 'includeWCT',
-        message: 'Would you like to include web-component-tester?'
+        message: 'Would you like to include web-component-tester?',
+        type: 'confirm'
       }
     ];
 
@@ -106,7 +108,6 @@ module.exports = yeoman.generators.Base.extend({
     this.template('bower.json', 'bower.json');
     this.copy('jshintrc', '.jshintrc');
     this.copy('editorconfig', '.editorconfig');
-    this.template('seed-element.css', this.elementName + '.css');
     this.template('seed-element.html', this.elementName + '.html');
     this.template('index.html', 'index.html');
     this.template('demo/index.html', 'demo/index.html');
