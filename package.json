@@ -21,6 +21,7 @@
     "ncp": "^2.0.0",
     "rimraf": "^2.2.8",
     "validate-element-name": "^1.0.0",
+    "vulcanize": "^1.1.0",
     "yeoman-generator": "^0.18.8",
     "yosay": "^1.0.0"
   },

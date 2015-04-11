@@ -36,6 +36,9 @@ then
   cd ../../
 fi
 
+# vulcanize the element to a single file
+vulcanize --inline --strip --output $repo.html components/$repo/$repo.html
+
 # send it all to github
 git add -A .
 git commit -am 'seed gh-pages'
