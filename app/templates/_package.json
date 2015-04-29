@@ -5,7 +5,7 @@
   "devDependencies": {<% if (includeWCT) { %>
     "web-component-tester": "^2.2.3",<% } %><% if (includeGulp) { %>
     "apache-server-configs": "^2.7.1",
-    "browser-sync": "^1.3.0",
+    "browser-sync": "^1.9.2",
     "del": "^0.1.2",
     "gulp": "^3.8.5",
     "gulp-autoprefixer": "^0.0.8",
@@ -37,7 +37,7 @@
     "connect-livereload": "^0.5.2",
     "grunt": "^0.4.5",
     "grunt-autoprefixer": "^2.0.0",
-    "grunt-browser-sync": "^1.9.1",
+    "grunt-browser-sync": "^1.9.2",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-concat": "^0.5.0",
     "grunt-contrib-copy": "^0.7.0",
