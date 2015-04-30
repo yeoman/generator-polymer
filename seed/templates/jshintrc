@@ -16,7 +16,6 @@
   "globals": {
     "wrap": true,
     "unwrap": true,
-    "Polymer": true,
-    "Platform": true
+    "Polymer": true
   }
 }

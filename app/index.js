@@ -22,48 +22,16 @@ module.exports = yeoman.generators.Base.extend({
     var done = this.async();
 
     // Have Yeoman greet the user.
-    this.log(yosay('Out of the box I include HTML5 Boilerplate and Polymer'));
+    this.log(yosay('Out of the box I include Polymer Starter Kit'));
 
     var prompts = [{
-        name: 'includeGulp',
-        message: 'Would you prefer Gulp or Grunt?',
-        type: 'list',
-        choices: ['Gulp', 'Grunt']
-      }, {
-        name: 'includeCore',
-        message: 'Would you like to include core-elements?',
-        type: 'confirm'
-      }, {
-        name: 'includePaper',
-        message: 'Would you like to include paper-elements?',
-        type: 'confirm'
-      }, {
-        name: 'includeSass',
-        message: 'Would you like to use SASS/SCSS for element styles?',
-        type: 'confirm'
-      }, {
         name: 'includeWCT',
         message: 'Would you like to include web-component-tester?',
         type: 'confirm'
       }];
 
     this.prompt(prompts, function (answers) {
-      this.includeGulp = answers.includeGulp === 'Gulp';
-      this.includeCore = answers.includeCore;
-      this.includePaper = answers.includePaper;
-      this.includeSass = answers.includeSass;
-      // LibSASS disabled until this is fixed
-      // https://github.com/sass/libsass/issues/452
-      this.includeLibSass = false;
-      this.includeRubySass = answers.includeSass;
       this.includeWCT = answers.includeWCT;
-
-      // Save user configuration options to .yo-rc.json file
-      this.config.set({
-        includeSass: this.includeSass
-      });
-      this.config.save();
-
       done();
     }.bind(this));
   },
@@ -72,15 +40,10 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('gitattributes', '.gitattributes');
     this.copy('bowerrc', '.bowerrc');
     this.copy('bower.json', 'bower.json');
-    this.copy('wct.conf.js', 'wct.conf.js');
     this.copy('jshintrc', '.jshintrc');
     this.copy('editorconfig', '.editorconfig');
-    if (this.includeGulp) {
-      this.template('gulpfile.js');
-    } else {
-      this.template('Gruntfile.js');
-    }
-    this.template('_package.json', 'package.json');
+    this.template('gulpfile.js');
+    this.template('package.json', 'package.json');
     this.mkdir('app');
     this.mkdir('app/styles');
     this.mkdir('app/images');
@@ -89,23 +52,16 @@ module.exports = yeoman.generators.Base.extend({
     this.template('app/404.html');
     this.template('app/favicon.ico');
     this.template('app/robots.txt');
-    this.copy('app/main.css',
-      this.includeSass ? 'app/styles/main.scss':
-                         'app/styles/main.css');
-    this.copy('app/app.js', 'app/scripts/app.js');
+    this.copy('app/styles/main.css', 'app/styles/main.css');
+    this.copy('app/scripts/app.js', 'app/scripts/app.js');
     this.copy('app/htaccess', 'app/.htaccess');
-    this.copy('app/elements.html', 'app/elements/elements.html');
-    this.copy('app/yo-list.html', 'app/elements/yo-list/yo-list.html');
-    this.copy('app/yo-list.css',
-      this.includeSass ? 'app/elements/yo-list/yo-list.scss':
-                         'app/elements/yo-list/yo-list.css');
-    this.copy('app/yo-greeting.html', 'app/elements/yo-greeting/yo-greeting.html');
-    this.copy('app/yo-greeting.css',
-      this.includeSass ? 'app/elements/yo-greeting/yo-greeting.scss':
-                         'app/elements/yo-greeting/yo-greeting.css');
+    this.copy('app/elements/elements.html', 'app/elements/elements.html');
+    this.copy('app/elements/yo-list/yo-list.html', 'app/elements/yo-list/yo-list.html');
+    this.copy('app/elements/yo-greeting/yo-greeting.html', 'app/elements/yo-greeting/yo-greeting.html');
     this.copy('app/index.html', 'app/index.html');
     if (this.includeWCT) {
-      this.directory('test', 'app/test');
+      this.copy('wct.conf.js', 'wct.conf.js');
+      this.directory('test', 'test');
     }
   },
   install: function () {

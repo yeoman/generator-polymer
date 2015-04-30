@@ -1,3 +1,20 @@
+<!--
+**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+-->
 <!doctype html>
 <html lang="">
 
@@ -5,7 +22,7 @@
   <meta charset="utf-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>poly foo</title>
+  <title>Polymer Starter Kit</title>
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
   <!-- build:css styles/main.css -->
@@ -13,7 +30,7 @@
   <!-- endbuild-->
 
   <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
-  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <!-- endbuild -->
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
@@ -22,42 +39,41 @@
 </head>
 
 <body unresolved fullbleed layout vertical>
-  <template is="auto-binding" id="app">
+  <template is="x-autobind" id="app">
 
-    <core-drawer-panel>
 
-      <!-- Drawer -->
-      <core-header-panel drawer>
-
+    <paper-drawer-panel id="coreDrawerPanel">
+      <div drawer>
         <!-- Drawer Toolbar -->
-        <core-toolbar>Menu</core-toolbar>
+        <paper-toolbar>Menu</paper-toolbar>
 
         <!-- Drawer Content -->
-        <core-menu selected="0">
-          <core-item label="Yo"></core-item>
-          <core-item label="Polymer"></core-item>
-          <core-item label="App"></core-item>
-        </core-menu>
+        <paper-menu class="list">
+          <paper-item>Polymer</paper-item>
+          <paper-item>Starter</paper-item>
+          <paper-item>Kit</paper-item>
+        </paper-menu>
 
-      </core-header-panel>
-
-      <!-- Main -->
-      <core-header-panel main>
+      </div>
+      <div main>
 
         <!-- Main Toolbar -->
-        <core-toolbar>
-          <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
+        <paper-toolbar id="mainToolbar">
+          <!-- Bug when used with paper-drawer-toggle -->
+          <!-- <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button> -->
+          <button id="papertoggle" paper-drawer-toggle></button>
           <span>{{appName}}</span>
-        </core-toolbar>
+        </paper-toolbar>
 
         <!-- Main Content -->
-        <div class="hero-unit">
+      <paper-card elevation="1">
           <yo-greeting></yo-greeting>
           <p>You now have</p>
           <yo-list></yo-list>
-        </div>
-      </core-header-panel>
-    </core-drawer-panel>
+      </paper-card>
+
+      </div>
+    </paper-drawer-panel>
 
   </template>
 

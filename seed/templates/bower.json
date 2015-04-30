@@ -1,16 +1,30 @@
 {
   "name": "<%= elementName %>",
   "version": "0.0.0",
+  "authors": [
+    "Anonymous <anonymous@example.com>"
+  ],
   "keywords": [
-    "seed",
-    "polymer",
-    "web-components"
+    "web-components",
+    "polymer"
   ],
   "main": "<%= elementName %>.html",
-  "dependencies": {
-    "polymer": "Polymer/polymer#^0.5.4"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/<%= ghUser %>/<%= elementName %>"
   },
-  "devDependencies": {<% if (includeWCT) { %>
-    "web-component-tester": "Polymer/web-component-tester#^2.2.3"<% } %>
+  "license": "MIT",
+  "homepage": "https://github.com/<%= ghUser %>/<%= elementName %>/",
+  "ignore": [
+    "/.*",
+    "/test/",
+    "/demo/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#v0.8.0-rc.7"
+  },
+  "devDependencies": {
+    "iron-doc-viewer": "PolymerElements/iron-doc-viewer#^0.8.8",<% if (includeWCT) { %>
+    "web-component-tester": "*"<% } %>
   }
 }
