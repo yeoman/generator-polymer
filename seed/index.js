@@ -39,42 +39,6 @@ module.exports = yeoman.generators.Base.extend({
 
     return true;
   },
-  checkForDanger: function () {
-    var done = this.async();
-
-    // Because the element installs its dependencies as siblings, we want to
-    // make it clear to the user that it is potentially dangerous to generate
-    // their element from workspace containing other directories.
-    var entries = this.expand('*');
-    var bowerEntries = _.map(this.expand('*/bower.json'), path.dirname);
-    var nonComponents = _.difference(entries, bowerEntries);
-
-    // Whew, everything looks like a bower component!
-    if (nonComponents.length === 0) {
-      done();
-      return;
-    }
-
-    console.warn(
-      'You are generating your element in a workspace that appears to contain data\n' +
-      'other than web components. This is potentially dangerous, as your element\'s\n' +
-      'dependencies will be installed in the current directory. Bower will\n' +
-      'overwrite any conflicting directories.\n'
-    );
-
-    var prompts = [{
-      name: 'livesDangerously',
-      message: 'Are you ok with that?',
-      type: 'confirm',
-      default: false,
-    }];
-
-    this.prompt(prompts, function (props) {
-      if (props.livesDangerously) {
-        done();
-      }
-    }.bind(this));
-  },
   askFor: function () {
     var done = this.async();
 
@@ -94,6 +58,13 @@ module.exports = yeoman.generators.Base.extend({
     this.prompt(prompts, function (props) {
       this.ghUser = props.ghUser;
       this.includeWCT = props.includeWCT;
+
+      // Save user's GitHub name for when they want to use gh subgenerator
+      this.config.set({
+        ghUser: this.ghUser
+      });
+      this.config.save();
+
       done();
     }.bind(this));
 

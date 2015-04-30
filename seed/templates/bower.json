@@ -5,27 +5,26 @@
     "Anonymous <anonymous@example.com>"
   ],
   "keywords": [
-    "seed",
-    "polymer",
-    "web-components"
+    "web-components",
+    "polymer"
   ],
   "main": "<%= elementName %>.html",
   "repository": {
     "type": "git",
-    "url": "git://github.com/<USERNAME>/seed-element"
+    "url": "git://github.com/<%= ghUser %>/<%= elementName %>"
   },
   "license": "MIT",
-  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "homepage": "https://github.com/<%= ghUser %>/<%= elementName %>/",
   "ignore": [
     "/.*",
-    "/demo/",
-    "/test/"
+    "/test/",
+    "/demo/"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#0.8-preview"
+    "polymer": "Polymer/polymer#v0.8.0-rc.7"
   },
-  "devDependencies": {<% if (includeWCT) { %>
-    "test-fixture": "*",
+  "devDependencies": {
+    "iron-doc-viewer": "PolymerElements/iron-doc-viewer#^0.8.8",<% if (includeWCT) { %>
     "web-component-tester": "*"<% } %>
   }
 }

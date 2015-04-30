@@ -1,46 +1,28 @@
 <!doctype html>
 <html>
-
   <head>
-
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
-    <title><%= elementName %> tests</title>
-
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-
     <script src="../../web-component-tester/browser.js"></script>
-    <script src="../../test-fixture/test-fixture-mocha.js"></script>
 
-    <link rel="import" href="../../test-fixture/test-fixture.html">
     <!-- Step 1: import the element to test -->
     <link rel="import" href="../<%= elementName %>.html">
-
   </head>
-
   <body>
 
-    <!-- Use <test-fixture> to set up fixtures -->
-    <test-fixture id="basic">
-      <template>
-        <<%= elementName %>></<%= elementName %>>
-      </template>
-    </test-fixture>
+    <!-- You can use the document as a place to set up your fixtures. -->
+    <<%= elementName %>></<%= elementName %>>
 
     <script>
-
       var myEl = document.querySelector('<%= elementName %>');
 
       suite('<<%= elementName %>>', function() {
-        var myEl;
-
-        setup(function() {
-          myEl = fixture('basic');
-        });
 
         test('defines the "author" property', function() {
-          assert.equal(myEl.author, 'Dimitri Glazkov');
+          assert.equal(myEl.author.name, 'Dimitri Glazkov');
+          assert.equal(myEl.author.image, 'http://addyosmani.com/blog/wp-content/uploads/2013/04/unicorn.jpg');
         });
 
         test('says hello', function() {
@@ -51,17 +33,15 @@
         });
 
         test('fires lasers', function(done) {
-          myEl.addEventListener('<%= elementName %>-lasers-success', function(event) {
-            assert.equal(event.detail.sound, 'Pew pew pew!');
+          myEl.addEventListener('<%= elementName %>-lasers', function(event) {
+            assert.equal(event.detail.sound, 'Pew pew!');
             done();
           });
           myEl.fireLasers();
         });
 
       });
-
     </script>
 
   </body>
-
 </html>
