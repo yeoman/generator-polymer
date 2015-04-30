@@ -1,3 +1,20 @@
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
 'use strict';
 
 // Include Gulp & Tools We'll Use
@@ -6,7 +23,6 @@ var $ = require('gulp-load-plugins')();
 var del = require('del');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
-var pagespeed = require('psi');
 var reload = browserSync.reload;
 var merge = require('merge-stream');
 var path = require('path');
@@ -26,21 +42,8 @@ var AUTOPREFIXER_BROWSERS = [
 var styleTask = function (stylesPath, srcs) {
   return gulp.src(srcs.map(function(src) {
       return path.join('app', stylesPath, src);
-    }))<% if (includeSass) {%>
-    .pipe($.changed(stylesPath, {extension: '.scss'}))<% } else {%>
-    .pipe($.changed(stylesPath, {extension: '.css'}))<% } %><% if (includeSass && includeLibSass) {%>
-    .pipe($.sourcemaps.init())
-      .pipe($.sass({
-        onError: console.error.bind(console)
-      }))
-    .pipe($.sourcemaps.write())
-    <% } else if (includeSass && includeRubySass) { %>
-    .pipe($.rubySass({
-        style: 'expanded',
-        precision: 10
-      })
-      .on('error', console.error.bind(console))
-    )<% } %>
+    }))
+    .pipe($.changed(stylesPath, {extension: '.css'}))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(gulp.dest('.tmp/' + stylesPath))
     .pipe($.if('*.css', $.cssmin()))
@@ -50,11 +53,11 @@ var styleTask = function (stylesPath, srcs) {
 
 // Compile and Automatically Prefix Stylesheets
 gulp.task('styles', function () {
-  return styleTask('styles', ['**/*.css'<% if (includeSass) {%>, '*.scss'<% } %>]);
+  return styleTask('styles', ['**/*.css']);
 });
 
 gulp.task('elements', function () {
-  return styleTask('elements', ['**/*.css'<% if (includeSass) {%>, '**/*.scss'<% } %>]);
+  return styleTask('elements', ['**/*.css']);
 });
 
 // Lint JavaScript
@@ -172,11 +175,9 @@ gulp.task('serve', ['styles', 'elements'], function () {
     }
   });
 
-  gulp.watch(['app/**/*.html'], reload);<% if (includeSass) {%>
-  gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
-  gulp.watch(['app/elements/**/*.{scss,css}'], ['elements', reload]);<% } else { %>
-  gulp.watch(['app/styles/**/*.css'], ['styles', reload]);
-  gulp.watch(['app/elements/**/*.css'], ['elements', reload]);<% } %>
+  gulp.watch(['app/**/*.html'], reload);
+  gulp.watch(['app/styles/**/*.{css}'], ['styles', reload]);
+  gulp.watch(['app/elements/**/*.{css}'], ['elements', reload]);
   gulp.watch(['app/{scripts,elements}/**/*.js'], ['jshint']);
   gulp.watch(['app/images/**/*'], reload);
 });
@@ -203,22 +204,9 @@ gulp.task('default', ['clean'], function (cb) {
     cb);
 });
 
-// Run PageSpeed Insights
-// Update `url` below to the public URL for your site
-gulp.task('pagespeed', function (cb) {
-  // Update the below URL to the public URL of your site
-  pagespeed.output('example.com', {
-    strategy: 'mobile',
-    // By default we use the PageSpeed Insights free (no API key) tier.
-    // Use a Google Developer API key if you have one: http://goo.gl/RkN0vE
-    // key: 'YOUR_API_KEY'
-  }, cb);
-});
-
-<% if (includeWCT) { %>
 // Load tasks for web-component-tester
 // Adds tasks for `gulp test:local` and `gulp test:remote`
-try { require('web-component-tester').gulp.init(gulp); } catch (err) {}<% } %>
+try { require('web-component-tester').gulp.init(gulp); } catch (err) {}
 
 // Load custom tasks from the `tasks` directory
 try { require('require-dir')('tasks'); } catch (err) {}

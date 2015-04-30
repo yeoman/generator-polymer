@@ -1,12 +1,21 @@
 {
   "name": "<%= _.slugify(appname) %>",
   "version": "0.0.0",
-  "dependencies": {<% if (includeCore) { %>
-    "core-elements": "Polymer/core-elements#^0.5.1",<% } %><% if (includePaper) { %>
-    "paper-elements": "Polymer/paper-elements#^0.5.1",<% } %>
-    "polymer": "Polymer/polymer#^0.5.4"
+  "dependencies": {
+    "paper-header-panel": "PolymerElements/paper-header-panel",
+    "paper-drawer-panel": "PolymerElements/paper-drawer-panel",
+    "paper-menu": "PolymerElements/paper-menu",
+    "paper-item": "PolymerElements/paper-item",
+    "paper-toolbar": "PolymerElements/paper-toolbar",
+    "paper-icon-button": "Polymer/paper-icon-button#0.8-preview",
+    "iron-elements": "PolymerElements/iron-elements"
   },
   "devDependencies": {<% if (includeWCT) { %>
-    "web-component-tester": "Polymer/web-component-tester#^2.2.3"<% } %>
+    "web-component-tester": "Polymer/web-component-tester#master",
+    "test-fixture": "PolymerElements/test-fixture#~0.8.1"<% } %>
+  },
+  "resolutions": {
+    "polymer": "v0.8.0-rc.7",
+    "layout": "^0.8.0"
   }
 }
