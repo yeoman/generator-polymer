@@ -24,6 +24,8 @@ module.exports = yeoman.generators.Base.extend({
       desc: 'Whether commands run should be shown',
       defaults: false,
     });
+
+    this.sourceRoot(path.join(path.dirname(this.resolved), 'templates/seed-element'));
   },
   validate: function () {
     this.elementName = this['element-name'];
@@ -43,7 +45,7 @@ module.exports = yeoman.generators.Base.extend({
     var done = this.async();
 
     // Have Yeoman greet the user.
-    this.log(yosay('Out of the box I follow the seed-element pattern.'));
+    this.log(yosay('Out of the box I include Polymer\'s seed-element.'));
 
     var prompts = [{
         name: 'ghUser',
@@ -70,23 +72,29 @@ module.exports = yeoman.generators.Base.extend({
 
   },
   seed: function () {
-    // Construct the element as a subdirectory.
-    this.destinationRoot(this.elementName);
 
-    this.copy('gitignore', '.gitignore');
-    this.copy('gitattributes', '.gitattributes');
-    this.copy('bowerrc', '.bowerrc');
-    this.template('bower.json', 'bower.json');
-    this.copy('jshintrc', '.jshintrc');
-    this.copy('editorconfig', '.editorconfig');
-    this.template('seed-element.html', this.elementName + '.html');
-    this.template('index.html', 'index.html');
-    this.template('demo/index.html', 'demo/index.html');
-    this.template('README.md', 'README.md');
+    var renameElement = function (file) {
+      return file.replace(/seed-element/g, this.elementName);
+    }.bind(this);
+
+    this.copy('bower.json', 'bower.json', function(file) {
+      var manifest = JSON.parse(file);
+      manifest.name = this.elementName;
+      if (!this.includeWCT) {
+        delete manifest.devDependencies['web-component-tester'];
+        delete manifest.devDependencies['test-fixture'];
+      }
+      return JSON.stringify(manifest, null, 2);
+    }.bind(this));
+
+    this.copy('seed-element.html', this.elementName + '.html', renameElement);
+    this.copy('index.html', 'index.html', renameElement);
+    this.copy('demo/index.html', 'demo/index.html', renameElement);
+    this.copy('README.md', 'README.md', renameElement);
+
     if (this.includeWCT) {
-      this.template('test/index.html', 'test/index.html');
-      this.template('test/seed-element-basic.html',
-                    'test/' + this.elementName + '-basic.html');
+      this.copy('test/index.html', 'test/index.html', renameElement);
+      this.copy('test/basic-test.html', 'test/basic-test', renameElement);
     }
   },
   install: function () {
