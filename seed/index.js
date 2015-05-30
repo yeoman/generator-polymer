@@ -77,6 +77,8 @@ module.exports = yeoman.generators.Base.extend({
       return file.replace(/seed-element/g, this.elementName);
     }.bind(this);
 
+    this.copy('.gitignore', '.gitignore');
+
     this.copy('bower.json', 'bower.json', function(file) {
       var manifest = JSON.parse(file);
       manifest.name = this.elementName;
@@ -87,14 +89,14 @@ module.exports = yeoman.generators.Base.extend({
       return JSON.stringify(manifest, null, 2);
     }.bind(this));
 
-    this.copy('seed-element.html', this.elementName + '.html', renameElement);
     this.copy('index.html', 'index.html', renameElement);
-    this.copy('demo/index.html', 'demo/index.html', renameElement);
     this.copy('README.md', 'README.md', renameElement);
+    this.copy('seed-element.html', this.elementName + '.html', renameElement);
+    this.copy('demo/index.html', 'demo/index.html', renameElement);
 
     if (this.includeWCT) {
       this.copy('test/index.html', 'test/index.html', renameElement);
-      this.copy('test/basic-test.html', 'test/basic-test', renameElement);
+      this.copy('test/basic-test.html', 'test/basic-test.html', renameElement);
     }
   },
   install: function () {
