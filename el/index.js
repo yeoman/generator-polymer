@@ -12,7 +12,7 @@ module.exports = yeoman.generators.Base.extend({
     });
 
     // This method adds support for a `--docs` flag
-    // An element generated with --docs will include core-component-pages
+    // An element generated with --docs will include iron-component-page
     // and a demo.html file
     this.option('docs');
 
@@ -38,15 +38,8 @@ module.exports = yeoman.generators.Base.extend({
   },
   askFor: function () {
     var done = this.async();
-    var includeSass = this.config.get('includeSass');
-    var styleType = includeSass ? 'SCSS' : 'CSS';
 
     var prompts = [
-      {
-        name: 'externalStyle',
-        message: 'Would you like an external ' + styleType + ' file for this element?',
-        type: 'confirm'
-      },
       {
         name: 'includeImport',
         message: 'Would you like to include an import in your elements.html file?',
@@ -56,8 +49,6 @@ module.exports = yeoman.generators.Base.extend({
     ];
 
     this.prompt(prompts, function (answers) {
-      this.includeSass = includeSass;
-      this.externalStyle = answers.externalStyle;
       this.includeImport = answers.includeImport;
       done();
     }.bind(this));
@@ -93,11 +84,6 @@ module.exports = yeoman.generators.Base.extend({
       path.join(process.cwd(), 'app/bower_components')
     );
     this.template(path.join(__dirname, 'templates/element.html'), pathToEl + '.html');
-    if (this.externalStyle) {
-      this.template(path.join(__dirname, 'templates/element.css'),
-        this.includeSass ? pathToEl + '.scss':
-                           pathToEl + '.css');
-    }
 
     // Wire up the dependency in elements.html
     if (this.includeImport) {
@@ -118,7 +104,7 @@ module.exports = yeoman.generators.Base.extend({
       this.template(path.join(__dirname, 'templates/_index.html'), path.join(pathToElementDir, 'index.html'));
 
       // copy templates/_demo.html -> app/elements/x-foo/demo.html (demo page)
-      this.template(path.join(__dirname, 'templates/_demo.html'), path.join(pathToElementDir, 'demo.html'));
+      this.template(path.join(__dirname, 'templates/_demo.html'), path.join(pathToElementDir, 'demo/index.html'));
     }
   }
 });
