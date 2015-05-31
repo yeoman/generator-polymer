@@ -52,7 +52,7 @@ module.exports = yeoman.generators.Base.extend({
         return this.log(err);
       }
 
-      var gp = spawn('sh', ['gp.sh', this.ghUser, this.elementName, this.includeDevDeps], {cwd: dest});
+      var gp = spawn('sh', ['gp.sh', this.ghUser, this.elementName, 'master', this.includeDevDeps], {cwd: dest});
 
       gp.stdout.on('data', function (data) {
         this.log(data.toString());
