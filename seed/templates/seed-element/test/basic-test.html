@@ -1,0 +1,56 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <!-- Step 1: import the element to test -->
+    <link rel="import" href="../seed-element.html">
+  </head>
+  <body>
+
+    <!-- You can use the document as a place to set up your fixtures. -->
+    <seed-element></seed-element>
+
+    <script>
+      var myEl = document.querySelector('seed-element');
+
+      suite('<seed-element>', function() {
+
+        test('defines the "author" property', function() {
+          assert.equal(myEl.author.name, 'Dimitri Glazkov');
+          assert.equal(myEl.author.image, 'http://addyosmani.com/blog/wp-content/uploads/2013/04/unicorn.jpg');
+        });
+
+        test('says hello', function() {
+          assert.equal(myEl.sayHello(), 'seed-element says, Hello World!');
+
+          var greetings = myEl.sayHello('greetings Earthlings');
+          assert.equal(greetings, 'seed-element says, greetings Earthlings');
+        });
+
+        test('fires lasers', function(done) {
+          myEl.addEventListener('seed-element-lasers', function(event) {
+            assert.equal(event.detail.sound, 'Pew pew!');
+            done();
+          });
+          myEl.fireLasers();
+        });
+
+      });
+    </script>
+
+  </body>
+</html>

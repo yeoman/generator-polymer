@@ -1,0 +1,36 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>seed-element Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../seed-element.html">
+  </head>
+  <body>
+
+    <p>An example of <code>&lt;seed-element&gt;</code>:</p>
+
+    <button>Say Something</button>
+
+    <seed-element author='{"name": "Lord Meowser", "image": "http://placekitten.com/g/200/300"}' fancy>
+      <h2>Hello seed-element</h2>
+    </seed-element>
+
+    <script>
+      document.querySelector('button').addEventListener('click', function() {
+        alert(document.querySelector('seed-element').sayHello('Hallo!'));
+      });
+    </script>
+
+  </body>
+</html>
