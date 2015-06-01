@@ -11,10 +11,6 @@ describe('yo polymer:el test', function () {
       .inDir(path.join(__dirname, './tmp'))
       .withArguments(['--skip-install'])
       .withPrompt({
-        includeCore: false,
-        includePaper: false,
-        includeSass: false,
-        includeLibSass: false,
         includeWCT: true
       })
       .on('end', done);
@@ -23,9 +19,8 @@ describe('yo polymer:el test', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../el'))
       .inDir(path.join(__dirname, './tmp'))
-      .withArguments(['x-foo'])
+      .withArguments(['my-foo'])
       .withPrompt({
-        externalStyle: true,
         includeImport: false
       })
       .on('end', done);
@@ -33,8 +28,7 @@ describe('yo polymer:el test', function () {
 
   it('creates expected files', function () {
     var expected = [
-      'app/elements/x-foo/x-foo.html',
-      'app/elements/x-foo/x-foo.css'
+      'app/elements/my-foo/my-foo.html'
     ];
 
     assert.file(expected);
@@ -43,17 +37,16 @@ describe('yo polymer:el test', function () {
   it('imports optional dependencies', function (done) {
     helpers.run(path.join(__dirname, '../el'))
       .inDir(path.join(__dirname, './tmp'))
-      .withArguments(['fancy-menu', 'core-menu', 'core-icon-button'])
+      .withArguments(['fancy-menu', 'iron-ajax', 'iron-a11y-keys'])
       .withPrompt({
-        externalStyle: true,
         includeImport: false
       })
       .on('end', function() {
         assert.fileContent(
-          'app/elements/fancy-menu/fancy-menu.html', /<link rel="import" href="..\/..\/bower_components\/core-menu\/core-menu.html">/
+          'app/elements/fancy-menu/fancy-menu.html', /<link rel="import" href="..\/..\/bower_components\/iron-ajax\/iron-ajax.html">/
         );
         assert.fileContent(
-          'app/elements/fancy-menu/fancy-menu.html', /<link rel="import" href="..\/..\/bower_components\/core-icon-button\/core-icon-button.html">/
+          'app/elements/fancy-menu/fancy-menu.html', /<link rel="import" href="..\/..\/bower_components\/iron-a11y-keys\/iron-a11y-keys.html">/
         );
         done();
       });
@@ -68,10 +61,6 @@ describe('yo polymer:el --docs test', function () {
       .inDir(path.join(__dirname, './tmp'))
       .withArguments(['--skip-install'])
       .withPrompt({
-        includeCore: false,
-        includePaper: false,
-        includeSass: false,
-        includeLibSass: false,
         includeWCT: true
       })
       .on('end', done);
@@ -83,7 +72,6 @@ describe('yo polymer:el --docs test', function () {
       .withArguments(['docs-el'])
       .withOptions({ 'docs': true })
       .withPrompt({
-        externalStyle: true,
         includeImport: false
       })
       .on('end', done);
@@ -92,9 +80,8 @@ describe('yo polymer:el --docs test', function () {
   it('creates expected files', function () {
     var expected = [
       'app/elements/docs-el/docs-el.html',
-      'app/elements/docs-el/docs-el.css',
       'app/elements/docs-el/index.html',
-      'app/elements/docs-el/demo.html'
+      'app/elements/docs-el/demo/index.html'
     ];
 
     assert.file(expected);
@@ -108,10 +95,6 @@ describe('yo polymer:el --path test', function () {
       .inDir(path.join(__dirname, './tmp'))
       .withArguments(['--skip-install'])
       .withPrompt({
-        includeCore: false,
-        includePaper: false,
-        includeSass: false,
-        includeLibSass: false,
         includeWCT: true
       })
       .on('end', done);
@@ -123,7 +106,6 @@ describe('yo polymer:el --path test', function () {
       .withArguments(['path-el'])
       .withOptions({ 'path': 'foo/bar/baz' })
       .withPrompt({
-        externalStyle: true,
         includeImport: false
       })
       .on('end', done);
@@ -131,8 +113,7 @@ describe('yo polymer:el --path test', function () {
 
   it('creates expected files', function () {
     var expected = [
-      'app/elements/foo/bar/baz/path-el.html',
-      'app/elements/foo/bar/baz/path-el.css'
+      'app/elements/foo/bar/baz/path-el.html'
     ];
 
     assert.file(expected);

@@ -8,8 +8,9 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-
+<link rel="import" href="<%= pathToBower %>/polymer/polymer.html">
+<% if (components) { components.forEach(function (componentName) { %><link rel="import" href="<%= pathToBower %>/<%= componentName %>/<%= componentName %>.html">
+<% });} %>
 <dom-module id="<%= elementName %>">
   <style>
     :host {

@@ -82,6 +82,7 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('bower.json', 'bower.json', function(file) {
       var manifest = JSON.parse(file);
       manifest.name = this.elementName;
+      manifest.main = this.elementName + '.html';
       if (!this.includeWCT) {
         delete manifest.devDependencies['web-component-tester'];
         delete manifest.devDependencies['test-fixture'];

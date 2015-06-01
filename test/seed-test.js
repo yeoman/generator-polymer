@@ -21,17 +21,13 @@ describe('yo polymer:seed test', function () {
   it('creates expected files', function () {
     var expected = [
       'bower.json',
-      '.bowerrc',
-      '.editorconfig',
       '.gitignore',
-      '.jshintrc',
-      'demo.html',
       'index.html',
       'README.md',
-      'seed-el.css',
       'seed-el.html',
+      'demo/index.html',
       'test/index.html',
-      'test/seed-el-basic.html'
+      'test/basic-test.html'
     ];
 
     assert.file(expected);
