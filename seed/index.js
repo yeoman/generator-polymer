@@ -77,7 +77,13 @@ module.exports = yeoman.generators.Base.extend({
       return file.replace(/seed-element/g, this.elementName);
     }.bind(this);
 
-    this.copy('.gitignore', '.gitignore');
+    // Handle bug where npm has renamed .gitignore to .npmignore
+    // https://github.com/npm/npm/issues/3763
+    if (this.src.isFile('.npmignore')) {
+      this.copy('.npmignore', '.gitignore');
+    } else {
+      this.copy('.gitignore', '.gitignore');
+    }
 
     this.copy('bower.json', 'bower.json', function(file) {
       var manifest = JSON.parse(file);

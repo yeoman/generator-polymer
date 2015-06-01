@@ -1,5 +1,6 @@
 'use strict';
 var yeoman = require('yeoman-generator');
+var fs = require('fs');
 var path = require('path');
 var yosay = require('yosay');
 var chalk = require('chalk');
@@ -41,7 +42,14 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('.bowerrc', '.bowerrc');
     this.copy('.editorconfig', '.editorconfig');
     this.copy('.gitattributes', '.gitattributes');
-    this.copy('.gitignore', '.gitignore');
+
+    // Handle bug where npm has renamed .gitignore to .npmignore
+    // https://github.com/npm/npm/issues/3763
+    if (this.src.isFile('.npmignore')) {
+      this.copy('.npmignore', '.gitignore');
+    } else {
+      this.copy('.gitignore', '.gitignore');
+    }
     this.copy('.jscsrc', '.jscsrc');
     this.copy('.jshintrc', '.jshintrc');
 
