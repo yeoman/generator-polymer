@@ -21,6 +21,10 @@
 * All the goodness of [seed-element](https://github.com/polymerelements/seed-element) (docs & landing page for your element)
 * [web-component-tester](https://github.com/Polymer/web-component-tester) support
 
+## Issues
+
+This generator clones [Polymer Starter Kit](https://github.com/PolymerElements/polymer-starter-kit) and [seed-element](https://github.com/polymerelements/seed-element). If you're having issues, make sure to raise them on those repos as they are the canonical source.
+
 ## Installation
 
 Install the generator
