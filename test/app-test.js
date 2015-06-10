@@ -19,7 +19,6 @@ describe('yo polymer:app test', function () {
   // TODO: robdodson - test that we've created the right directories
   it('creates expected files', function () {
     var expected = [
-      '.bowerrc',
       '.editorconfig',
       '.gitattributes',
       '.gitignore',
@@ -30,7 +29,7 @@ describe('yo polymer:app test', function () {
       'LICENSE.md',
       'package.json',
       'README.md',
-      'wct.conf.js'
+      'wct.conf.json'
     ];
 
     assert.file(expected);

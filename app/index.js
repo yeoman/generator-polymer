@@ -38,7 +38,6 @@ module.exports = yeoman.generators.Base.extend({
     }.bind(this));
   },
   app: function () {
-    this.copy('.bowerrc', '.bowerrc');
     this.copy('.editorconfig', '.editorconfig');
     this.copy('.gitattributes', '.gitattributes');
 
@@ -76,7 +75,7 @@ module.exports = yeoman.generators.Base.extend({
     this.copy('README.md', 'README.md');
 
     if (this.includeWCT) {
-      this.copy('wct.conf.js', 'wct.conf.js');
+      this.copy('wct.conf.json', 'wct.conf.json');
       this.directory('test', 'test');
     }
 

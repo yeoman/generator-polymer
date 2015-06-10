@@ -25,7 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- Web Application Manifest -->
   <link rel="manifest" href="manifest.json">
 
-  <!-- Chrome for Android Theme color -->
+  <!-- Tile color for Win8 -->
   <meta name="msapplication-TileColor" content="#3372DF">
 
   <!-- Add to homescreen for Chrome on Android -->
@@ -39,14 +39,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta name="apple-mobile-web-app-title" content="Polymer Starter Kit">
   <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
 
-  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <!-- Tile icon for Win8 (144x144) -->
   <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
 
   <!-- build:css styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild-->
 
-  <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
+  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <!-- endbuild -->
 
@@ -56,18 +56,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 
 <body unresolved class="fullbleed layout vertical">
+  <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
 
-    <paper-drawer-panel id="paperDrawerPanel" forceNarrow>
+    <paper-drawer-panel id="paperDrawerPanel">
       <div drawer>
 
         <!-- Drawer Toolbar -->
         <paper-toolbar id="drawerToolbar">
-          <span>Menu</span>
+          <span class="paper-font-title">Menu</span>
         </paper-toolbar>
 
         <!-- Drawer Content -->
-          <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}">
+          <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
               <a data-route="home" href="/">
                 <iron-icon icon="home"></iron-icon>
                 <span>Home</span>
@@ -85,24 +86,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-menu>
       </div>
       <paper-header-panel main mode="waterfall-tall">
+
         <!-- Main Toolbar -->
         <paper-toolbar id="mainToolbar">
-          <button tabindex="1" id="paperToggle" paper-drawer-toggle>
-            <iron-icon icon="menu" paper-drawer-toggle></iron-icon>
-          </button>
+          <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
           <span class="flex"></span>
 
           <!-- Toolbar icons -->
           <paper-icon-button icon="refresh"></paper-icon-button>
           <paper-icon-button icon="search"></paper-icon-button>
-          <div class="middle"></div>
 
           <!-- Application name -->
-          <div class="appname bottom paper-font-display2">Polymer Starter Kit</div>
+          <div class="middle paper-font-display2 app-name">Polymer Starter Kit</div>
+
+          <!-- Application sub title -->
+          <div class="bottom title"></div>
 
         </paper-toolbar>
 
         <!-- Main Content -->
+        <div class="content">
           <iron-pages attr-for-selected="data-route" selected="{{route}}">
 
             <section data-route="home">
@@ -114,13 +117,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                 <p class="paper-font-body2">Looking for more Web App layouts? Check out our <a href="https://github.com/PolymerElements/app-layout-templates">layouts</a> collection. You can also <a href="http://polymerelements.github.io/app-layout-templates/">preview</a> them live.</p>
               </paper-material>
+              <paper-material elevation="1">
+                <p class="paper-font-body2">This is another card.</p>
+              </paper-material>
+
+              <paper-material elevation="1" class="paper-font-body2">
+                <h1 id="license">License</h1>
+                <p>Everything in this repo is BSD style license unless otherwise specified.</p>
+                <p>Copyright (c) 2015 The Polymer Authors. All rights reserved.</p>
+                <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
+                <ul>
+                <li>Redistributions of source code must retain the above copyright
+                notice, this list of conditions and the following disclaimer.</li>
+                <li>Redistributions in binary form must reproduce the above
+                copyright notice, this list of conditions and the following disclaimer
+                in the documentation and/or other materials provided with the
+                distribution.</li>
+                <li>Neither the name of Google Inc. nor the names of its
+                contributors may be used to endorse or promote products derived from
+                this software without specific prior written permission.</li>
+                </ul>
+                <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+              </paper-material>
+
             </section>
 
             <section data-route="users">
               <paper-material elevation="1">
                 <h2 class="paper-font-display2">Users</h2>
                 <p>This is the users section</p>
-                <a href="/users/Rob">Rob</a></p>
+                <a href="/users/Rob">Rob</a>
               </paper-material>
             </section>
 
@@ -141,7 +167,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </section>
 
           </iron-pages>
-          </paper-header-panel>
+        </div>
+      </paper-header-panel>
     </paper-drawer-panel>
 
     <paper-toast id="caching-complete"
