@@ -20,19 +20,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
     <div>Hello from <span>{{foo}}</span></div>
   </template>
-</dom-module>
-<script>
-(function() {
-  Polymer({
-    is: '<%= elementName %>',
+  <script>
+  (function() {
+    Polymer({
+      is: '<%= elementName %>',
 
-    properties: {
-      foo: {
-        type: String,
-        value: 'bar',
-        notify: true
+      properties: {
+        foo: {
+          type: String,
+          value: 'bar',
+          notify: true
+        }
       }
-    }
-  });
-})();
-</script>
+    });
+  })();
+  </script>
+</dom-module>
