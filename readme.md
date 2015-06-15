@@ -23,7 +23,7 @@
 
 ## Issues
 
-This generator clones [Polymer Starter Kit](https://github.com/PolymerElements/polymer-starter-kit) and [seed-element](https://github.com/polymerelements/seed-element). if your'e having issues with the template files generated for those projects, please raise them on those repos as they are the canonical source.
+This generator clones [Polymer Starter Kit](https://github.com/PolymerElements/polymer-starter-kit) and [seed-element](https://github.com/polymerelements/seed-element). if you're having issues with the template files generated for those projects, please raise them on those repos as they are the canonical source.
 
 ## Installation
 
