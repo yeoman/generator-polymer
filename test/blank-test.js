@@ -20,6 +20,7 @@ describe('yo polymer:blank test-project', function () {
       '.gitignore',
       '.jscsrc',
       '.jshintrc',
+      'app/robots.txt',
       'app/index.html',
       'app/elements/elements.html',
       'bower.json',
