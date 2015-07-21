@@ -60,7 +60,12 @@ module.exports = yeoman.generators.Base.extend({
       return JSON.stringify(manifest, null, 2);
     }.bind(this));
 
-    this.copy('gulpfile.js', 'gulpfile.js');
+    this.copy('gulpfile.js', 'gulpfile.js', function(file) {
+      return file.replace(/require\('web-component-tester'\).+/g,
+        function(match) {
+          return '// ' + match;
+        });
+    });
     this.copy('LICENSE.md', 'LICENSE.md');
 
     // Remove WCT if the user opted out
