@@ -61,11 +61,16 @@ module.exports = yeoman.generators.Base.extend({
     }.bind(this));
 
     this.copy('gulpfile.js', 'gulpfile.js', function(file) {
-      return file.replace(/require\('web-component-tester'\).+/g,
-        function(match) {
-          return '// ' + match;
-        });
-    });
+      var clone = file;
+      if (!this.includeWCT) {
+        clone = file.replace(/require\('web-component-tester'\).+/g,
+          function(match) {
+            return '// ' + match;
+          });
+      }
+      return clone;
+    }.bind(this));
+
     this.copy('LICENSE.md', 'LICENSE.md');
 
     // Remove WCT if the user opted out
