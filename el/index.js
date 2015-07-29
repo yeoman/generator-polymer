@@ -123,7 +123,8 @@ module.exports = yeoman.generators.Base.extend({
       var regex = /WCT\.loadSuites\(\[([^\]]*)/;
       var match = regex.exec(file);
       var indexOfInsertion = match.index + match[0].length;
-      var newFile = file.slice(0, indexOfInsertion) + ", '"+this.elementName+"-basic.html'" + file.slice(indexOfInsertion);
+      var comma = (match[1].length === 0) ? "" : ", ";
+      var newFile = file.slice(0, indexOfInsertion) + comma + "'"+this.elementName+"-basic.html'" + file.slice(indexOfInsertion);
       this.writeFileFromString(newFile, indexFileName);
     }
     
