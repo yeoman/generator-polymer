@@ -141,22 +141,5 @@ module.exports = yeoman.generators.Base.extend({
       // copy templates/_demo.html -> app/elements/x-foo/demo.html (demo page)
       this.template(path.join(__dirname, 'templates/_demo.html'), path.join(pathToElementDir, 'demo/index.html'));
     }
-    
-    // create an associated test file only if flag is set
-    if (this.flags.test) {
- 		var testDir = 'app/test';	
-
-		// Copy templates/_test.html -> app/test/x-foo.html        
-		this.template(path.join(__dirname, 'templates/_test.html'), path.join(testDir, this.elementName+'-basic.html'));
-
-		// Open index.html, locate where to insert text, insert ", x-foo.html" into the array of components to test
-		var indexFileName = 'app/test/index.html';
-		var file = this.readFileAsString(indexFileName);
-	    var regex = /WCT\.loadSuites\(\[([^\]]*)/;
-		var match = regex.exec(file);
-		var indexOfInsertion = match.index + match[0].length;
-		file = file.slice(0, indexOfInsertion) + ", '"+this.elementName+"-basic.html'" + file.slice(indexOfInsertion);
-		this.writeFileFromString(file, indexFileName);
-     }
   }
 });
