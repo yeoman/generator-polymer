@@ -177,7 +177,7 @@ describe('yo polymer:el BDD test', function () {
     helpers.run(path.join(__dirname, '../el'))
       .inDir(path.join(__dirname, './tmp'))
       .on('ready', function (generator) {
-        var js = 'WCT.loadSuites([])';
+        var js = 'WCT.loadSuites([]);';
         fs.outputFileSync(path.join(__dirname, './tmp/app/test/index.html'), js);
         assert.file(path.join(__dirname, './tmp/app/test/index.html'));
       })
