@@ -117,12 +117,12 @@ module.exports = yeoman.generators.Base.extend({
 
       // Open index.html, locate where to insert text, insert ", x-foo.html" into the array of components to test
       var indexFileName = 'app/test/index.html';
-      var file = this.readFileAsString(indexFileName);
+      var origionalFile = this.readFileAsString(indexFileName);
       var regex = /WCT\.loadSuites\(\[([^\]]*)/;
-      var match = regex.exec(file);
+      var match = regex.exec(origionalFile);
       var indexOfInsertion = match.index + match[0].length;
       var comma = (match[1].length === 0) ? '' : ', ';
-      var newFile = file.slice(0, indexOfInsertion) + comma + '\'' + this.elementName + '-basic.html\'' + file.slice(indexOfInsertion);
+      var newFile = origionalFile.slice(0, indexOfInsertion) + comma + '\'' + this.elementName + '-basic.html\'' + origionalFile.slice(indexOfInsertion);
       this.writeFileFromString(newFile, indexFileName);
     }
     
