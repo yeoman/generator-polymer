@@ -134,7 +134,7 @@ describe('yo polymer:el TDD test', function () {
     helpers.run(path.join(__dirname, '../el'))
       .inDir(path.join(__dirname, './tmp'))
       .on('ready', function (generator) {
-        var js = "WCT.loadSuites(['my-greeting-basic.html', 'my-list-basic.html']);";
+        var js = 'WCT.loadSuites([\'my-greeting-basic.html\', \'my-list-basic.html\']);';
         fs.outputFileSync(path.join(__dirname, './tmp/app/test/index.html'), js);
         assert.file(path.join(__dirname, './tmp/app/test/index.html'));
       })
@@ -177,7 +177,7 @@ describe('yo polymer:el BDD test', function () {
     helpers.run(path.join(__dirname, '../el'))
       .inDir(path.join(__dirname, './tmp'))
       .on('ready', function (generator) {
-        var js = "WCT.loadSuites([]);";
+        var js = 'WCT.loadSuites([])';
         fs.outputFileSync(path.join(__dirname, './tmp/app/test/index.html'), js);
         assert.file(path.join(__dirname, './tmp/app/test/index.html'));
       })
@@ -221,7 +221,7 @@ describe('yo polymer:el None test', function () {
       .inDir(path.join(__dirname, './tmp'))
       .on('ready', function (generator) { 
         // Still need to write the index.html or it won't even prompt for test type
-        var js = "WCT.loadSuites([]);";
+        var js = 'WCT.loadSuites([]);';
         fs.outputFileSync(path.join(__dirname, './tmp/app/test/index.html'), js);
         assert.file(path.join(__dirname, './tmp/app/test/index.html'));
       })

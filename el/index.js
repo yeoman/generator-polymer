@@ -106,11 +106,9 @@ module.exports = yeoman.generators.Base.extend({
       this.writeFileFromString(file, 'app/elements/elements.html');
     }
 
-    // create an associated test file
     if (this.testType && this.testType !== 'None') {
       var testDir = 'app/test';	
       
-      // Copy approprate template for the chosen test style     
       if (this.testType === 'TDD') {
         this.template(path.join(__dirname, 'templates/test/_tdd.html'), path.join(testDir, this.elementName+'-basic.html'));
       } else if (this.testType === 'BDD') {
@@ -123,8 +121,8 @@ module.exports = yeoman.generators.Base.extend({
       var regex = /WCT\.loadSuites\(\[([^\]]*)/;
       var match = regex.exec(file);
       var indexOfInsertion = match.index + match[0].length;
-      var comma = (match[1].length === 0) ? "" : ", ";
-      var newFile = file.slice(0, indexOfInsertion) + comma + "'"+this.elementName+"-basic.html'" + file.slice(indexOfInsertion);
+      var comma = (match[1].length === 0) ? '' : ', ';
+      var newFile = file.slice(0, indexOfInsertion) + comma + '\'' + this.elementName + '-basic.html' + file.slice(indexOfInsertion);
       this.writeFileFromString(newFile, indexFileName);
     }
     
