@@ -1,6 +1,7 @@
 /*global describe, beforeEach, it*/
 
 var path    = require('path');
+var fs      = require('fs-extra');
 var helpers = require('yeoman-generator').test;
 var assert  = require('yeoman-generator').assert;
 
@@ -124,5 +125,131 @@ describe('yo polymer:el --path test', function () {
       'app/elements/foo/bar/baz/path-el.html',
       /<link rel="import" href="..\/..\/..\/..\/bower_components\/polymer\/polymer.html">/
     );
+  });
+});
+
+describe('yo polymer:el TDD test', function () {
+
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../el'))
+      .inDir(path.join(__dirname, './tmp'))
+      .on('ready', function (generator) {
+        var js = "WCT.loadSuites(['my-greeting-basic.html', 'my-list-basic.html']);";
+        fs.outputFileSync(path.join(__dirname, './tmp/app/test/index.html'), js);
+        assert.file(path.join(__dirname, './tmp/app/test/index.html'));
+      })
+      .withArguments(['x-tag'])
+      .withPrompt({
+        includeImport: false,
+        testType: 'TDD'
+      })
+      .on('end', done);
+  });
+
+  it('creates expected files', function () {
+    var expected = [
+      'app/test/index.html',
+      'app/test/x-tag-basic.html',
+      'app/elements/x-tag/x-tag.html'
+    ];
+
+    assert.file(expected);
+  });
+
+  it('Modifies index.html properly (with previous items)', function () {
+    assert.fileContent(
+      'app/test/index.html',
+      /'my-list-basic.html', 'x-tag-basic.html'\]\);/ // Was inserted at the end of the array properly
+    );
+  });
+  
+  it('does not include any words for BDD', function() {
+    assert.noFileContent(
+      'app/test/x-tag-basic.html',
+      /(describe\()|(before\()|(it\()/  // These words only appear in BDD test. This is a TDD
+    )
+  });
+});
+
+describe('yo polymer:el BDD test', function () {
+
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../el'))
+      .inDir(path.join(__dirname, './tmp'))
+      .on('ready', function (generator) {
+        var js = "WCT.loadSuites([]);";
+        fs.outputFileSync(path.join(__dirname, './tmp/app/test/index.html'), js);
+        assert.file(path.join(__dirname, './tmp/app/test/index.html'));
+      })
+      .withArguments(['x-tag'])
+      .withPrompt({
+        includeImport: false,
+        testType: 'BDD'
+      })
+      .on('end', done);
+  });
+
+  it('creates expected files', function () {
+    var expected = [
+      'app/test/index.html',
+      'app/test/x-tag-basic.html',
+      'app/elements/x-tag/x-tag.html'
+    ];
+
+    assert.file(expected);
+  });
+
+  it('Modifies index.html properly (Array empty)', function () {
+    assert.fileContent(
+      'app/test/index.html',
+      /\['x-tag-basic.html'\]\);/
+    );
+  });
+  
+  it('does not include any words for TDD', function() {
+    assert.noFileContent(
+      'app/test/x-tag-basic.html',
+      /(suite\()|(setup\()|(test\()/  // These words only appear in TDD test. This is a BDD
+    )
+  });
+});
+
+describe('yo polymer:el None test', function () {
+
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../el'))
+      .inDir(path.join(__dirname, './tmp'))
+      .on('ready', function (generator) { 
+        // Still need to write the index.html or it won't even prompt for test type
+        var js = "WCT.loadSuites([]);";
+        fs.outputFileSync(path.join(__dirname, './tmp/app/test/index.html'), js);
+        assert.file(path.join(__dirname, './tmp/app/test/index.html'));
+      })
+      .withArguments(['x-tag'])
+      .withPrompt({
+        includeImport: false,
+        testType: 'None'
+      })
+      .on('end', done);
+  });
+
+  it('creates expected files', function () {
+    var expected = [
+      'app/test/index.html',
+      'app/elements/x-tag/x-tag.html'
+    ];
+
+    assert.file(expected);
+  });
+
+  it('Modifies index.html properly (Array empty)', function () {
+    assert.fileContent(
+      'app/test/index.html',
+      /\[\]\);/
+    );
+  });
+  
+  it('does not create Test files', function() {
+    assert.noFile('app/test/x-tag-basic.html');
   });
 });
