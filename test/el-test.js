@@ -132,18 +132,22 @@ describe('yo polymer:el TDD test', function () {
 
   before(function (done) {
     helpers.run(path.join(__dirname, '../el'))
-      .inDir(path.join(__dirname, './tmp'))
-      .on('ready', function (generator) {
-        var js = 'WCT.loadSuites([\'my-greeting-basic.html\', \'my-list-basic.html\']);';
-        fs.outputFileSync(path.join(__dirname, './tmp/app/test/index.html'), js);
-        assert.file(path.join(__dirname, './tmp/app/test/index.html'));
+      .inDir(path.join( __dirname, './tmp'), function(dir) {
+        fs.mkdirSync(dir + '/app');
+        fs.mkdirSync(dir + '/app/test');
+        fs.copySync(
+          path.join(__dirname, '../app/templates/polymer-starter-kit/app/test/index.html'),
+          dir + '/app/test/index.html'
+        );
       })
       .withArguments(['x-tag'])
       .withPrompt({
         includeImport: false,
         testType: 'TDD'
       })
-      .on('end', done);
+      .on('end', function(){
+        done();
+      });
   });
 
   it('creates expected files', function () {
@@ -175,18 +179,22 @@ describe('yo polymer:el BDD test', function () {
 
   before(function (done) {
     helpers.run(path.join(__dirname, '../el'))
-      .inDir(path.join(__dirname, './tmp'))
-      .on('ready', function (generator) {
-        var js = 'WCT.loadSuites([]);';
-        fs.outputFileSync(path.join(__dirname, './tmp/app/test/index.html'), js);
-        assert.file(path.join(__dirname, './tmp/app/test/index.html'));
+      .inDir(path.join( __dirname, './tmp'), function(dir) {
+        fs.mkdirSync(dir + '/app');
+        fs.mkdirSync(dir + '/app/test');
+        fs.copySync(
+          path.join(__dirname, '../app/templates/polymer-starter-kit/app/test/index.html'),
+          dir + '/app/test/index.html'
+        );
       })
       .withArguments(['x-tag'])
       .withPrompt({
         includeImport: false,
         testType: 'BDD'
       })
-      .on('end', done);
+      .on('end', function(){
+        done();
+      });
   });
 
   it('creates expected files', function () {
@@ -197,13 +205,6 @@ describe('yo polymer:el BDD test', function () {
     ];
 
     assert.file(expected);
-  });
-
-  it('Modifies index.html properly (Array empty)', function () {
-    assert.fileContent(
-      'app/test/index.html',
-      /\['x-tag-basic.html'\]\);/
-    );
   });
   
   it('does not include any words for TDD', function() {
@@ -218,19 +219,22 @@ describe('yo polymer:el None test', function () {
 
   before(function (done) {
     helpers.run(path.join(__dirname, '../el'))
-      .inDir(path.join(__dirname, './tmp'))
-      .on('ready', function (generator) { 
-        // Still need to write the index.html or it won't even prompt for test type
-        var js = 'WCT.loadSuites([]);';
-        fs.outputFileSync(path.join(__dirname, './tmp/app/test/index.html'), js);
-        assert.file(path.join(__dirname, './tmp/app/test/index.html'));
+      .inDir(path.join( __dirname, './tmp'), function(dir) {
+        fs.mkdirSync(dir + '/app');
+        fs.mkdirSync(dir + '/app/test');
+        fs.copySync(
+          path.join(__dirname, '../app/templates/polymer-starter-kit/app/test/index.html'),
+          dir + '/app/test/index.html'
+        );
       })
       .withArguments(['x-tag'])
       .withPrompt({
         includeImport: false,
         testType: 'None'
       })
-      .on('end', done);
+      .on('end', function(){
+        done();
+      });
   });
 
   it('creates expected files', function () {
@@ -240,13 +244,6 @@ describe('yo polymer:el None test', function () {
     ];
 
     assert.file(expected);
-  });
-
-  it('Modifies index.html properly (Array empty)', function () {
-    assert.fileContent(
-      'app/test/index.html',
-      /\[\]\);/
-    );
   });
   
   it('does not create Test files', function() {
