@@ -48,8 +48,21 @@ module.exports = yeoman.generators.Base.extend({
       }
     ];
 
+    // Only ask to create a test if they already have WCT installed
+    var hasWCTinstalled = this.fs.exists('app/test/index.html');
+    if (hasWCTinstalled) {
+      prompts.push({
+        name: 'testType',
+        message: 'What type of test would you like to create?',
+        type: 'list',
+        choices: ['TDD', 'BDD', 'None'],
+        default: 'TDD'
+      });
+    }
+
     this.prompt(prompts, function (answers) {
       this.includeImport = answers.includeImport;
+      this.testType = answers.testType;
       done();
     }.bind(this));
   },
@@ -91,6 +104,26 @@ module.exports = yeoman.generators.Base.extend({
       el = el.replace('\\', '/');
       file += '<link rel="import" href="' + el + '.html">\n';
       this.writeFileFromString(file, 'app/elements/elements.html');
+    }
+
+    if (this.testType && this.testType !== 'None') {
+      var testDir = 'app/test';
+
+      if (this.testType === 'TDD') {
+        this.template(path.join(__dirname, 'templates/test/_tdd.html'), path.join(testDir, this.elementName+'-basic.html'));
+      } else if (this.testType === 'BDD') {
+        this.template(path.join(__dirname, 'templates/test/_bdd.html'), path.join(testDir, this.elementName+'-basic.html'));
+      }
+
+      // Open index.html, locate where to insert text, insert ", x-foo.html" into the array of components to test
+      var indexFileName = 'app/test/index.html';
+      var origionalFile = this.readFileAsString(indexFileName);
+      var regex = /WCT\.loadSuites\(\[([^\]]*)/;
+      var match = regex.exec(origionalFile);
+      var indexOfInsertion = match.index + match[0].length;
+      var comma = (match[1].length === 0) ? '' : ', ';
+      var newFile = origionalFile.slice(0, indexOfInsertion) + comma + '\'' + this.elementName + '-basic.html\'' + origionalFile.slice(indexOfInsertion);
+      this.writeFileFromString(newFile, indexFileName);
     }
 
     // copy documentation page and demo page only if flag is set
