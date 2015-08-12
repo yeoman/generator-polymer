@@ -26,7 +26,8 @@
   },
   "devDependencies": {
     "jshint": "*",
-    "mocha": "*"
+    "mocha": "*",
+    "fs-extra": "*"
   },
   "engines": {
     "node": ">=0.10.0"
