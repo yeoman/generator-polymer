@@ -12,12 +12,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <% if (components) { components.forEach(function (componentName) { %><link rel="import" href="<%= pathToBower %>/<%= componentName %>/<%= componentName %>.html">
 <% });} %>
 <dom-module id="<%= elementName %>">
-  <style>
-    :host {
-      display: block;
-    }
-  </style>
   <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
     <div>Hello from <span>{{foo}}</span></div>
   </template>
   <script>
