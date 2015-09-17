@@ -26,14 +26,23 @@ module.exports = yeoman.generators.Base.extend({
     // Have Yeoman greet the user.
     this.log(yosay('Out of the box I include Polymer Starter Kit'));
 
-    var prompts = [{
+    var prompts = [
+      {
         name: 'includeWCT',
         message: 'Would you like to include web-component-tester?',
         type: 'confirm'
-      }];
+      },
+      {
+        name: 'includeRecipes',
+        message: 'Would you like to include recipe docs?',
+        type: 'confirm',
+        default: false
+      }
+    ];
 
     this.prompt(prompts, function (answers) {
       this.includeWCT = answers.includeWCT;
+      this.includeRecipes = answers.includeRecipes;
       done();
     }.bind(this));
   },
@@ -91,6 +100,10 @@ module.exports = yeoman.generators.Base.extend({
 
     this.mkdir('app');
     this.directory('app', 'app');
+
+    if (this.includeRecipes) {
+      this.directory('docs', 'docs');
+    }
   },
   install: function () {
     this.installDependencies({

@@ -11,12 +11,12 @@ describe('yo polymer:app with WCT test', function () {
       .inDir(path.join(__dirname, './tmp'))
       .withArguments(['--skip-install'])
       .withPrompt({
-        includeWCT: true
+        includeWCT: true,
+        includeRecipes: false
       })
       .on('end', done);
   });
 
-  // TODO: robdodson - test that we've created the right directories
   it('creates expected files', function () {
     var expected = [
       '.editorconfig',
@@ -29,7 +29,8 @@ describe('yo polymer:app with WCT test', function () {
       'LICENSE.md',
       'package.json',
       'README.md',
-      'wct.conf.json'
+      'wct.conf.json',
+      'app'
     ];
 
     assert.file(expected);
@@ -51,7 +52,8 @@ describe('yo polymer:app without WCT test', function () {
       .inDir(path.join(__dirname, './tmp'))
       .withArguments(['--skip-install'])
       .withPrompt({
-        includeWCT: false
+        includeWCT: false,
+        includeRecipes: false
       })
       .on('end', done);
   });
@@ -67,7 +69,8 @@ describe('yo polymer:app without WCT test', function () {
       'gulpfile.js',
       'LICENSE.md',
       'package.json',
-      'README.md'
+      'README.md',
+      'app'
     ];
 
     assert.file(expected);
@@ -80,6 +83,75 @@ describe('yo polymer:app without WCT test', function () {
     assert.fileContent(
       'gulpfile.js', /^\/\/\srequire\('web-component-tester'\).+/gm
     );
+  });
+
+});
+
+describe('yo polymer:app with Recipes test', function () {
+
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../app'))
+      .inDir(path.join(__dirname, './tmp'))
+      .withArguments(['--skip-install'])
+      .withPrompt({
+        includeWCT: false,
+        includeRecipes: true
+      })
+      .on('end', done);
+  });
+
+  it('creates expected files', function () {
+    var expected = [
+      '.editorconfig',
+      '.gitattributes',
+      '.gitignore',
+      '.jscsrc',
+      '.jshintrc',
+      'bower.json',
+      'gulpfile.js',
+      'LICENSE.md',
+      'package.json',
+      'README.md',
+      'app',
+      'docs'
+    ];
+
+    assert.file(expected);
+  });
+
+});
+
+
+describe('yo polymer:app without Recipes test', function () {
+
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../app'))
+      .inDir(path.join(__dirname, './tmp'))
+      .withArguments(['--skip-install'])
+      .withPrompt({
+        includeWCT: false,
+        includeRecipes: false
+      })
+      .on('end', done);
+  });
+
+  it('creates expected files', function () {
+    var expected = [
+      '.editorconfig',
+      '.gitattributes',
+      '.gitignore',
+      '.jscsrc',
+      '.jshintrc',
+      'bower.json',
+      'gulpfile.js',
+      'LICENSE.md',
+      'package.json',
+      'README.md',
+      'app'
+    ];
+
+    assert.file(expected);
+    assert.noFile(['docs']);
   });
 
 });
