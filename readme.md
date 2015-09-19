@@ -97,6 +97,8 @@ polyserve
 ### Gh
 Generates a Github pages branch for your [seed-element](#seed).
 
+**This requires that you have [SSH keys setup on GitHub](https://help.github.com/articles/generating-ssh-keys/)**.
+
 If your documentation or demo pages have dependencies declared as devDependencies in `bower.json`, they will be included in your GitHub pages branch.
 
 Example:
