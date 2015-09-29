@@ -42,6 +42,7 @@ Available generators:
 
 - [polymer (aka polymer:app)](#app)
 - [polymer:element](#element-alias-el)
+- [polymer:bower](#bower-alias-bo)
 - [polymer:seed](#seed)
 - [polymer:gh](#gh)
 
@@ -69,18 +70,19 @@ yo polymer:el my-element
 
 **Note: You must pass in an element name, and the name must contain a dash "-"**
 
-One can also include element dependencies to be imported. For instance, if you're creating a `fancy-menu` element which needs to import `paper-button` and `paper-checkbox` as dependencies, you can generate the file like so:
+### Bower (alias: Bo)
+Installs a polymer element through `bower` and appends an import to `app/elements/elements.html`.
 
+Example:
 ```bash
-yo polymer:el fancy-menu paper-button paper-checkbox
+yo polymer:bower my-element
+
+# or use the alias
+
+yo polymer:bo my-element
 ```
 
-#### Options
-
-```
---docs, include iron-component-page docs with your element and demo.html
---path, override default directory structure, ex: --path foo/bar will put your element in app/elements/foo/bar
-```
+**Note: You must pass in an element name.**
 
 ### Seed
 Generates a reusable polymer element based on the [seed-element workflow](https://github.com/polymerelements/seed-element). **This should only be used if you're creating a standalone element repo that you intend to share with others via bower.** If you're just building a Polymer app, stick to the [Element](#element-alias-el) generator.

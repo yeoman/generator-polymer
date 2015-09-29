@@ -10,12 +10,12 @@ module.exports = yeoman.generators.Base.extend({
 
     this.option('skip-install', {
       desc:     'Whether dependencies should be installed',
-      defaults: false,
+      defaults: false
     });
 
     this.option('skip-install-message', {
       desc:     'Whether commands run should be shown',
-      defaults: false,
+      defaults: false
     });
 
     this.sourceRoot(path.join(path.dirname(this.resolved), 'templates/polymer-starter-kit'));
@@ -108,7 +108,7 @@ module.exports = yeoman.generators.Base.extend({
   install: function () {
     this.installDependencies({
       skipInstall: this.options['skip-install'],
-      skipMessage: this.options['skip-install-message'],
+      skipMessage: this.options['skip-install-message']
     });
   }
 });
