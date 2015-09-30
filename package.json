@@ -13,7 +13,7 @@
   "main": "app/index.js",
   "repository": "yeoman/generator-polymer",
   "scripts": {
-    "test": "jshint {app,el,gh,seed}/*.js && mocha --reporter spec"
+    "test": "jshint {app,el,gh,seed,test}/*.js script-base.js util.js && mocha --reporter spec"
   },
   "dependencies": {
     "chalk": "^1.0.0",
