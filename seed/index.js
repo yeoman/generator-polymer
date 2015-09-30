@@ -12,17 +12,17 @@ module.exports = yeoman.generators.Base.extend({
 
     this.argument('element-name', {
       desc: 'Tag name of the element and directory to generate.',
-      required: true,
+      required: true
     });
 
     this.option('skip-install', {
       desc: 'Whether bower dependencies should be installed',
-      defaults: false,
+      defaults: false
     });
 
     this.option('skip-install-message', {
       desc: 'Whether commands run should be shown',
-      defaults: false,
+      defaults: false
     });
 
     this.sourceRoot(path.join(path.dirname(this.resolved), 'templates/seed-element'));
@@ -110,7 +110,7 @@ module.exports = yeoman.generators.Base.extend({
     this.installDependencies({
       npm: false,
       skipInstall: this.options['skip-install'],
-      skipMessage: this.options['skip-install-message'],
+      skipMessage: this.options['skip-install-message']
     });
   }
 });
