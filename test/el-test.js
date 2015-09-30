@@ -1,4 +1,4 @@
-/*global describe, beforeEach, it*/
+/*global describe, beforeEach, it, before*/
 
 var path    = require('path');
 var fs      = require('fs-extra');
@@ -171,7 +171,7 @@ describe('yo polymer:el TDD test', function () {
     assert.noFileContent(
       'app/test/x-tag-basic.html',
       /(describe\()|(before\()|(it\()/  // These words only appear in BDD test. This is a TDD
-    )
+    );
   });
 });
 
@@ -211,7 +211,7 @@ describe('yo polymer:el BDD test', function () {
     assert.noFileContent(
       'app/test/x-tag-basic.html',
       /(suite\()|(setup\()|(test\()/  // These words only appear in TDD test. This is a BDD
-    )
+    );
   });
 });
 

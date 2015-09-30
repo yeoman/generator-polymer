@@ -39,7 +39,7 @@ Generator.prototype.addImportToFile = function (options) {
 
     polymerUtils.rewriteFile({
       file: fullPath,
-      needle: options.needleHead || "</head>",
+      needle: options.needleHead || '</head>',
       splicable: [
         '<link rel="import" href="' + options.importUrl + '">'
       ]

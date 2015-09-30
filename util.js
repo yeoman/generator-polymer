@@ -2,22 +2,6 @@
 var path = require('path');
 var fs = require('fs');
 
-
-module.exports = {
-    rewrite: rewrite,
-    rewriteFile: rewriteFile
-};
-
-function rewriteFile(args) {
-    args.path = args.path || process.cwd();
-    var fullPath = path.join(args.path, args.file);
-
-    args.haystack = fs.readFileSync(fullPath, 'utf8');
-    var body = rewrite(args);
-
-    fs.writeFileSync(fullPath, body);
-}
-
 function escapeRegExp(str) {
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 }
@@ -59,3 +43,19 @@ function rewrite(args) {
 
     return lines.join('\n');
 }
+
+
+function rewriteFile(args) {
+    args.path = args.path || process.cwd();
+    var fullPath = path.join(args.path, args.file);
+
+    args.haystack = fs.readFileSync(fullPath, 'utf8');
+    var body = rewrite(args);
+
+    fs.writeFileSync(fullPath, body);
+}
+
+module.exports = {
+    rewrite: rewrite,
+    rewriteFile: rewriteFile
+};

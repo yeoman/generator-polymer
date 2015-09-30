@@ -1,4 +1,4 @@
-/*global describe, beforeEach, it*/
+/*global describe, beforeEach, before, it*/
 
 var path    = require('path');
 var helpers = require('yeoman-generator').test;
