@@ -1,6 +1,9 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var path = require('path');
+var htmlWiring = require('html-wiring');
+var readFileAsString = htmlWiring.readFileAsString;
+var writeFileFromString = htmlWiring.writeFileFromString;
 
 module.exports = yeoman.generators.Base.extend({
   constructor: function () {
@@ -74,70 +77,85 @@ module.exports = yeoman.generators.Base.extend({
 
     if (this.flags.path) {
 
-      // --path foo/bar
-      // el = "foo/bar/x-foo"
-      el = path.join(this.flags.path, this.elementName);
-
-      // pathToEl = "app/elements/foo/bar/x-foo"
-      pathToEl = path.join('app/elements', el);
+      // pathToEl = "app/elements/foo/bar/"
+      pathToEl = path.join(this.destinationPath('app/elements'), this.flags.path);
 
     } else {
 
-      // el = "x-foo/x-foo"
-      el = path.join(this.elementName, this.elementName);
-
-      // pathToEl = "app/elements/x-foo/x-foo"
-      pathToEl = path.join('app/elements', el);
+      // pathToEl = "app/elements/x-foo/"
+      pathToEl = path.join(this.destinationPath('app/elements'), this.elementName);
 
     }
 
     // Used by element template
-    this.pathToBower = path.relative(
-      path.dirname(pathToEl),
-      path.join(process.cwd(), 'app/bower_components')
+    var tpl = {
+      elementName: this.elementName,
+      components: this.components,
+      pathToBower: path.relative(
+          pathToEl,
+          path.join(process.cwd(), 'app/bower_components')
+        )
+    };
+
+    this.fs.copyTpl(
+      path.join(this.templatePath('element.html')),
+      path.join(pathToEl, this.elementName + '.html'),
+      tpl
     );
-    this.template(path.join(__dirname, 'templates/element.html'), pathToEl + '.html');
 
     // Wire up the dependency in elements.html
     if (this.includeImport) {
-      var file = this.readFileAsString('app/elements/elements.html');
+      var file = readFileAsString(this.destinationPath('app/elements/elements.html'));
       el = el.replace(/\\/g, '/');
       file += '<link rel="import" href="' + el + '.html">\n';
-      this.writeFileFromString(file, 'app/elements/elements.html');
+      writeFileFromString(file, this.destinationPath('app/elements/elements.html'));
     }
 
     if (this.testType && this.testType !== 'None') {
-      var testDir = 'app/test';
+      var testDir = this.destinationPath('app/test');
 
       if (this.testType === 'TDD') {
-        this.template(path.join(__dirname, 'templates/test/_tdd.html'), path.join(testDir, this.elementName+'-basic.html'));
+        this.fs.copyTpl(
+          this.templatePath('test/tdd.html'),
+          path.join(testDir, this.elementName+'-basic.html'),
+          tpl
+        );
       } else if (this.testType === 'BDD') {
-        this.template(path.join(__dirname, 'templates/test/_bdd.html'), path.join(testDir, this.elementName+'-basic.html'));
+        this.fs.copyTpl(
+          this.templatePath('test/bdd.html'),
+          path.join(testDir, this.elementName+'-basic.html'),
+          tpl
+        );
       }
 
       // Open index.html, locate where to insert text, insert ", x-foo.html" into the array of components to test
       var indexFileName = 'app/test/index.html';
-      var origionalFile = this.readFileAsString(indexFileName);
+      var origionalFile = readFileAsString(this.destinationPath(indexFileName));
       var regex = /WCT\.loadSuites\(\[([^\]]*)/;
       var match = regex.exec(origionalFile);
       var indexOfInsertion = match.index + match[0].length;
       var comma = (match[1].length === 0) ? '' : ', ';
       var newFile = origionalFile.slice(0, indexOfInsertion) + comma + '\'' + this.elementName + '-basic.html\'' + origionalFile.slice(indexOfInsertion);
-      this.writeFileFromString(newFile, indexFileName);
+      writeFileFromString(newFile, indexFileName);
     }
 
     // copy documentation page and demo page only if flag is set
     if (this.flags.docs) {
-      var elementDir = 'app/elements';
 
-      // pathToElementDir = "app/elements/x-foo"
-      var pathToElementDir = path.join(elementDir, this.elementName);
+      // copy templates/index.html -> app/elements/x-foo/index.html (documentation page)
+      this.fs.copyTpl(
+        this.templatePath('index.html'),
+        path.join(pathToEl, 'index.html'),
+        tpl
+      );
 
-      // copy templates/_index.html -> app/elements/x-foo/index.html (documentation page)
-      this.template(path.join(__dirname, 'templates/_index.html'), path.join(pathToElementDir, 'index.html'));
+      // copy templates/demo.html -> app/elements/x-foo/demo.html (demo page)
+      this.fs.copyTpl(
+        this.templatePath('demo.html'),
+        path.join(pathToEl, 'demo/index.html'),
+        tpl
+      );
 
-      // copy templates/_demo.html -> app/elements/x-foo/demo.html (demo page)
-      this.template(path.join(__dirname, 'templates/_demo.html'), path.join(pathToElementDir, 'demo/index.html'));
     }
   }
 });
