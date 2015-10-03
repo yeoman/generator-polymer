@@ -2,7 +2,6 @@
 var yeoman = require('yeoman-generator');
 var path = require('path');
 var yosay = require('yosay');
-var ncp = require('ncp');
 var spawn = require('child_process').spawn;
 var rimraf = require('rimraf');
 
@@ -40,33 +39,37 @@ module.exports = yeoman.generators.Base.extend({
 
       done();
     }.bind(this));
+
+    // Create a tmp dir to run our process in
+    this.destinationRoot('tmp-' + Date.now());
   },
-  gh: function () {
+  copy: function () {
+    this.fs.copy(
+      this.templatePath('gp.sh'),
+      this.destinationPath('gp.sh')
+    );
+  },
+  end: function () {
     var done = this.async();
-    var src = path.join(__dirname, 'templates');
-    var dest = path.join(process.cwd(), 'tmp-' + Date.now());
 
-    // work around weird timing issues with this.copy...
-    ncp(src, dest, function (err) {
-      if (err) {
-        return this.log(err);
-      }
+    var gp = spawn(
+      'bash',
+      ['gp.sh', this.ghUser, this.elementName, 'master', this.includeDevDeps],
+      {cwd: this.destinationRoot()}
+    );
 
-      var gp = spawn('bash', ['gp.sh', this.ghUser, this.elementName, 'master', this.includeDevDeps], {cwd: dest});
+    gp.stdout.on('data', function (data) {
+      this.log(data.toString());
+    }.bind(this));
 
-      gp.stdout.on('data', function (data) {
-        this.log(data.toString());
-      }.bind(this));
+    gp.stderr.on('data', function (data) {
+      this.log(data.toString());
+    }.bind(this));
 
-      gp.stderr.on('data', function (data) {
-        this.log(data.toString());
-      }.bind(this));
-
-      gp.on('close', function (code) {
-        this.log('child process exited with code ' + code);
-        rimraf.sync(dest);
-        done();
-      }.bind(this));
+    gp.on('close', function (code) {
+      this.log('child process exited with code ' + code);
+      rimraf.sync(this.destinationRoot());
+      done();
     }.bind(this));
   }
 });
