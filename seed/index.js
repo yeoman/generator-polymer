@@ -73,38 +73,61 @@ module.exports = yeoman.generators.Base.extend({
   },
   seed: function () {
 
+    // Process function to replace 'seed-element' in template files
+    // with actual element name
     var renameElement = function (file) {
+      file = file.toString();
       return file.replace(/seed-element/g, this.elementName);
     }.bind(this);
 
-    // Handle bug where npm has renamed .gitignore to .npmignore
-    // https://github.com/npm/npm/issues/3763
-    if (this.src.isFile('.npmignore')) {
-      this.copy('.npmignore', '.gitignore');
-    } else {
-      this.copy('.gitignore', '.gitignore');
-    }
+    this.fs.copy([
+        this.templatePath() + '/**',
+        this.templatePath() + '/**/.*',
+        '!**/{bower.json,seed-element.html,.git,.npmignore,test}/**'],
+      this.destinationPath(),
+      { process: renameElement });
 
-    this.copy('bower.json', 'bower.json', function(file) {
-      var manifest = JSON.parse(file);
-      manifest.name = this.elementName;
-      manifest.main = this.elementName + '.html';
-      if (!this.includeWCT) {
-        delete manifest.devDependencies['web-component-tester'];
-        delete manifest.devDependencies['test-fixture'];
-      }
-      return JSON.stringify(manifest, null, 2);
-    }.bind(this));
+    this.fs.copy(
+      this.templatePath('seed-element.html'),
+      this.destinationPath(this.elementName + '.html'),
+      { process: renameElement });
 
-    this.copy('index.html', 'index.html', renameElement);
-    this.copy('README.md', 'README.md', renameElement);
-    this.copy('seed-element.html', this.elementName + '.html', renameElement);
-    this.copy('demo/index.html', 'demo/index.html', renameElement);
+    // Remove WCT if the user opted out
+    this.fs.copy(
+      this.templatePath('bower.json'),
+      this.destinationPath('bower.json'),
+      { process: function (file) {
+        var manifest =  JSON.parse(file.toString());
+        manifest.name = this.elementName;
+        manifest.main = this.elementName + '.html';
+        if (!this.includeWCT) {
+          delete manifest.devDependencies['web-component-tester'];
+          delete manifest.devDependencies['test-fixture'];
+        }
+        return JSON.stringify(manifest, null, 2);
+      }.bind(this) });
 
     if (this.includeWCT) {
-      this.copy('test/index.html', 'test/index.html', renameElement);
-      this.copy('test/basic-test.html', 'test/basic-test.html', renameElement);
+      this.fs.copy(
+        this.sourceRoot() + '/test/*',
+        this.destinationPath('test'),
+        { process: renameElement });
     }
+
+    // Handle bug where npm has renamed .gitignore to .npmignore
+    // https://github.com/npm/npm/issues/3763
+    if (this.fs.exists('.npmignore')) {
+      this.fs.copy(
+        this.templatePath('.npmignore'),
+        this.destinationPath('.gitignore')
+      );
+    } else {
+      this.fs.copy(
+        this.templatePath('.gitignore'),
+        this.destinationPath('.gitignore')
+      );
+    }
+
   },
   install: function () {
     this.installDependencies({
