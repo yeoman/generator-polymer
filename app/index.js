@@ -48,12 +48,12 @@ module.exports = yeoman.generators.Base.extend({
     }.bind(this));
   },
   app: function () {
-
     this.fs.copy([
-                                this.templatePath() + '/**',
-                                this.templatePath() + '/**/.*',
-                                '!**/{gulpfile.js,bower.json,package.json,.git,.npmignore, wct.conf.json,docs,test}/**'],
-                        this.destinationPath());
+      this.templatePath() + '/**',
+      this.templatePath() + '/**/.*',
+      '!**/{gulpfile.js,bower.json,package.json,.git,.npmignore, wct.conf.js,docs,test}/**'],
+      this.destinationPath()
+    );
 
     // Handle bug where npm has renamed .gitignore to .npmignore
     // https://github.com/npm/npm/issues/3763
@@ -111,8 +111,8 @@ module.exports = yeoman.generators.Base.extend({
 
     if (this.includeWCT) {
       this.fs.copy(
-        this.templatePath('wct.conf.json'),
-        this.destinationPath('wct.conf.json')
+        this.templatePath('wct.conf.js'),
+        this.destinationPath('wct.conf.js')
       );
 
       this.fs.copy(

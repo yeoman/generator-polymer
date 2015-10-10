@@ -31,7 +31,7 @@ describe('yo polymer:app', function() {
         'LICENSE.md',
         'package.json',
         'README.md',
-        'wct.conf.json',
+        'wct.conf.js',
         'app'
       ];
 
