@@ -51,13 +51,13 @@ module.exports = yeoman.generators.Base.extend({
     this.fs.copy([
       this.templatePath() + '/**',
       this.templatePath() + '/**/.*',
-      '!**/{gulpfile.js,bower.json,package.json,.git,.npmignore, wct.conf.js,docs,test}/**'],
+      '!**/{gulpfile.js,bower.json,package.json,.git,.npmignore,.gitignore,wct.conf.js,docs,test}/**'],
       this.destinationPath()
     );
 
     // Handle bug where npm has renamed .gitignore to .npmignore
     // https://github.com/npm/npm/issues/3763
-    if (this.fs.exists('.npmignore')) {
+    if (this.fs.exists(this.templatePath('.npmignore'))) {
       this.fs.copy(
         this.templatePath('.npmignore'),
         this.destinationPath('.gitignore')
