@@ -39,7 +39,7 @@ module.exports = yeoman.generators.Base.extend({
       ));
     }
     
-    var isInsideProjectFolder = this.fs.exists('app/elements/elements.html');
+    var isInsideProjectFolder = this.fs.exists(this.destinationPath('app/elements/elements.html'));
     if (!isInsideProjectFolder) {
       this.emit('error', new Error(
         'Element must be created inside a project folder'
