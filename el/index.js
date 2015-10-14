@@ -38,6 +38,13 @@ module.exports = yeoman.generators.Base.extend({
         'ex: yo polymer:el my-element'
       ));
     }
+    
+    var isInsideProjectFolder = this.fs.exists('app/elements/elements.html');
+    if (!isInsideProjectFolder) {
+      this.emit('error', new Error(
+        'Element must be created inside a project folder'
+      ));
+   }
   },
   askFor: function () {
     var done = this.async();
