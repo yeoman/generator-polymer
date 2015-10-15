@@ -106,7 +106,7 @@ module.exports = yeoman.generators.Base.extend({
     // Wire up the dependency in elements.html
     if (this.includeImport) {
       var file = readFileAsString(this.destinationPath('app/elements/elements.html'));
-      el = (this.flags.path || this.elementName) + '/' + this.elementName
+      el = (this.flags.path || this.elementName) + '/' + this.elementName;
       el = el.replace(/\\/g, '/');
       file += '<link rel="import" href="' + el + '.html">\n';
       writeFileFromString(file, this.destinationPath('app/elements/elements.html'));
