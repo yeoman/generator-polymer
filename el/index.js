@@ -38,6 +38,12 @@ module.exports = yeoman.generators.Base.extend({
         'ex: yo polymer:el my-element'
       ));
     }
+    var isInsideProjectFolder = this.fs.exists(this.destinationPath('app/elements/elements.html'));
+    if (!isInsideProjectFolder) {
+      this.emit('error', new Error(
+        'Generators are to be run from the root of your app'
+      ));
+    }
   },
   askFor: function () {
     var done = this.async();
@@ -106,7 +112,7 @@ module.exports = yeoman.generators.Base.extend({
     // Wire up the dependency in elements.html
     if (this.includeImport) {
       var file = readFileAsString(this.destinationPath('app/elements/elements.html'));
-      el = (this.flags.path || this.elementName) + '/' + this.elementName
+      el = (this.flags.path || this.elementName) + '/' + this.elementName;
       el = el.replace(/\\/g, '/');
       file += '<link rel="import" href="' + el + '.html">\n';
       writeFileFromString(file, this.destinationPath('app/elements/elements.html'));
