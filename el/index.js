@@ -25,6 +25,12 @@ module.exports = yeoman.generators.Base.extend({
     // ex: yo polymer:el x-foo --path foo/bar/baz will create
     // app/elements/foo/bar/baz/x-foo
     this.option('path');
+
+    // Allow aliasing of the 'el' subgenerator by other subgenerators like
+    // yo polymer:element. Without this fix those generators will attempt to copy
+    // from their own template directories (which don't exist)
+    // Fixes https://github.com/yeoman/generator-polymer/issues/232#issuecomment-147847138
+    this.sourceRoot(path.join(__dirname, 'templates'));
   },
   init: function () {
     this.elementName = this['element-name'];
