@@ -116,7 +116,7 @@ module.exports = yeoman.generators.Base.extend({
 
     // Handle bug where npm has renamed .gitignore to .npmignore
     // https://github.com/npm/npm/issues/3763
-    if (this.fs.exists('.npmignore')) {
+    if (this.fs.exists(this.templatePath('.npmignore'))) {
       this.fs.copy(
         this.templatePath('.npmignore'),
         this.destinationPath('.gitignore')
