@@ -35,6 +35,16 @@ describe('yo polymer:seed', function() {
       assert.file(expected);
     });
 
+    it('does not create ignored files', function () {
+      var unwanted = [
+        'seed-element.html',
+        '.npmignore',
+        '.git'
+      ];
+
+      assert.noFile(unwanted);
+    });
+
     it('creates the correct bower.json content', function () {
       assert.fileContent('bower.json', /"name": "seed-el"/);
       assert.fileContent('bower.json', /"main": "seed-el.html"/);

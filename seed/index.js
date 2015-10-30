@@ -82,10 +82,17 @@ module.exports = yeoman.generators.Base.extend({
 
     this.fs.copy([
         this.templatePath() + '/**',
-        this.templatePath() + '/**/.*',
-        '!**/{bower.json,seed-element.html,.git,.npmignore,test}/**'],
+        this.templatePath() + '/**/.*'],
       this.destinationPath(),
-      { process: renameElement });
+      { 
+        process: renameElement,
+        globOptions: {
+          ignore: [
+            '**/{bower.json,seed-element.html,.npmignore}',
+            '**/{test,.git}/**'
+          ]
+        }
+      });
 
     this.fs.copy(
       this.templatePath('seed-element.html'),
