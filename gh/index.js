@@ -30,12 +30,18 @@ module.exports = yeoman.generators.Base.extend({
         name: 'elementName',
         message: 'What is your element\'s name',
         default: defaultName
+      },
+      {
+        name: 'branch',
+        message: 'What branch would you like to deploy from?',
+        default: 'master'
       }
     ];
 
     this.prompt(prompts, function (props) {
       this.ghUser = props.ghUser;
       this.elementName = props.elementName;
+      this.branch = props.branch;
 
       done();
     }.bind(this));
@@ -54,7 +60,7 @@ module.exports = yeoman.generators.Base.extend({
 
     var gp = spawn(
       'bash',
-      ['gp.sh', this.ghUser, this.elementName, 'master', this.includeDevDeps],
+      ['gp.sh', this.ghUser, this.elementName, this.branch, this.includeDevDeps],
       {cwd: this.destinationRoot()}
     );
 
