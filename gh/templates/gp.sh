@@ -14,13 +14,14 @@
 
 # usage gp Polymer core-item [branch]
 # Run in a clean directory passing in a GitHub org and repo name
-org=$1
-repo=$2
-branch=${3:-"master"} # default to master when branch isn't specified
+hostname=$4
+org=$2
+repo=$3
+branch=${4:-"master"} # default to master when branch isn't specified
 
 # make folder (same as input, no checking!)
 mkdir $repo
-git clone git@github.com:$org/$repo.git --single-branch
+git clone git@$hostname:$org/$repo.git --single-branch
 
 # switch to gh-pages branch
 pushd $repo >/dev/null
@@ -37,7 +38,7 @@ echo "{
 }
 " > .bowerrc
 bower install
-bower install $org/$repo#$branch
+bower install git@$hostname:$org/$repo#$branch
 git checkout ${branch} -- demo
 rm -rf components/$repo/demo
 mv demo components/$repo/

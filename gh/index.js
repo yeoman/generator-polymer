@@ -23,8 +23,13 @@ module.exports = yeoman.generators.Base.extend({
     var defaultName = path.basename(process.cwd());
     var prompts = [
       {
+        name: 'ghHostname',
+        message: 'What is your GitHub hostname?',
+        default: 'github.com'
+      },
+      {
         name: 'ghUser',
-        message: 'What is your GitHub username?'
+        message: 'What is your GitHub username or organization?'
       },
       {
         name: 'elementName',
