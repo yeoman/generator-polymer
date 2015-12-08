@@ -44,6 +44,7 @@ module.exports = yeoman.generators.Base.extend({
     ];
 
     this.prompt(prompts, function (props) {
+      this.ghHostname = props.ghHostname;
       this.ghUser = props.ghUser;
       this.elementName = props.elementName;
       this.branch = props.branch;
@@ -65,7 +66,7 @@ module.exports = yeoman.generators.Base.extend({
 
     var gp = spawn(
       'bash',
-      ['gp.sh', this.ghUser, this.elementName, this.branch, this.includeDevDeps],
+      ['gp.sh', this.ghHostname, this.ghUser, this.elementName, this.branch, this.includeDevDeps],
       {cwd: this.destinationRoot()}
     );
 

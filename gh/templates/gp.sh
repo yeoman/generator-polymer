@@ -14,7 +14,7 @@
 
 # usage gp Polymer core-item [branch]
 # Run in a clean directory passing in a GitHub org and repo name
-hostname=$4
+hostname=$1
 org=$2
 repo=$3
 branch=${4:-"master"} # default to master when branch isn't specified
@@ -58,5 +58,6 @@ fi
 git add -A .
 git commit -am 'seed gh-pages'
 git push -u origin gh-pages --force
+git checkout $branch
 
 popd >/dev/null
