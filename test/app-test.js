@@ -40,7 +40,6 @@ describe('yo polymer:app', function() {
 
     it('includes WCT', function() {
       assert.fileContent('bower.json', /web-component-tester/gm);
-      assert.fileContent('bower.json', /test-fixture/gm);
       assert.fileContent('package.json', /web-component-tester/gm);
       assert.fileContent('gulpfile.js', /^require\('web-component-tester'\).+/gm);
     });
@@ -80,7 +79,6 @@ describe('yo polymer:app', function() {
 
     it('does not include WCT', function() {
       assert.noFileContent('bower.json', /web-component-tester/gm);
-      assert.noFileContent('bower.json', /test-fixture/gm);
       assert.noFileContent('package.json', /web-component-tester/gm);
       assert.fileContent(
         'gulpfile.js', /^\/\/\srequire\('web-component-tester'\).+/gm
