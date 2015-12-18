@@ -17,10 +17,14 @@
 org=$1
 repo=$2
 branch=${3:-"master"} # default to master when branch isn't specified
+connectionType=${4:-"https"} # defaults to https if type is set to null
+
+# Calculate git clone url
+[ "$connectionType" = "https" ] && { url=https://github.com/$org/$repo.git; true; } || url=git@github.com:$org/$repo.git;
 
 # make folder (same as input, no checking!)
 mkdir $repo
-git clone git@github.com:$org/$repo.git --single-branch
+git clone $url --single-branch
 
 # switch to gh-pages branch
 pushd $repo >/dev/null
