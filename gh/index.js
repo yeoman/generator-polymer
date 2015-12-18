@@ -35,13 +35,19 @@ module.exports = yeoman.generators.Base.extend({
         name: 'branch',
         message: 'What branch would you like to deploy from?',
         default: 'master'
-      }
+      },
+      {
+        name: 'connectionType',
+        message: 'Use HTTPS or SSL to connect to GitHub?',
+        default: 'HTTPS'
+      },
     ];
 
     this.prompt(prompts, function (props) {
       this.ghUser = props.ghUser;
       this.elementName = props.elementName;
       this.branch = props.branch;
+      this.connectionType = props.connectionType.toLowerCase();
 
       done();
     }.bind(this));
@@ -60,7 +66,7 @@ module.exports = yeoman.generators.Base.extend({
 
     var gp = spawn(
       'bash',
-      ['gp.sh', this.ghUser, this.elementName, this.branch, this.includeDevDeps],
+      ['gp.sh', this.ghUser, this.elementName, this.branch, this.connectionType, this.includeDevDeps],
       {cwd: this.destinationRoot()}
     );
 
