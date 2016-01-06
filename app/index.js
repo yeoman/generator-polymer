@@ -77,7 +77,6 @@ module.exports = yeoman.generators.Base.extend({
         var manifest =  JSON.parse(file.toString());
         if (!this.includeWCT) {
           delete manifest.devDependencies['web-component-tester'];
-          delete manifest.devDependencies['test-fixture'];
         }
         return JSON.stringify(manifest, null, 2);
       }.bind(this) });
