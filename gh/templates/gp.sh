@@ -14,13 +14,14 @@
 
 # usage gp Polymer core-item [branch]
 # Run in a clean directory passing in a GitHub org and repo name
-org=$1
-repo=$2
-branch=${3:-"master"} # default to master when branch isn't specified
-connectionType=${4:-"https"} # defaults to https if type is set to null
+hostname=$1
+org=$2
+repo=$3
+branch=${4:-"master"} # default to master when branch isn't specified
+connectionType=${5:-"https"} # defaults to https if type is set to null
 
 # Calculate git clone url
-[ "$connectionType" = "https" ] && { url=https://github.com/$org/$repo.git; true; } || url=git@github.com:$org/$repo.git;
+[ "$connectionType" = "https" ] && { url=https://$hostname/$org/$repo.git; true; } || url=git@$hostname:$org/$repo.git;
 
 # make folder (same as input, no checking!)
 mkdir $repo
@@ -41,7 +42,7 @@ echo "{
 }
 " > .bowerrc
 bower install
-bower install $org/$repo#$branch
+bower install git@$hostname:$org/$repo#$branch
 git checkout ${branch} -- demo
 rm -rf components/$repo/demo
 mv demo components/$repo/
@@ -61,5 +62,6 @@ fi
 git add -A .
 git commit -am 'seed gh-pages'
 git push -u origin gh-pages --force
+git checkout $branch
 
 popd >/dev/null

@@ -13,6 +13,14 @@ module.exports = yeoman.generators.Base.extend({
       default: false
     });
     this.includeDevDeps = this.options.nodevdeps ? 'no' : 'yes';
+
+    // Github Enterprise Support
+    this.option('hostname',{
+      desc: 'Github hostname to use. Necessary for Github Enterprise instances.',
+      type: String,
+      default: 'github.com'
+    });
+    this.ghHostname = this.options.hostname;
   },
   askFor: function () {
     var done = this.async();
@@ -24,7 +32,7 @@ module.exports = yeoman.generators.Base.extend({
     var prompts = [
       {
         name: 'ghUser',
-        message: 'What is your GitHub username?'
+        message: 'What is your GitHub username or organization?'
       },
       {
         name: 'elementName',
@@ -66,7 +74,7 @@ module.exports = yeoman.generators.Base.extend({
 
     var gp = spawn(
       'bash',
-      ['gp.sh', this.ghUser, this.elementName, this.branch, this.connectionType, this.includeDevDeps],
+      ['gp.sh', this.ghHostname, this.ghUser, this.elementName, this.branch, this.connectionType, this.includeDevDeps],
       {cwd: this.destinationRoot()}
     );
 
