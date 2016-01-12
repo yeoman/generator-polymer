@@ -107,6 +107,9 @@ module.exports = yeoman.generators.Base.extend({
         var manifest =  JSON.parse(file.toString());
         manifest.name = this.elementName;
         manifest.main = this.elementName + '.html';
+        manifest.license.replace(/polymer/g, this.ghUser);
+        manifest.homepage.replace(/<USERNAME>/g, this.ghUser);
+        manifest.homepage.replace(/seed-element/g, this.elementName);
         if (!this.includeWCT) {
           delete manifest.devDependencies['web-component-tester'];
         }
