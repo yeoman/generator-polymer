@@ -19,6 +19,7 @@
   "dependencies": {
     "chalk": "^1.0.0",
     "html-wiring": "^1.2.0",
+    "js-beautify": "^1.5.10",
     "lodash": "^4.0.0",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",

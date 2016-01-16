@@ -4,6 +4,8 @@ var path = require('path');
 var htmlWiring = require('html-wiring');
 var readFileAsString = htmlWiring.readFileAsString;
 var writeFileFromString = htmlWiring.writeFileFromString;
+var beautify = require('js-beautify').html;
+var beautifyOpts = { indent_size: 2 };
 
 module.exports = yeoman.Base.extend({
   constructor: function () {
@@ -137,13 +139,17 @@ module.exports = yeoman.Base.extend({
 
       // Open index.html, locate where to insert text, insert ", x-foo.html" into the array of components to test
       var indexFileName = 'app/test/index.html';
-      var origionalFile = readFileAsString(this.destinationPath(indexFileName));
-      var regex = /WCT\.loadSuites\(\[([^\]]*)/;
-      var match = regex.exec(origionalFile);
-      var indexOfInsertion = match.index + match[0].length;
-      var comma = (match[1].length === 0) ? '' : ', ';
-      var newFile = origionalFile.slice(0, indexOfInsertion) + comma + '\'' + this.elementName + '-basic.html\'' + origionalFile.slice(indexOfInsertion);
-      writeFileFromString(newFile, indexFileName);
+      // Replace single quotes to make JSON happy
+      var origionalFile = readFileAsString(indexFileName).replace(/'/g, '"');
+      var regex = /WCT\.loadSuites\(([^\)]*)/;
+      var testListAsString = origionalFile.match(regex)[1];
+      var testListAsArray = JSON.parse(testListAsString);
+      var fileName = this.elementName + '-basic.html';
+      testListAsArray.push(fileName);
+      testListAsArray.push(fileName + '?dom=shadow');
+      var newTestString = JSON.stringify(testListAsArray, null, 2).replace(/"/g, '\'');
+      var newFile = origionalFile.replace(testListAsString, newTestString);
+      writeFileFromString(beautify(newFile, beautifyOpts), indexFileName);
     }
 
     // copy documentation page and demo page only if flag is set

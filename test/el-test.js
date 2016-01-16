@@ -165,7 +165,7 @@ describe('yo polymer:el', function() {
     it('Modifies index.html properly (with previous items)', function () {
       assert.fileContent(
         'app/test/index.html',
-        /'my-list-basic.html', 'x-tag-basic.html'\]\);/ // Was inserted at the end of the array properly
+        /'my-list-basic\.html\?dom=shadow',\n\s+'x-tag-basic\.html',\n\s+'x-tag-basic\.html\?dom=shadow'/ // Was inserted at the end of the array properly
       );
     });
 
