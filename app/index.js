@@ -5,9 +5,9 @@ var yosay = require('yosay');
 var chalk = require('chalk');
 var mkdirp = require('mkdirp');
 
-module.exports = yeoman.generators.Base.extend({
+module.exports = yeoman.Base.extend({
   constructor: function () {
-    yeoman.generators.Base.apply(this, arguments);
+    yeoman.Base.apply(this, arguments);
 
     this.option('skip-install', {
       desc:     'Whether dependencies should be installed',

@@ -19,12 +19,12 @@
   "dependencies": {
     "chalk": "^1.0.0",
     "html-wiring": "^1.2.0",
-    "lodash": "^3.3.0",
+    "lodash": "^4.0.0",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
     "rimraf": "^2.2.8",
     "validate-element-name": "^1.0.0",
-    "yeoman-generator": "^0.20.3",
+    "yeoman-generator": "^0.22.3",
     "yosay": "^1.0.0"
   },
   "devDependencies": {

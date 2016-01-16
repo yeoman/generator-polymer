@@ -5,9 +5,9 @@ var yosay = require('yosay');
 var spawn = require('child_process').spawn;
 var rimraf = require('rimraf');
 
-module.exports = yeoman.generators.Base.extend({
+module.exports = yeoman.Base.extend({
   constructor: function () {
-    yeoman.generators.Base.apply(this, arguments);
+    yeoman.Base.apply(this, arguments);
     this.option('nodevdeps', {
       desc: 'Whether devDependencies should be installed in the gh-pages branch',
       default: false

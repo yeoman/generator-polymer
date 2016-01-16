@@ -1,8 +1,8 @@
 /*global describe, beforeEach, before, it*/
 
 var path    = require('path');
-var helpers = require('yeoman-generator').test;
-var assert  = require('yeoman-generator').assert;
+var helpers = require('yeoman-test');
+var assert  = require('yeoman-assert');
 
 describe('yo polymer:app', function() {
 

@@ -5,9 +5,9 @@ var htmlWiring = require('html-wiring');
 var readFileAsString = htmlWiring.readFileAsString;
 var writeFileFromString = htmlWiring.writeFileFromString;
 
-module.exports = yeoman.generators.Base.extend({
+module.exports = yeoman.Base.extend({
   constructor: function () {
-    yeoman.generators.Base.apply(this, arguments);
+    yeoman.Base.apply(this, arguments);
 
     this.argument('element-name', {
       desc: 'Tag name of the element to generate',

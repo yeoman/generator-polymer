@@ -6,9 +6,9 @@ var yosay = require('yosay');
 var elementNameValidator = require('validate-element-name');
 var chalk = require('chalk');
 
-module.exports = yeoman.generators.Base.extend({
+module.exports = yeoman.Base.extend({
   constructor: function () {
-    yeoman.generators.Base.apply(this, arguments);
+    yeoman.Base.apply(this, arguments);
 
     this.argument('element-name', {
       desc: 'Tag name of the element and directory to generate.',

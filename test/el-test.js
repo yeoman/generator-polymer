@@ -2,8 +2,8 @@
 
 var path    = require('path');
 var fs      = require('fs-extra');
-var helpers = require('yeoman-generator').test;
-var assert  = require('yeoman-generator').assert;
+var helpers = require('yeoman-test');
+var assert  = require('yeoman-assert');
 
 describe('yo polymer:el', function() {
 
