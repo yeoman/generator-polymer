@@ -47,6 +47,18 @@ git checkout ${branch} -- demo
 rm -rf components/$repo/demo
 mv demo components/$repo/
 
+# polybuild iron-component-page
+polybuild components/iron-component-page/iron-component-page.html
+mkdir elements
+mv components/iron-component-page/{iron-component-page.build.html,iron-component-page.build.js} elements
+sed -i.tmp "s/iron-component-page\/iron-component-page.html/..\/elements\/iron-component-page.build.html/" components/$repo/index.html
+rm components/$repo/index.html.tmp
+
+# polybuild demo
+polybuild components/$repo/demo/index.html
+rm components/$repo/demo/index.html
+mv components/$repo/demo/index.build.html components/$repo/demo/index.html
+
 # redirect by default to the component folder
 echo "<META http-equiv="refresh" content=\"0;URL=components/$repo/\">" >index.html
 
