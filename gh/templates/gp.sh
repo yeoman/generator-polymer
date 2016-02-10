@@ -47,15 +47,14 @@ git checkout ${branch} -- demo
 rm -rf components/$repo/demo
 mv demo components/$repo/
 
-# polybuild iron-component-page
-polybuild components/iron-component-page/iron-component-page.html
+# vulcanize iron-component-page
 mkdir elements
-mv components/iron-component-page/{iron-component-page.build.html,iron-component-page.build.js} elements
+vulcanize components/iron-component-page/iron-component-page.html --inline-scripts --inline-css --strip-comments -o elements/iron-component-page.build.html
 sed -i.tmp "s/iron-component-page\/iron-component-page.html/..\/elements\/iron-component-page.build.html/" components/$repo/index.html
 rm components/$repo/index.html.tmp
 
-# polybuild demo
-polybuild components/$repo/demo/index.html
+# vulcanize demo
+vulcanize components/$repo/demo/index.html --inline-scripts --inline-css --strip-comments -o components/$repo/demo/index.build.html
 rm components/$repo/demo/index.html
 mv components/$repo/demo/index.build.html components/$repo/demo/index.html
 
