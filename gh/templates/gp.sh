@@ -44,6 +44,7 @@ echo "{
 bower install
 bower install git@$hostname:$org/$repo#$branch
 git checkout ${branch} -- demo
+rm bower.json .bowerrc
 rm -rf components/$repo/demo
 mv demo components/$repo/
 
