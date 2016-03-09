@@ -46,7 +46,7 @@ module.exports = yeoman.Base.extend({
       },
       {
         name: 'connectionType',
-        message: 'Use HTTPS or SSL to connect to GitHub?',
+        message: 'Use HTTPS or SSH to connect to GitHub?',
         default: 'HTTPS'
       },
     ];
