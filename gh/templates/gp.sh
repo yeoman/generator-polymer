@@ -42,7 +42,8 @@ echo "{
 }
 " > .bowerrc
 bower install
-bower install git@$hostname:$org/$repo#$branch
+[ "$connectionType" = "https" ] && { bowerUrl=https://$hostname/$org/$repo.git#$branch; true; } || bowerUrl=git@$hostname:$org/$repo#$branch;
+bower install $bowerUrl
 git checkout ${branch} -- demo
 rm bower.json .bowerrc
 rm -rf components/$repo/demo
