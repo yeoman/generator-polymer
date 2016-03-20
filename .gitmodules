@@ -3,4 +3,4 @@
 	url = https://github.com/PolymerElements/polymer-starter-kit.git
 [submodule "seed/templates/seed-element"]
 	path = seed/templates/seed-element
-	url = https://github.com/PolymerElements/seed-element.git
+	url = https://github.com/salchichongallo/seed-element.git
