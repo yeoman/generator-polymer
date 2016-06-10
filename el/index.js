@@ -82,16 +82,66 @@ module.exports = yeoman.Base.extend({
 
     var el;
     var pathToEl;
+    var pathToElements;
+    var pathToBowerComponents;
+    var pathToApp;
+    
+    // Let yoy spesify a path to the app folder
+    if (this.flags.app) {
+
+      // pathToApp = 'subfolder/app'
+      pathToApp = this.flags.app;
+
+      // adding / to the end of the path
+      if (pathToApp.charAt(pathToApp.length - 1) !== "/" ) {
+        pathToApp = pathToApp + "/";
+      }
+
+    } else {
+
+      // pathToApp = 'app'
+      pathToApp = 'app/';
+
+    }
+
+
+    // Let yoy spesify a path to the elements folder relative to the app folder
+    if (this.flags.elements) {
+
+      // pathToElements = 'app/custom-elements'
+      pathToElements = pathToApp + this.flags.elements;
+
+    } else {
+
+      // pathToElements = 'app/elements'
+      pathToElements = pathToApp + 'elements';
+
+    }
+
+
+    // Let yoy spesify a path to the bower_components folder relative to the app folder
+    if (this.flags.bower) {
+
+      // pathToBowerComponents = 'app/bower_components_folder'
+      pathToBowerComponents = pathToApp + this.flags.bower;
+
+    } else {
+
+      // pathToBowerComponents = 'app/bower_components'
+      pathToBowerComponents = pathToApp + 'bower_components';
+
+    }
+    
 
     if (this.flags.path) {
 
       // pathToEl = "app/elements/foo/bar/"
-      pathToEl = path.join(this.destinationPath('app/elements'), this.flags.path);
+      pathToEl = path.join(this.destinationPath(pathToElements), this.flags.path);
 
     } else {
 
       // pathToEl = "app/elements/x-foo/"
-      pathToEl = path.join(this.destinationPath('app/elements'), this.elementName);
+      pathToEl = path.join(this.destinationPath(pathToElements), this.elementName);
 
     }
 
@@ -101,7 +151,7 @@ module.exports = yeoman.Base.extend({
       components: this.components,
       pathToBower: path.relative(
           pathToEl,
-          path.join(process.cwd(), 'app/bower_components')
+          path.join(process.cwd(), pathToBowerComponents)
         )
     };
 
@@ -113,15 +163,15 @@ module.exports = yeoman.Base.extend({
 
     // Wire up the dependency in elements.html
     if (this.includeImport) {
-      var file = readFileAsString(this.destinationPath('app/elements/elements.html'));
+      var file = readFileAsString(this.destinationPath(pathToElements + '/elements.html'));
       el = (this.flags.path || this.elementName) + '/' + this.elementName;
       el = el.replace(/\\/g, '/');
       file += '<link rel="import" href="' + el + '.html">\n';
-      writeFileFromString(file, this.destinationPath('app/elements/elements.html'));
+      writeFileFromString(file, this.destinationPath(pathToElements + '/elements.html'));
     }
 
     if (this.testType && this.testType !== 'None') {
-      var testDir = this.destinationPath('app/test');
+      var testDir = this.destinationPath(pathToApp + 'test');
 
       if (this.testType === 'TDD') {
         this.fs.copyTpl(
@@ -138,7 +188,7 @@ module.exports = yeoman.Base.extend({
       }
 
       // Open index.html, locate where to insert text, insert ", x-foo.html" into the array of components to test
-      var indexFileName = 'app/test/index.html';
+      var indexFileName = pathToApp + 'test/index.html';
       // Replace single quotes to make JSON happy
       var origionalFile = readFileAsString(indexFileName).replace(/'/g, '"');
       var regex = /WCT\.loadSuites\(([^\)]*)/;
