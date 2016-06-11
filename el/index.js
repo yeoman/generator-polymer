@@ -93,8 +93,8 @@ module.exports = yeoman.Base.extend({
       pathToApp = this.flags.app;
 
       // adding / to the end of the path
-      if (pathToApp.charAt(pathToApp.length - 1) !== "/" ) {
-        pathToApp = pathToApp + "/";
+      if (pathToApp.charAt(pathToApp.length - 1) !== '/' ) {
+        pathToApp = pathToApp + '/';
       }
 
     } else {
