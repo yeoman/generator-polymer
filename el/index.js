@@ -86,7 +86,7 @@ module.exports = yeoman.Base.extend({
     var pathToBowerComponents;
     var pathToApp;
     
-    // Let yoy spesify a path to the app folder
+    // Let you specify a path to the app folder
     if (this.flags.app) {
 
       // pathToApp = 'subfolder/app'
@@ -105,7 +105,7 @@ module.exports = yeoman.Base.extend({
     }
 
 
-    // Let yoy spesify a path to the elements folder relative to the app folder
+    // Let you specify a path to the elements folder relative to the app folder
     if (this.flags.elements) {
 
       // pathToElements = 'app/custom-elements'
@@ -119,7 +119,7 @@ module.exports = yeoman.Base.extend({
     }
 
 
-    // Let yoy spesify a path to the bower_components folder relative to the app folder
+    // Let you specify a path to the bower_components folder relative to the app folder
     if (this.flags.bower) {
 
       // pathToBowerComponents = 'app/bower_components_folder'
