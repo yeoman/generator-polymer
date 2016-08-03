@@ -111,6 +111,18 @@ module.exports = yeoman.Base.extend({
       tpl
     );
 
+    this.fs.copyTpl(
+      path.join(this.templatePath('element.js')),
+      path.join(pathToEl, this.elementName + '.js'),
+      tpl
+    );
+
+    this.fs.copyTpl(
+      path.join(this.templatePath('element.css')),
+      path.join(pathToEl, this.elementName + '.css'),
+      tpl
+    );
+
     // Wire up the dependency in elements.html
     if (this.includeImport) {
       var file = readFileAsString(this.destinationPath('app/elements/elements.html'));
