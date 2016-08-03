@@ -13,7 +13,7 @@
   "main": "app/index.js",
   "repository": "yeoman/generator-polymer",
   "scripts": {
-    "test": "jshint {app,el,gh,seed,element-empty,test}/*.js script-base.js util.js && mocha --reporter spec",
+    "test": "jshint {app,el,gh,seed,empty,test}/*.js script-base.js util.js && mocha --reporter spec",
     "prepublish": "git submodule update --init --recursive"
   },
   "dependencies": {
@@ -43,7 +43,7 @@
     "app",
     "el",
     "element",
-    "element-empty",
+    "empty",
     "gh",
     "seed",
     "script-base.js",

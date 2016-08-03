@@ -43,7 +43,7 @@ Available generators:
 - [polymer (aka polymer:app)](#app)
 - [polymer:element](#element-alias-el)
 - [polymer:el](#element-alias-el)
-- [polymer:element-empty](#element-empty)
+- [polymer:empty](#empty)
 - [polymer:seed](#seed)
 - [polymer:gh](#gh)
 
@@ -84,12 +84,12 @@ yo polymer:el fancy-menu paper-button paper-checkbox
 --path, override default directory structure, ex: --path foo/bar will put your element in app/elements/foo/bar
 ```
 
-### Element-Empty 
+### Empty 
 Generates a polymer element in `app/elements` and optionally appends an import to `app/elements/elements.html`.
 
 Example:
 ```bash
-yo polymer:element-empty my-element
+yo polymer:empty my-element
 ```
 
 Rest is similar to Element, only files are split into html, css, js to be easier to maintain. Also only minimal template-contents. 
