@@ -42,9 +42,10 @@ Available generators:
 
 - [polymer (aka polymer:app)](#app)
 - [polymer:element](#element-alias-el)
+- [polymer:el](#element-alias-el)
+- [polymer:element-empty](#element-empty)
 - [polymer:seed](#seed)
 - [polymer:gh](#gh)
-- [polymer:element-empty](#element-empty)
 
 **Note: Generators are to be run from the root of your app**
 
