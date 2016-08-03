@@ -89,6 +89,7 @@ Generates a polymer element in `app/elements` and optionally appends an import t
 Example:
 ```bash
 yo polymer:element-empty my-element
+```
 
 Rest is similar to Element, only files are split into html, css, js to be easier to maintain. Also only minimal template-contents. 
 
