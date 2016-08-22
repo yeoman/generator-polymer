@@ -3,6 +3,15 @@
 [![Build Status](https://img.shields.io/travis/yeoman/generator-polymer/master.svg)](https://travis-ci.org/yeoman/generator-polymer)
 [![Dependency Status](https://img.shields.io/david/yeoman/generator-polymer.svg)](https://david-dm.org/yeoman/generator-polymer)
 
+## Deprecation warning
+
+We encourage you to take a look at 
+[Polymer CLI](https://github.com/Polymer/polymer-cli) which contains many of the 
+same features as this generator and has a larger team supporting it. We plan to
+deprecate and eventually remove this project from GitHub and direct all future
+support toward Polymer CLI. The good news is it uses Yeoman under the hood so
+I'll see you there!
+
 ## Yeoman generator for Polymer projects
 
 <img src="http://i.imgur.com/dsFChIk.png">
