@@ -24,8 +24,10 @@ module.exports = yeoman.Base.extend({
   askFor: function () {
     var done = this.async();
 
-    // Have Yeoman greet the user.
-    this.log(yosay('Out of the box I include Polymer Starter Kit'));
+    this.log(yosay(`Oh hai! We wanted to let you know that we\'re sunsetting
+    this project and moving our efforts to Polymer CLI. The good news is it uses 
+    Yeoman under the hood so I'll see you there! 
+    https://github.com/Polymer/polymer-cli`));
 
     var prompts = [
       {
