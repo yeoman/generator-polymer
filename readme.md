@@ -5,6 +5,8 @@
 
 ## Deprecation warning
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/yeoman/generator-polymer.svg)](https://greenkeeper.io/)
+
 We encourage you to take a look at 
 [Polymer CLI](https://github.com/Polymer/polymer-cli) which contains many of the 
 same features as this generator and has a larger team supporting it. We plan to
