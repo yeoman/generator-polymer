@@ -51,6 +51,8 @@ Available generators:
 
 - [polymer (aka polymer:app)](#app)
 - [polymer:element](#element-alias-el)
+- [polymer:el](#element-alias-el)
+- [polymer:empty](#empty)
 - [polymer:seed](#seed)
 - [polymer:gh](#gh)
 
@@ -90,6 +92,17 @@ yo polymer:el fancy-menu paper-button paper-checkbox
 --docs, include iron-component-page docs with your element and demo.html
 --path, override default directory structure, ex: --path foo/bar will put your element in app/elements/foo/bar
 ```
+
+### Empty 
+Generates a polymer element in `app/elements` and optionally appends an import to `app/elements/elements.html`.
+
+Example:
+```bash
+yo polymer:empty my-element
+```
+
+Rest is similar to Element, only files are split into html, css, js to be easier to maintain. Also only minimal template-contents. 
+
 
 ### Seed
 Generates a reusable polymer element based on the [seed-element workflow](https://github.com/polymerelements/seed-element). **This should only be used if you're creating a standalone element repo that you intend to share with others via bower.** If you're just building a Polymer app, stick to the [Element](#element-alias-el) generator.
