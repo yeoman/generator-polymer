@@ -13,28 +13,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <% });} %>
 <dom-module id="<%= elementName %>">
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <div>Hello from <span>{{foo}}</span></div>
+    <link href="<%= elementName %>.css" rel="stylesheet"></link>
+    <div>{{var}}</div>
   </template>
-  <script>
-  (function() {
-    'use strict';
 
-    Polymer({
-      is: '<%= elementName %>',
-
-      properties: {
-        foo: {
-          type: String,
-          value: '<%= elementName %>',
-          notify: true
-        }
-      }
-    });
-  })();
-  </script>
+  <script src="<%= elementName %>.js"></script>
 </dom-module>
