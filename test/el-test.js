@@ -10,21 +10,14 @@ describe('yo polymer:el', function() {
   describe('yo polymer:el test', function () {
 
     before(function (done) {
-      helpers.run(path.join(__dirname, '../app'))
-        .inDir(path.join(__dirname, './tmp'))
-        .withArguments(['--skip-install'])
-        .withPrompts({
-          includeWCT: true
-        })
-        .on('end', done);
-    });
-
-    before(function (done) {
       helpers.run(path.join(__dirname, '../el'))
         .inDir(path.join(__dirname, './tmp'))
         .withArguments(['my-foo'])
         .withPrompts({
           includeImport: false
+        })
+        .on('ready', function(generator){
+          fs.createFileSync(path.join(__dirname, './tmp/app/elements/elements.html'));
         })
         .on('end', done);
     });
@@ -44,6 +37,9 @@ describe('yo polymer:el', function() {
         .withPrompts({
           includeImport: false
         })
+        .on('ready', function(generator){
+          fs.createFileSync(path.join(__dirname, './tmp/app/elements/elements.html'));
+        })
         .on('end', function() {
           assert.fileContent(
             'app/elements/fancy-menu/fancy-menu.html', /<link rel="import" href="..\/..\/bower_components\/iron-ajax\/iron-ajax.html">/
@@ -60,22 +56,15 @@ describe('yo polymer:el', function() {
   describe('yo polymer:el --docs test', function () {
 
     before(function (done) {
-      helpers.run(path.join(__dirname, '../app'))
-        .inDir(path.join(__dirname, './tmp'))
-        .withArguments(['--skip-install'])
-        .withPrompts({
-          includeWCT: true
-        })
-        .on('end', done);
-    });
-
-    before(function (done) {
       helpers.run(path.join(__dirname, '../el'))
         .inDir(path.join(__dirname, './tmp'))
         .withArguments(['docs-el'])
         .withOptions({ 'docs': true })
         .withPrompts({
           includeImport: false
+        })
+        .on('ready', function(generator){
+          fs.createFileSync(path.join(__dirname, './tmp/app/elements/elements.html'));
         })
         .on('end', done);
     });
@@ -94,22 +83,15 @@ describe('yo polymer:el', function() {
   describe('yo polymer:el --path test', function () {
 
     before(function (done) {
-      helpers.run(path.join(__dirname, '../app'))
-        .inDir(path.join(__dirname, './tmp'))
-        .withArguments(['--skip-install'])
-        .withPrompts({
-          includeWCT: true
-        })
-        .on('end', done);
-    });
-
-    before(function (done) {
       helpers.run(path.join(__dirname, '../el'))
         .inDir(path.join(__dirname, './tmp'))
         .withArguments(['path-el'])
         .withOptions({ 'path': 'foo/bar/baz' })
         .withPrompts({
           includeImport: false
+        })
+        .on('ready', function(generator){
+          fs.createFileSync(path.join(__dirname, './tmp/app/elements/elements.html'));
         })
         .on('end', done);
     });
@@ -146,6 +128,9 @@ describe('yo polymer:el', function() {
         .withPrompts({
           includeImport: false,
           testType: 'TDD'
+        })
+        .on('ready', function(generator){
+          fs.createFileSync(path.join(__dirname, './tmp/app/elements/elements.html'));
         })
         .on('end', function(){
           done();
@@ -194,6 +179,9 @@ describe('yo polymer:el', function() {
           includeImport: false,
           testType: 'BDD'
         })
+        .on('ready', function(generator){
+          fs.createFileSync(path.join(__dirname, './tmp/app/elements/elements.html'));
+        })
         .on('end', function(){
           done();
         });
@@ -233,6 +221,9 @@ describe('yo polymer:el', function() {
         .withPrompts({
           includeImport: false,
           testType: 'None'
+        })
+        .on('ready', function(generator){
+          fs.createFileSync(path.join(__dirname, './tmp/app/elements/elements.html'));
         })
         .on('end', function(){
           done();

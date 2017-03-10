@@ -46,6 +46,12 @@ module.exports = yeoman.Base.extend({
         'ex: yo polymer:el my-element'
       ));
     }
+    var isInsideProjectFolder = this.fs.exists(this.destinationPath('app/elements/elements.html'));
+    if (!isInsideProjectFolder) {
+      this.emit('error', new Error(
+        'Generators are to be run from the root of your app'
+      ));
+    }
   },
   askFor: function () {
     var done = this.async();
